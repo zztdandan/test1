@@ -1,0 +1,57 @@
+
+/*
+js:
+var data=[
+   [
+      "/bd/city",
+      "市/区"
+   ],
+   [
+      "/bd/multi-one-relation",
+      "多对1"
+   ],
+   [
+      "/bd/product-categories",
+      "产品大类"
+   ],
+   [
+      "/bd/production-base",
+      "产品基础"
+   ],
+   [
+      "/bd/production-line",
+      "产品线"
+   ],
+   [
+      "/bd/production-name",
+      "产品名称"
+   ],
+   [
+      "/bd/province",
+      "省份"
+   ],
+   [
+      "/bd/specifications",
+      "规格"
+   ],
+   [
+      "/bd/steel-grade",
+      "牌号"
+   ],
+   [
+      "/bd/train-station",
+      "到站"
+   ]
+]
+var map=[];
+
+data.forEach(v=>{map.push({code:v[
+         0
+      ],name:v[
+         1
+      ],icon:'el-icon-location',url:v[
+         0
+      ],parentCode: null,hidden: false
+   })
+})
+*/

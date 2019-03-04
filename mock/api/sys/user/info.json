@@ -1,0 +1,8 @@
+{
+   "code": 0,
+   "msg": "成功",
+   "data": {
+      "username": "@cname()--管理员",
+      "imgpath": "/static/avatar/user.png"
+   }
+}

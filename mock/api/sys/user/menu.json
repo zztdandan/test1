@@ -1,0 +1,174 @@
+{
+   "code": 0,
+   "msg": "成功",
+   "data": [
+      {
+         "code": "homepage",
+         "name": "首页",
+         "icon": "moon-home",
+         "url": "/",
+         "parentCode": null,
+         "hidden": false
+      },
+      {
+         "code": "bd",
+         "name": "基础模块",
+         "icon": "moon-office",
+         "url": "",
+         "parentCode": null,
+         "hidden": false
+      },
+      {
+         "code": "bi",
+         "name": "系统管理",
+         "icon": "moon-office",
+         "url": "",
+         "parentCode": null,
+         "hidden": false
+      },
+      {
+         "code": "/bd/area",
+         "name": "区域",
+         "icon": "el-icon-location",
+         "url": "/bd/area",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/report-demo",
+         "name": "报表demo",
+         "icon": "el-icon-location",
+         "url": "/bd/report-demo",
+         "parentId": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/city",
+         "name": "市/区",
+         "icon": "el-icon-location",
+         "url": "/bd/city",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/multi-one-relation",
+         "name": "多对1",
+         "icon": "el-icon-location",
+         "url": "/bd/multi-one-relation",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/product-categories",
+         "name": "产品大类",
+         "icon": "el-icon-location",
+         "url": "/bd/product-categories",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/production-base",
+         "name": "产品基础",
+         "icon": "el-icon-location",
+         "url": "/bd/production-base",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/production-line",
+         "name": "产品线",
+         "icon": "el-icon-location",
+         "url": "/bd/production-line",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/production-name",
+         "name": "产品名称",
+         "icon": "el-icon-location",
+         "url": "/bd/production-name",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/province",
+         "name": "省份",
+         "icon": "el-icon-location",
+         "url": "/bd/province",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/specifications",
+         "name": "规格",
+         "icon": "el-icon-location",
+         "url": "/bd/specifications",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/steel-grade",
+         "name": "牌号",
+         "icon": "el-icon-location",
+         "url": "/bd/steel-grade",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "/bd/train-station",
+         "name": "到站",
+         "icon": "el-icon-location",
+         "url": "/bd/train-station",
+         "parentCode": "bd",
+         "hidden": false
+      },
+      {
+         "code": "user-man",
+         "name": "用户管理",
+         "icon": "el-icon-location",
+         "url": "/bi/user-man",
+         "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "col-man",
+         "name": "画面表格列管理",
+         "icon": "el-icon-location",
+         "url": "/bi/user-man",
+         "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "table-man",
+         "name": "画面表格管理",
+         "icon": "el-icon-location",
+         "url": "/bi/table-man",
+         "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "role-man",
+         "name": "角色管理",
+         "icon": "el-icon-location",
+         "url": "/bi/role-man",
+         "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "menu-man",
+         "name": "目录管理",
+         "icon": "el-icon-location",
+         "url": "/bi/menu-man",
+         "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "dept-man",
+         "name": "部门管理",
+         "icon": "el-icon-location",
+         "url": "/bi/dept-man",
+         "parentCode": "bi",
+         "hidden": false
+      }
+   ]
+}
