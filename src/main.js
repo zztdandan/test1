@@ -1,5 +1,6 @@
 import Vue from "vue";
 import axios from "./router/axios";
+import LG_axios from "./router/axios-wrap";
 import VueAxios from "vue-axios";
 import App from "./App";
 import router from "./router/router";
@@ -17,6 +18,7 @@ import basicContainer from "./components/basic-container/main";
 
 Vue.use(router);
 Vue.use(VueAxios, axios);
+Vue.use(LG_axios);
 Vue.use(Element, {
   i18n: (key, value) => i18n.t(key, value)
 });
