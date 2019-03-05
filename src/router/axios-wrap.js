@@ -20,7 +20,7 @@
 import axios from "axios";
 import changeUrl from "./change-url";
 import qs from "qs";
-import { getToken, TokenKey } from "@/utils/auth";
+import { getToken, TokenKey } from "@/util/auth";
 //import { Loading, MessageBox, Notification } from "element-ui";
 import { isArray, loading, mergeOptions } from "./axios-util";
 
