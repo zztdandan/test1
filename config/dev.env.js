@@ -4,7 +4,7 @@ const path = require("path");
 var fs = require("fs");
 
 const loginMock = function(req, res) {
-  if (process.env.mockLogin && req.url.indexOf("/api/sys/login") === 0) {
+  if (process.env.mockLogin && req.url.indexOf("/api/admin/sys/login") === 0) {
     res.json({
       code: 0,
       msg: "成功",
