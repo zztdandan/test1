@@ -3,7 +3,7 @@ import { baseUrl } from "@/config/env";
 export const loginByUsername = (username, password, code, redomStr) =>
   request({
     url: baseUrl + "/admin/login",
-    method: "post",
+    method: "get",
     data: {
       username,
       password,
@@ -18,7 +18,7 @@ export const getUserInfo = () =>
     method: "get"
   });
 
-/**未实现 */
+/** 未实现 */
 export const refeshToken = () =>
   request({
     url: baseUrl + "/user/refesh",

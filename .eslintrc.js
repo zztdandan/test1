@@ -44,7 +44,7 @@ module.exports = {
     camelcase: [
       0,
       {
-        properties: "always"
+        properties: [1, "always"]
       }
     ],
     "comma-dangle": [1, "never"],

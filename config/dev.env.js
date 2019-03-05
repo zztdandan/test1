@@ -3,6 +3,7 @@ const Mock = require("mockjs");
 const path = require("path");
 var fs = require("fs");
 
+console.log("process.env.mockLogin", process.env.mockLogin, 33);
 const loginMock = function(req, res) {
   if (process.env.mockLogin && req.url.indexOf("/api/admin/sys/login") === 0) {
     res.json({

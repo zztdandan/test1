@@ -3,7 +3,7 @@ const devConfig = require("./config/dev.env");
 const proxyTableName = process.env.proxyTableName || "proxyTable";
 const proxyTable = devConfig[proxyTableName];
 // 基础路径 注意发布之前要先修改这里
-let publicPath = "./";
+const publicPath = "./";
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   publicPath: publicPath, // 根据你的实际情况更改这里
@@ -11,7 +11,7 @@ module.exports = {
   productionSourceMap: false,
   devServer: {
     // open: process.platform === 'darwin',
-    host: "0.0.0.0",
+    host: "localhost",
     port: 8877,
     https: false,
     hotOnly: false,
@@ -30,7 +30,7 @@ module.exports = {
   //     }
   // },
   chainWebpack: config => {
-    //忽略的打包文件
+    // 忽略的打包文件
     config.externals({
       vue: "Vue",
       "vue-router": "VueRouter",
@@ -41,6 +41,6 @@ module.exports = {
     const entry = config.entry("app");
     entry.add("babel-polyfill").end();
     entry.add("classlist-polyfill").end();
-    //entry.add("@/mock").end();
+    // entry.add("@/mock").end();
   }
 };

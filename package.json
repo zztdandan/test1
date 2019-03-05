@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env proxyTableName=proxyTable --mockLogin=true vue-cli-service serve --open --port 8877",
+    "dev": "cross-env proxyTableName=proxyTable --mockLogin=false vue-cli-service serve --open=true --port 8877",
     "dev-local": "cross-env proxyTableName=proxyTable --mockLogin=true vue-cli-service serve --open --port 8877",
     "dev-local8888": "cross-env proxyTableName=proxyTable --mockLogin=true vue-cli-service serve --open --port 8877",
     "build": "vue-cli-service build",
