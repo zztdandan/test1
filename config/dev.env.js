@@ -2,7 +2,11 @@
 const Mock = require("mockjs");
 const path = require("path");
 var fs = require("fs");
-console.log("login ", process.env.mockLogin === "true");
+console.log(
+  "process.env.mockLogin = ",
+  process.env.mockLogin,
+  process.env.mockLogin === "true"
+);
 const loginMock = function(req, res) {
   if (
     process.env.mockLogin === "true" &&
@@ -44,6 +48,7 @@ module.exports = {
         if (loginMock(req, res)) {
           return true;
         }
+
         if (fs.existsSync(fileName)) {
           var data = fs.readFileSync(fileName, "utf8"),
             json = JSON.parse(data),

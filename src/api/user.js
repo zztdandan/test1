@@ -1,57 +1,26 @@
-import request from "@/router/axios";
+import lgAxios from "@/router/axios-wrap";
 import { baseUrl } from "@/config/env";
 export const loginByUsername = (username, password, code, redomStr) =>
-  request({
-    url: baseUrl + "/admin/login",
-    method: "get",
-    data: {
-      username,
-      password,
-      code,
-      redomStr
-    }
+  lgAxios.get(baseUrl + "/admin/login", {
+    username,
+    password,
+    code,
+    redomStr
   });
 
-export const getUserInfo = () =>
-  request({
-    url: baseUrl + "/amin/sys/user/info",
-    method: "get"
-  });
+export const getUserInfo = () => lgAxios.get(baseUrl + "/admin/sys/user/info");
 
 /** 未实现 */
-export const refeshToken = () =>
-  request({
-    url: baseUrl + "/user/refesh",
-    method: "post"
-  });
+export const refeshToken = () => lgAxios.post(baseUrl + "/user/refesh");
 
 export const getMenu = (type = 0) =>
-  request({
-    url: baseUrl + "/user/getMenu",
-    method: "get",
-    data: {
-      type
-    }
-  });
+  lgAxios.get(baseUrl + "/user/getMenu", { type });
 
-export const getTopMenu = () =>
-  request({
-    url: baseUrl + "/admin/sys/menu/list",
-    method: "get"
-  });
+export const getTopMenu = () => lgAxios.get(baseUrl + "/admin/sys/menu/list");
 
 /**
  * TODO: 未实现
  */
-export const sendLogs = list =>
-  request({
-    url: baseUrl + "/user/logout",
-    method: "post",
-    data: list
-  });
+export const sendLogs = list => lgAxios.post(baseUrl + "/user/logout", list);
 
-export const logout = () =>
-  request({
-    url: baseUrl + "/user/logout",
-    method: "get"
-  });
+export const logout = () => lgAxios.get(baseUrl + "/user/logout");

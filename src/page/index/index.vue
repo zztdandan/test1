@@ -1,29 +1,34 @@
 <template>
-  <div class="avue-contail"
-       :class="{'avue--collapse':isCollapse}">
+  <div
+    class="avue-contail"
+    :class="{'avue--collapse':isCollapse}"
+  >
     <div class="avue-header">
       <!-- 顶部导航栏 -->
-      <top />
+      <top/>
     </div>
 
     <div class="avue-layout">
       <div class="avue-left">
         <!-- 左侧导航栏 -->
-        <sidebar />
+        <sidebar/>
       </div>
       <div class="avue-main">
         <!-- 顶部标签卡 -->
-        <tags />
+        <tags/>
         <!-- 主体视图层 -->
         <el-scrollbar style="height:100%">
           <keep-alive>
-            <router-view class="avue-view"
-                         v-if="$route.meta.keepAlive" />
+            <router-view
+              class="avue-view"
+              v-if="$route.meta.keepAlive"
+            />
           </keep-alive>
-          <router-view class="avue-view"
-                       v-if="!$route.meta.keepAlive" />
+          <router-view
+            class="avue-view"
+            v-if="!$route.meta.keepAlive"
+          />
         </el-scrollbar>
-
       </div>
     </div>
     <!-- <el-footer class="avue-footer">
@@ -31,9 +36,11 @@
            alt=""
            class="logo">
       <p class="copyright">© 2018 Avue designed by smallwei</p>
-    </el-footer> -->
-    <div class="avue-shade"
-         @click="showCollapse"></div>
+    </el-footer>-->
+    <div
+      class="avue-shade"
+      @click="showCollapse"
+    ></div>
   </div>
 </template>
 
@@ -63,7 +70,7 @@ export default {
   },
   created() {
     //实时检测刷新token
-    this.refreshToken();
+    //this.refreshToken();
   },
   mounted() {
     this.init();
