@@ -2,10 +2,12 @@
 const Mock = require("mockjs");
 const path = require("path");
 var fs = require("fs");
-
-console.log("process.env.mockLogin", process.env.mockLogin, 33);
+console.log("login ", process.env.mockLogin === "true");
 const loginMock = function(req, res) {
-  if (process.env.mockLogin && req.url.indexOf("/api/admin/sys/login") === 0) {
+  if (
+    process.env.mockLogin === "true" &&
+    req.url.indexOf("/api/admin/sys/login") === 0
+  ) {
     res.json({
       code: 0,
       msg: "成功",
@@ -93,7 +95,7 @@ module.exports = {
           return true;
         }
         if (fs.existsSync(fileName)) {
-          var data = fs.readFileSync(fileName, "utf8"),
+          const data = fs.readFileSync(fileName, "utf8"),
             json = JSON.parse(data),
             mockData = Mock.mock(json);
           mockData.reqId = "mock-" + new Date().getTime();
