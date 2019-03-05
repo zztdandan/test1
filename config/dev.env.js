@@ -2,11 +2,7 @@
 const Mock = require("mockjs");
 const path = require("path");
 var fs = require("fs");
-console.log(
-  "process.env.mockLogin = ",
-  process.env.mockLogin,
-  process.env.mockLogin === "true"
-);
+console.log("process.env.mockLogin = ", process.env.mockLogin);
 const loginMock = function(req, res) {
   if (
     process.env.mockLogin === "true" &&
@@ -23,6 +19,48 @@ const loginMock = function(req, res) {
     return true;
   }
 };
+const bypass = function(req, res) {
+  // 该函数必须返回false或返回被部署的文件路径，返回false继续。
+  const key = req.method.toUpperCase() + " " + req.url;
+  const urlPath = req.url.split("?")[0];
+  const mockPath = path.resolve(__dirname, "../mock/");
+  const fileName = path.resolve(mockPath, "./" + urlPath + ".json");
+  const jsFileName = path.resolve(mockPath, "./" + urlPath + ".js");
+  console.log("----------------request----------------", key);
+  // 是否需要本地模拟登陆
+  if (loginMock(req, res)) {
+    return true;
+  }
+
+  if (fs.existsSync(fileName)) {
+    var data = fs.readFileSync(fileName, "utf8"),
+      json = JSON.parse(data),
+      mockData = Mock.mock(json);
+    mockData.reqId = "mock-" + new Date().getTime();
+    console.log(
+      "--------------------mock----------------------\n",
+      fileName,
+      "mockData",
+      mockData
+    );
+    res.json(mockData);
+    return true;
+  } else if (fs.existsSync(jsFileName)) {
+    let callback = require(jsFileName).callback;
+    console.log("--------mock js file-----------", jsFileName);
+    let data = typeof callback === "function" ? callback(req, res) : [];
+    if (typeof data === "object") {
+      res.json({
+        code: 0,
+        reqId: "mock-" + new Date().getTime(),
+        msg: "成功",
+        data: Mock.mock(data)
+      });
+    }
+    return true;
+  }
+  return false;
+};
 module.exports = {
   NODE_ENV: '"development"',
   BASE_API: '"https://vue-admin"',
@@ -37,34 +75,7 @@ module.exports = {
       }, // 重写路径
 
       // changeOrigin: true,
-      bypass(req, res, proxyOptions) {
-        // 该函数必须返回false或返回被部署的文件路径，返回false继续。
-        const key = req.method.toUpperCase() + " " + req.url;
-        const urlPath = req.url.split("?")[0];
-        const mockPath = path.resolve(__dirname, "../mock/");
-        const fileName = path.resolve(mockPath, "./" + urlPath + ".json");
-        console.log("----------------request----------------", key);
-        // 是否需要本地模拟登陆
-        if (loginMock(req, res)) {
-          return true;
-        }
-
-        if (fs.existsSync(fileName)) {
-          var data = fs.readFileSync(fileName, "utf8"),
-            json = JSON.parse(data),
-            mockData = Mock.mock(json);
-          mockData.reqId = "mock-" + new Date().getTime();
-          console.log(
-            "--------------------mock----------------------\n",
-            fileName,
-            "mockData",
-            mockData
-          );
-          res.json(mockData);
-          return true;
-        }
-        return false;
-      }
+      bypass: bypass
     },
     "/mockxx/": {
       // api表示当前项目请求使用该项可进入远程端访问
@@ -88,33 +99,7 @@ module.exports = {
       }, // 重写路径
 
       // changeOrigin: true,
-      bypass(req, res, proxyOptions) {
-        // 该函数必须返回false或返回被部署的文件路径，返回false继续。
-        const key = req.method.toUpperCase() + " " + req.url;
-        const urlPath = req.url.split("?")[0];
-        const mockPath = path.resolve(__dirname, "../mock/");
-        const fileName = path.resolve(mockPath, "./" + urlPath + ".json");
-        console.log("----------------request----------------", key);
-        // 是否需要本地模拟登陆
-        if (loginMock(req, res)) {
-          return true;
-        }
-        if (fs.existsSync(fileName)) {
-          const data = fs.readFileSync(fileName, "utf8"),
-            json = JSON.parse(data),
-            mockData = Mock.mock(json);
-          mockData.reqId = "mock-" + new Date().getTime();
-          console.log(
-            "--------------------mock----------------------\n",
-            fileName,
-            "mockData",
-            mockData
-          );
-          res.json(mockData);
-          return true;
-        }
-        return false;
-      }
+      bypass: bypass
     },
     "/mockxx/": {
       // api表示当前项目请求使用该项可进入远程端访问
@@ -138,33 +123,7 @@ module.exports = {
       }, // 重写路径
 
       // changeOrigin: true,
-      bypass(req, res, proxyOptions) {
-        // 该函数必须返回false或返回被部署的文件路径，返回false继续。
-        const key = req.method.toUpperCase() + " " + req.url;
-        const urlPath = req.url.split("?")[0];
-        const mockPath = path.resolve(__dirname, "../mock/");
-        const fileName = path.resolve(mockPath, "./" + urlPath + ".json");
-        console.log("----------------request----------------", key);
-        // 是否需要本地模拟登陆
-        if (loginMock(req, res)) {
-          return true;
-        }
-        if (fs.existsSync(fileName)) {
-          var data = fs.readFileSync(fileName, "utf8"),
-            json = JSON.parse(data),
-            mockData = Mock.mock(json);
-          mockData.reqId = "mock-" + new Date().getTime();
-          console.log(
-            "--------------------mock----------------------\n",
-            fileName,
-            "mockData",
-            mockData
-          );
-          res.json(mockData);
-          return true;
-        }
-        return false;
-      }
+      bypass: bypass
     },
     "/mockxx/": {
       // api表示当前项目请求使用该项可进入远程端访问

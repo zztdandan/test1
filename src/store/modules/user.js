@@ -143,8 +143,8 @@ const user = {
     },
     GetTopMenu() {
       return new Promise(resolve => {
-        getTopMenu().then(res => {
-          const data = res.data.data || [];
+        getTopMenu().then(data => {
+          data = data || [];
           resolve(data);
         });
       });
@@ -152,8 +152,8 @@ const user = {
     //获取系统菜单
     GetMenu({ commit }, parentId) {
       return new Promise(resolve => {
-        getMenu(parentId).then(res => {
-          const data = res.data.data;
+        getMenu(parentId).then(data => {
+          //const data = res.data.data;
           let menu = deepClone(data);
           menu.forEach(ele => {
             addPath(ele, true);

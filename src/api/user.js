@@ -14,9 +14,10 @@ export const getUserInfo = () => lgAxios.get(baseUrl + "/admin/sys/user/info");
 export const refeshToken = () => lgAxios.post(baseUrl + "/user/refesh");
 
 export const getMenu = (type = 0) =>
-  lgAxios.get(baseUrl + "/user/getMenu", { type });
+  lgAxios.get(baseUrl + "/admin/sys/user/children-menu", { type });
 
-export const getTopMenu = () => lgAxios.get(baseUrl + "/admin/sys/menu/list");
+export const getTopMenu = () =>
+  lgAxios.get(baseUrl + "/admin/sys/user/top-menu");
 
 /**
  * TODO: 未实现
