@@ -158,7 +158,6 @@ RouterPlugin.install = function (vue, router, store, i18n) {
             } else {
                 return aRouter
             }
-
         }
     }
 }

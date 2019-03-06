@@ -27,6 +27,14 @@
          "hidden": false
       },
       {
+         "code": "om",
+         "name": "om模块",
+         "icon": "moon-office",
+         "url": "",
+         "parentCode": null,
+         "hidden": false
+      },
+      {
          "code": "/bd/area",
          "name": "区域",
          "icon": "el-icon-location",
@@ -168,6 +176,14 @@
          "icon": "el-icon-location",
          "url": "/bi/dept-man",
          "parentCode": "bi",
+         "hidden": false
+      },
+      {
+         "code": "order-view",
+         "name": "订单页面",
+         "icon": "el-icon-location",
+         "url": "/om/OrderView/OrderView",
+         "parentCode": "om",
          "hidden": false
       }
    ]

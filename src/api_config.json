@@ -1,0 +1,194 @@
+{
+   "bd": {
+      "Area": {
+         "createArea": "/bd/area/create",
+         "deleteArea": "/bd/area/delete",
+         "queryArea": "/bd/area/query",
+         "updateArea": "/bd/area/update"
+      },
+      "Bureau": {
+         "createBureau": "/bd/bureau/create",
+         "deleteBureau": "/bd/bureau/delete",
+         "importData": "/bd/bureau/import",
+         "queryBureau": "/bd/bureau/query",
+         "updateBureau": "/bd/bureau/update"
+      },
+      "City": {
+         "createCity": "/bd/city/create",
+         "deleteCity": "/bd/city/delete",
+         "queryCity": "/bd/city/query",
+         "updateCity": "/bd/city/update"
+      },
+      "MultiOneRelation": {
+         "createMultiOneRelation": "/bd/mor/create",
+         "deleteMultiOneRelation": "/bd/mor/delete",
+         "queryMultiOneRelation": "/bd/mor/query",
+         "updateMultiOneRelation": "/bd/mor/update"
+      },
+      "ProductCategories": {
+         "createProductCategories": "/bd/product-categories/create",
+         "deleteProductCategories": "/bd/product-categories/delete",
+         "queryProductCategories": "/bd/product-categories/query",
+         "updateProductCategories": "/bd/product-categories/update"
+      },
+      "ProductionBase": {
+         "createProductionBase": "/bd/production-base/create",
+         "deleteProductionBase": "/bd/production-base/delete",
+         "queryProductionBase": "/bd/production-base/query",
+         "updateProductionBase": "/bd/production-base/update"
+      },
+      "ProductionLine": {
+         "createProductionLine": "/bd/production-line/create",
+         "deleteProductionLine": "/bd/production-line/delete",
+         "queryProductionLine": "/bd/production-line/query",
+         "updateProductionLine": "/bd/production-line/update"
+      },
+      "ProductionName": {
+         "createProductCategories": "/bd/product-name/create",
+         "deleteProductCategories": "/bd/product-name/delete",
+         "queryProductCategories": "/bd/product-name/query",
+         "updateProductCategories": "/bd/product-name/update"
+      },
+      "Province": {
+         "createProvince": "/bd/province/create",
+         "deleteProvince": "/bd/province/delete",
+         "queryProvince": "/bd/province/query",
+         "updateProvince": "/bd/province/update"
+      },
+      "Specifications": {
+         "createSpecifications": "/bd/spec/create",
+         "deleteSpecifications": "/bd/spec/delete",
+         "querySpecifications": "/bd/spec/query",
+         "updateSpecifications": "/bd/spec/update"
+      },
+      "SteelGrade": {
+         "createSteelGrade": "/bd/steel-grade/create",
+         "deleteSteelGrade": "/bd/steel-grade/delete",
+         "querySteelGrade": "/bd/steel-grade/query",
+         "updateSteelGrade": "/bd/steel-grade/update"
+      },
+      "TrainStation": {
+         "createTrainStation": "/bd/train-station/create",
+         "deleteTrainStation": "/bd/train-station/delete",
+         "queryTrainStation": "/bd/train-station/query",
+         "updateTrainStation": "/bd/train-station/update"
+      }
+   },
+   "sm": {
+      "Bill": {
+         "queryBillList": "/sm/bill/query"
+      },
+      "Out": {
+         "queryOutList": "/sm/out/query",
+         "create": "/sm/out/create",
+         "delete": "/sm/out/delete",
+         "query": "/sm/out/query",
+         "update": "/sm/out/update"
+      },
+      "Outdet": {
+         "create": "/sm/outdet/create",
+         "delete": "/sm/outdet/delete",
+         "query": "/sm/outdet/query",
+         "update": "/sm/outdet/update"
+      }
+   },
+   "pm": {
+      "MarketPrice": {
+         "createMarketPrice": "/pm/market-price/create",
+         "deleteMarketPrice": "/pm/market-price/delete",
+         "queryMarketPrice": "/pm/market-price/queryMarketPrice",
+         "updateArea": "/pm/market-price/update"
+      }
+   },
+   "bi": {
+      "login": "/admin/login",
+      "userMan": {
+         "userInfo": "/admin/sys/user/info",
+         "userAuth": "/admin/sys/user/auth",
+         "userMenu": "/admin/sys/user/menu",
+         "userRole": "/admin/sys/user/role",
+         "userQueryPagi": "/admin/sys/user/list",
+         "userUpdate": "/admin/sys/user/update",
+         "userCreate": "/admin/sys/user/save",
+         "userDelete": "/admin/sys/user/delete"
+      },
+      "menuMan":{
+         "queryMenu":"/admin/sys/menu/list",
+         "createMenu":"/admin/sys/menu/create",
+         "updateMenu":"/admin/sys/menu/update",
+         "deleteMenu":"/admin/sys/menu/delete"
+      },
+      "actMan":{
+         "queryActByMenu":"/admin/sys/menu/select",
+         "createMenu":"/admin/sys/act/create",
+         "updateMenu":"/admin/sys/act/update",
+         "deleteMenu":"/admin/sys/act/delete"
+      },
+      "deptMan": {
+         "queryDeptLazy": "/admin/sys/dept/lazy",
+         "deleteDept": "/admin/sys/dept/delete",
+         "updateDept": "/admin/sys/dept/update",
+         "createDept": "/admin/sys/dept/save"
+      },
+      "RoleMan": {
+         "createRoleMan": "/admin/sys/role/save",
+         "deleteRoleMan": "/admin/sys/role/delete",
+         "updateRoleMan": "/admin/sys/role/update",
+         "queryRoleManPagi": "/admin/sys/role/list",
+         "queryRoleMan": "/admin/sys/role/select"
+      },
+      "TableMan": {
+         "createTableMan": "/admin/sys/inf/table/create",
+         "deleteTableMan": "/admin/sys/inf/table/delete",
+         "updateTableMan": "/admin/sys/inf/table/update",
+         "queryTableMan": "/admin/sys/inf/table/query"
+      },
+      "CodeMan": {
+         "queryCodeByClass": "/admin/sys/code/item/list",
+         "queryClass": "/admin/sys/code/class/list",
+         "createClass": "/admin/sys/code/class/save",
+         "updateClass": "/admin/sys/code/class/update",
+         "deleteClass": "/admin/sys/code/class/delete",
+         "createItem": "/admin/sys/code/item/save",
+         "updateItem": "/admin/sys/code/item/update",
+         "deleteItem": "/admin/sys/code/item/delete"
+      }
+   },
+   "rm": {
+      "AreaResRate": {
+         "create": "/rm/arr/create",
+         "delete": "/rm/arr/delete",
+         "query": "/rm/arr/query",
+         "update": "/rm/arr/update"
+      },
+      "ResourcePlan": {
+         "create": "/rm/rep/create",
+         "delete": "/rm/rep/delete",
+         "query": "/rm/rep/query",
+         "update": "/rm/rep/update"
+      }
+   },
+   "sms": {
+      "MetaData": {
+         "queryMetaDataByClassName": "/sms/table-meta/query"
+      }
+   },
+   "om": {
+      "Order": {
+         "createOrder": "/om/order/create",
+         "queryProvision": "/om/order/query",
+         "updateOrder": "/om/order/update"
+      },
+      "OrderDet": {
+         "createorderDet": "/om/order-det/create",
+         "queryOrderDet": "/om/order-det/query",
+         "updateOrderDet": "/om/order-det/update"
+      },
+      "Provision": {
+         "create": "/om/provision/create",
+         "deleteProvision": "/om/provision/delete",
+         "queryProvision": "/om/provision/query",
+         "updateProvision": "/om/provision/update"
+      }
+   }
+}
