@@ -2,10 +2,10 @@
  * 全局配置文件
  */
 export default {
-    title: "Avuex",
-    logo: "A",
-    key: 'avuex',//配置主键,目前用于存储
-    indexTitle: 'avue-cli By smallwei',
+    title: "经销系统",
+    logo: "lg-sms",
+    key: 'avuex-sms',//配置主键,目前用于存储
+    indexTitle: '柳钢经销系统',
     lockPage: '/lock',
     tokenTime: 6000,
     //http的status默认放行不才用统一处理的,

@@ -1,46 +1,27 @@
-import request from '@/router/axios';
-import { baseUrl } from '@/config/env';
-export const loginByUsername = (username, password, code, redomStr) => request({
-    url: baseUrl + '/user/login',
-    method: 'post',
-    data: {
-        username,
-        password,
-        code,
-        redomStr
-    }
-})
+import lgAxios from "@/router/axios-wrap";
+import { baseUrl } from "@/config/env";
+export const loginByUsername = (username, password, code, redomStr) =>
+  lgAxios.get(baseUrl + "/admin/login", {
+    username,
+    password,
+    code,
+    redomStr
+  });
 
-export const getUserInfo = () => request({
-    url: baseUrl + '/user/getUserInfo',
-    method: 'get'
-});
+export const getUserInfo = () => lgAxios.get(baseUrl + "/admin/sys/user/info");
 
-export const refeshToken = () => request({
-    url: baseUrl + '/user/refesh',
-    method: 'post'
-})
+/** 未实现 */
+export const refeshToken = () => lgAxios.post(baseUrl + "/user/refesh");
 
-export const getMenu = (type = 0) => request({
-    url: baseUrl + '/user/getMenu',
-    method: 'get',
-    data: {
-        type
-    }
-});
+export const getMenu = (type = 0) =>
+  lgAxios.get(baseUrl + "/admin/sys/user/children-menu", { type });
 
-export const getTopMenu = () => request({
-    url: baseUrl + '/user/getTopMenu',
-    method: 'get'
-});
+export const getTopMenu = () =>
+  lgAxios.get(baseUrl + "/admin/sys/user/top-menu");
 
-export const sendLogs = (list) => request({
-    url: baseUrl + '/user/logout',
-    method: 'post',
-    data: list
-})
+/**
+ * TODO: 未实现
+ */
+export const sendLogs = list => lgAxios.post(baseUrl + "/user/logout", list);
 
-export const logout = () => request({
-    url: baseUrl + '/user/logout',
-    method: 'get'
-})
+export const logout = () => lgAxios.get(baseUrl + "/user/logout");

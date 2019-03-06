@@ -2,43 +2,30 @@
   <div>
     <div class="wel__header">
       <div class="wel__info">
-        <img :src="userInfo.avatar"
-             alt=""
-             class="wel__info-img">
+        <img
+          :src="userInfo.imgpath"
+          alt
+          class="wel__info-img"
+        >
         <div class="wel__info-content">
-          <div class="wel__info-title">
-            {{$t('wel.info')}}
-          </div>
-          <div class="wel__info-subtitle">
-            {{$t('wel.dept')}}
-          </div>
+          <div class="wel__info-title">{{$t('wel.info')}}</div>
+          <div class="wel__info-subtitle">{{$t('wel.dept')}}</div>
         </div>
       </div>
       <div class="wel__extra">
         <div class="wel__extra-item">
-          <p class="wel__extra-title">
-            {{ $t('wel.count')}}
-          </p>
-          <p class="wel__extra-subtitle">
-            56
+          <p class="wel__extra-title">{{ $t('wel.count')}}</p>
+          <p class="wel__extra-subtitle">56</p>
+        </div>
+        <div class="wel__extra-item">
+          <p class="wel__extra-title">{{ $t('wel.team')}}</p>
+          <p class="wel__extra-subtitle">8
+            <span>/ 24</span>
           </p>
         </div>
         <div class="wel__extra-item">
-          <p class="wel__extra-title">
-            {{ $t('wel.team')}}
-          </p>
-          <p class="wel__extra-subtitle">
-            8 <span>/ 24</span>
-          </p>
-        </div>
-        <div class="wel__extra-item">
-          <p class="wel__extra-title">
-
-            {{ $t('wel.project')}}
-          </p>
-          <p class="wel__extra-subtitle">
-            2,223
-          </p>
+          <p class="wel__extra-title">{{ $t('wel.project')}}</p>
+          <p class="wel__extra-subtitle">2,223</p>
         </div>
       </div>
     </div>
@@ -49,8 +36,10 @@
     <el-row :span="24">
       <el-col :span="18">
         <basic-container>
-          <avue-data-progress :option="option3"
-                              style="margin-bottom:20px"></avue-data-progress>
+          <avue-data-progress
+            :option="option3"
+            style="margin-bottom:20px"
+          ></avue-data-progress>
           <avue-data-tabs :option="option"></avue-data-tabs>
         </basic-container>
       </el-col>
@@ -61,9 +50,10 @@
       </el-col>
     </el-row>
     <basic-container>
-      <avue-crud :option="option4"
-                 :data="data">
-      </avue-crud>
+      <avue-crud
+        :option="option4"
+        :data="data"
+      ></avue-crud>
     </basic-container>
   </div>
 </template>

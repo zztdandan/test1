@@ -1,0 +1,12 @@
+{
+   "code": 0,
+   "msg": "成功",
+   "data": [
+      {
+         "name": "T_TABLE_1",
+         "tableName": "表格中文名称1",
+         "recRevisor": "修改者1",
+         "recReviseTime": "19910621131401"
+      }
+   ]
+}
