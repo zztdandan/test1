@@ -6,9 +6,11 @@
     <div class="order-search-dialog"></div>
     <lg-dashboard class="order-det-table">
       <template slot="title">细则table</template>
+      <order-det-table></order-det-table>
     </lg-dashboard>
     <lg-dashboard class="order-info-form">
       <template slot="title">订单信息form</template>
+      <order-info-form></order-info-form>
     </lg-dashboard>
     <hr>
     <lg-dashboard class="order-det-info-form">
