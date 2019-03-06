@@ -1,12 +1,11 @@
 <template>
   <div class="dash-board-panel" :style="dashboard_bg">
     <div class="dash-board-title">
-      <slot name="title" class="dash-title "></slot>
+      <slot name="title"></slot>
     </div>
     <div class="dash-board-content">
       <slot></slot>
     </div>
-
   </div>
 </template>
 
@@ -17,15 +16,15 @@
         type: String,
         default: "white"
       },
-      fc:{
-         type: String,
+      fc: {
+        type: String,
         default: "black"
       }
     },
     name: "lg-dash-board",
-    computed:{
-      dashboard_bg(){
-        return "background-color:"+this.bg+";color:"+this.fc+";"
+    computed: {
+      dashboard_bg() {
+        return "background-color:" + this.bg + ";color:" + this.fc + ";";
       }
     }
   };
@@ -41,18 +40,17 @@
 .dash-board-title {
   padding: 0.3rem 0.5rem;
   /* border-bottom: 1px solid #ebeef5; */
+  font-size: 1.2rem;
+  text-align: center;
 }
 .dash-board-content {
   padding: 0.3rem 0.5rem;
 }
 .dash-title {
-  padding: 0.3rem 0.5rem;
-  font-size: 1.2rem;
 }
 </style>
 <style>
 .title-icon {
-    font-size: 1.3rem;
-
+  font-size: 1.3rem;
 }
 </style>
