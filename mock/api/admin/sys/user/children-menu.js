@@ -29,6 +29,42 @@ const top = [
 ];
 const first = [
   {
+    label: "demo",
+    path: "/dm",
+    component: "views/dm/demo",
+    icon: "icon-caidan",
+    children: [
+      {
+        label: "demo",
+        path: "/dm",
+        component: "views/dm/demo",
+        icon: "icon-caidan"
+      },
+      {
+        label: "标签",
+        path: "/tags",
+        component: "views/util/tags",
+        icon: "icon-caidan",
+        meta: {
+          i18n: "tags"
+        },
+        children: []
+      },
+      {
+        label: "表格",
+        path: "/table",
+        component: "views/util/table",
+        icon: "icon-caidan",
+        meta: {
+          i18n: "table"
+        },
+        children: []
+      }
+    ]
+  }
+];
+const second = [
+  {
     label: "标签",
     path: "/tags",
     component: "views/util/tags",
@@ -139,7 +175,6 @@ const first = [
     ]
   }
 ];
-const second = [];
 const third = [
   {
     label: "测试页面",
