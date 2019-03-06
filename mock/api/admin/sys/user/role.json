@@ -1,13 +1,9 @@
 {
-   "code": 0,
-   "msg": "成功",
-   "data": {
-      "role": "8",
-      "role_list": [
-         {
-            "role": "admin",
-            "role_name": "管理员"
-         }
-      ]
-   }
+  "role": "8",
+  "role_list": [
+    {
+      "role": "admin",
+      "role_name": "管理员"
+    }
+  ]
 }

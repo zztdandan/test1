@@ -1,15 +1,13 @@
 {
-   "code": 0,
-   "msg": "成功",
-   "data|100-150": [
-      {
-         "id|+1": 1001,
-         "name": "@id()",
-         "age|1-100": 10,
-         "sex|1": ["男", "女"],
-         "star|1-5": "★",
-         "address": "@county(true)",
-         "email": "@email()"
-      }
-   ]
+  "data|100-150": [
+    {
+      "id|+1": 1001,
+      "name": "@id()",
+      "age|1-100": 10,
+      "sex|1": ["男", "女"],
+      "star|1-5": "★",
+      "address": "@county(true)",
+      "email": "@email()"
+    }
+  ]
 }

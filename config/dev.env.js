@@ -32,31 +32,28 @@ const bypass = function(req, res) {
     return true;
   }
 
-  if (fs.existsSync(fileName)) {
-    var data = fs.readFileSync(fileName, "utf8"),
-      json = JSON.parse(data),
-      mockData = Mock.mock(json);
-    mockData.reqId = "mock-" + new Date().getTime();
-    console.log(
-      "--------------------mock----------------------\n",
-      fileName,
-      "mockData",
-      mockData
-    );
-    res.json(mockData);
-    return true;
-  } else if (fs.existsSync(jsFileName)) {
-    let callback = require(jsFileName).callback;
-    console.log("--------mock js file-----------", jsFileName);
-    let data = typeof callback === "function" ? callback(req, res) : [];
-    if (typeof data === "object") {
-      res.json({
-        code: 0,
-        reqId: "mock-" + new Date().getTime(),
-        msg: "成功",
-        data: Mock.mock(data)
-      });
-    }
+  //是否存在json或者js文件
+  if (fs.existsSync(fileName) || fs.existsSync(jsFileName)) {
+    //存在js文件，则require该文件后执行callback(req, res)
+    //否则读该json文件，并且JSON.parse,json文件只需返回data部分
+    //要求js文件一定要导出export callback函数，如exports.callback = (req, res) {...}
+    const data = fs.existsSync(jsFileName)
+      ? require(jsFileName).callback(req, res)
+      : JSON.parse(fs.readFileSync(fileName, "utf8"));
+    const mockData = Mock.mock(data);
+
+    //如果需要mock多行,即存在类似于data|30-50这种情况的
+    const resData =
+      Object.keys(data).some(k => /^data\|\d+/.test(k)) && "data" in mockData
+        ? mockData.data
+        : mockData;
+    res.json({
+      code: 0,
+      reqId: "mock-" + new Date().getTime(),
+      msg: "成功",
+      data: resData
+    });
+
     return true;
   }
   return false;

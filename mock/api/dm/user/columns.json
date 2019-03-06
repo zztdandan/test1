@@ -1,13 +1,9 @@
 {
-   "code": 0,
-   "msg": "成功",
-   "data": {
-      "id": "ID",
-      "name": "姓名",
-      "age": "年龄",
-      "sex": "性别",
-      "star": "星级",
-      "address": "地址",
-      "email": "email"
-   }
+  "id": "ID",
+  "name": "姓名",
+  "age": "年龄",
+  "sex": "性别",
+  "star": "星级",
+  "address": "地址",
+  "email": "email"
 }
