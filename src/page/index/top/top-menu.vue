@@ -1,12 +1,16 @@
 <template>
   <div class="top-menu">
-    <el-menu :default-active="activeIndex"
-             mode="horizontal"
-             text-color="#333">
+    <el-menu
+      :default-active="activeIndex"
+      mode="horizontal"
+      text-color="#333"
+    >
       <template v-for="(item,index) in items">
-        <el-menu-item :index="item.parentId+''"
-                      @click.native="openMenu(item)"
-                      :key="index">
+        <el-menu-item
+          :index="item.parentId+''"
+          @click.native="openMenu(item)"
+          :key="index"
+        >
           <template slot="title">
             <i :class="item.icon"></i>
             <span>{{generateTitle(item)}}</span>
@@ -35,6 +39,7 @@ export default {
   },
   methods: {
     getMenu() {
+      //顶上菜单
       this.$store.dispatch("GetTopMenu").then(res => {
         this.items = res;
       });
