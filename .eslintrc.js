@@ -1,5 +1,8 @@
 module.exports = {
   root: true,
+  "globals": {
+    "initNECaptcha": true
+  },
   env: {
     node: true
   },
