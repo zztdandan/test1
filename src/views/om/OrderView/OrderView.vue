@@ -21,10 +21,11 @@
 </template>
 <script>
   import LgDashboard from "@/components/LgDashboard/main";
-
+import OrderDetTable from '../OrderDetTable/OrderDetTable';
+import OrderInfoForm from '../OrderInfoForm/OrderInfoForm';
   export default {
     name: "order-view",
-    components: { LgDashboard },
+    components: { LgDashboard,OrderDetTable,OrderInfoForm },
     data: function() {
       return {};
     },
