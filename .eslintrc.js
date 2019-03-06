@@ -188,7 +188,7 @@ module.exports = {
         "no-whitespace-before-property": 1,
         "no-with": 1,
         "one-var": [
-            1,
+            0,
             {
                 initialized: "never",
             },
