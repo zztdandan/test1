@@ -1,7 +1,5 @@
 const devConfig = require("./config/dev.env");
 
-const proxyTableName = process.env.proxyTableName || "proxyTable";
-const proxyTable = devConfig[proxyTableName];
 // 基础路径 注意发布之前要先修改这里
 const publicPath = "./";
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
@@ -12,12 +10,12 @@ module.exports = {
   devServer: {
     // open: process.platform === 'darwin',
     host: "localhost",
-    port: 8877,
+    port: 8866,
     https: false,
     hotOnly: false,
     disableHostCheck: true,
     // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-    proxy: proxyTable, // string | Object
+    proxy: devConfig.proxyTable, // string | Object
     before: app => {}
   },
   // configureWebpack: config => {

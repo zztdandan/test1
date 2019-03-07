@@ -33,7 +33,8 @@
           v-model="dialog.form"
         ></avue-form>
         <iframe
-          :src="dialog.form.url"
+          :src="url"
+          v-if="dialog.form.url.length>0"
           frameborder="0"
         ></iframe>
       </div>
@@ -71,13 +72,27 @@ export default {
               mock: {
                 type: "dic"
               }
+            },
+            {
+              label: "城市",
+              prop: "city",
+              type: "select",
+              // remote: true,
+              props: {
+                label: "city",
+                value: "id"
+              },
+              dicUrl: `/bd/city/query`,
+              dicQuery: {
+                a: 1
+              }
             }
           ]
         }
       },
 
       page: {
-        total: 122
+        total: this.data.length
       },
       data: [
         {
@@ -187,6 +202,11 @@ export default {
         ]
       }
     };
+  },
+  computed: {
+    url: function() {
+      return this.dialog.form.url + "?wd=" + this.dialog.form.city;
+    }
   },
   methods: {
     handleAdd() {

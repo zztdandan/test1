@@ -2,10 +2,23 @@
 const Mock = require("mockjs");
 const path = require("path");
 var fs = require("fs");
-console.log("process.env.mockLogin = ", process.env.mockLogin);
+
+const API_PORT = process.env.PROXY_API_PORT || "80";
+const API_IP = process.env.PROXY_API_IP || "172.16.4.146";
+const API_URL = `http://${API_IP}:${API_PORT}`;
+const API_PATH_REWRITE = process.env.API_PATH_REWRITE || "/";
+const MOCK_URL = "http://localhost:" + process.env.PROXY_MOCK_PORT || "8080";
+
+console.log(`***********************server run in ************************`);
+console.log(`API_URL= ${API_URL}`);
+console.log(`API_PATH_REWRITE= ${API_PATH_REWRITE}`);
+console.log(`MOCK_URL= ${MOCK_URL}`);
+console.log(`MOCK_LOGIN === "true" ? ${process.env.MOCK_LOGIN === "true"}`);
+console.log(`***********************server run in ************************`);
+
 const loginMock = function(req, res) {
   if (
-    process.env.mockLogin === "true" &&
+    process.env.MOCK_LOGIN === "true" &&
     req.url.indexOf("/api/admin/sys/login") === 0
   ) {
     res.json({
@@ -29,20 +42,21 @@ const bypass = function(req, res) {
   console.log("----------------request----------------", key);
   // 是否需要本地模拟登陆
   if (loginMock(req, res)) {
+    console.log("-----------loginMock ok-------------");
     return true;
   }
 
-  //是否存在json或者js文件
+  // 是否存在json或者js文件
   if (fs.existsSync(fileName) || fs.existsSync(jsFileName)) {
-    //存在js文件，则require该文件后执行callback(req, res)
-    //否则读该json文件，并且JSON.parse,json文件只需返回data部分
-    //要求js文件一定要导出export callback函数，如exports.callback = (req, res) {...}
+    // 存在js文件，则require该文件后执行callback(req, res)
+    // 否则读该json文件，并且JSON.parse,json文件只需返回data部分
+    // 要求js文件一定要导出export callback函数，如exports.callback = (req, res) {...}
     const data = fs.existsSync(jsFileName)
       ? require(jsFileName).callback(req, res)
       : JSON.parse(fs.readFileSync(fileName, "utf8"));
     const mockData = Mock.mock(data);
 
-    //如果需要mock多行,即存在类似于data|30-50这种情况的
+    // 如果需要mock多行,即存在类似于data|30-50这种情况的
     const resData =
       Object.keys(data).some(k => /^data\|\d+/.test(k)) && "data" in mockData
         ? mockData.data
@@ -53,82 +67,33 @@ const bypass = function(req, res) {
       msg: "成功",
       data: resData
     });
-
+    console.log("-----------mock ok-------------,data=", resData);
     return true;
   }
   return false;
 };
+
 module.exports = {
-  NODE_ENV: '"development"',
-  BASE_API: '"https://vue-admin"',
   proxyTable: {
     "/api/": {
       // api表示当前项目请求使用该项可进入远程端访问
-      target: "http://172.16.4.146", // 真正测试服务器路径
+      target: API_URL, // 真正测试服务器路径
       // target: "http://127.0.0.1:8888", // 本地服务器路径，已取消，使用mock代替
       // target: 'http://172.16.4.194:8080/app/mock/21', //远端rap2模拟服务器路径
       pathRewrite: {
-        // "^/api/": "/",
+        "^/api/": API_PATH_REWRITE
       }, // 重写路径
 
       // changeOrigin: true,
       bypass: bypass
     },
-    "/mockxx/": {
+    "/mock/": {
       // api表示当前项目请求使用该项可进入远程端访问
       // target: "http://172.16.4.194:8080/app/mock/21", // 本地理服务器路径
-      target: "http://localhost:8080", // 本地理服务器路径
+      target: MOCK_URL, // 本地理服务器路径
       // target: 'http://140.143.26.135:3000', //远端 代理服务器路径
       pathRewrite: {
-        "^/mockxx/": "/"
-      } // 重写路径
-      //   changeOrigin: true
-    }
-  },
-  proxyTableLocal: {
-    "/api/": {
-      // api表示当前项目请求使用该项可进入远程端访问
-      // target: "http://172.16.4.146", // 真正测试服务器路径
-      target: "http://127.0.0.1:8080", // 本地服务器路径，已取消，使用mock代替
-      // target: 'http://172.16.4.194:8080/app/mock/21', //远端rap2模拟服务器路径
-      pathRewrite: {
-        "^/api/": "/"
-      }, // 重写路径
-
-      // changeOrigin: true,
-      bypass: bypass
-    },
-    "/mockxx/": {
-      // api表示当前项目请求使用该项可进入远程端访问
-      // target: "http://172.16.4.194:8080/app/mock/21", // 本地理服务器路径
-      target: "http://localhost:8080", // 本地理服务器路径
-      // target: 'http://140.143.26.135:3000', //远端 代理服务器路径
-      pathRewrite: {
-        "^/mockxx/": "/"
-      } // 重写路径
-      //   changeOrigin: true
-    }
-  },
-  proxyTableLocal8888: {
-    "/api/": {
-      // api表示当前项目请求使用该项可进入远程端访问
-      // target: "http://172.16.4.146", // 真正测试服务器路径
-      target: "http://127.0.0.1:8888", // 本地服务器路径，已取消，使用mock代替
-      // target: 'http://172.16.4.194:8080/app/mock/21', //远端rap2模拟服务器路径
-      pathRewrite: {
-        "^/api/": "/"
-      }, // 重写路径
-
-      // changeOrigin: true,
-      bypass: bypass
-    },
-    "/mockxx/": {
-      // api表示当前项目请求使用该项可进入远程端访问
-      // target: "http://172.16.4.194:8080/app/mock/21", // 本地理服务器路径
-      target: "http://localhost:8080", // 本地理服务器路径
-      // target: 'http://140.143.26.135:3000', //远端 代理服务器路径
-      pathRewrite: {
-        "^/mockxx/": "/"
+        "^/mock/": "/"
       } // 重写路径
       //   changeOrigin: true
     }
