@@ -7,13 +7,25 @@
     "children": [
       {
         "label": "demo",
-        "path": "/dm",
+        "path": "demo",
         "component": "views/dm/demo",
         "icon": "icon-caidan"
       },
       {
+        "label": "no catch demo",
+        "path": "nocatch-demo",
+        "component": "views/dm/nocatch-demo",
+        "icon": "icon-caidan"
+      },
+      {
+        "label": "table demo",
+        "path": "table-dm",
+        "component": "views/dm/table",
+        "icon": "icon-caidan"
+      },
+      {
         "label": "标签",
-        "path": "/tags",
+        "path": "tags",
         "component": "views/util/tags",
         "icon": "icon-caidan",
         "meta": {
@@ -23,7 +35,7 @@
       },
       {
         "label": "表格",
-        "path": "/table",
+        "path": "table",
         "component": "views/util/table",
         "icon": "icon-caidan",
         "meta": {
