@@ -1,7 +1,6 @@
 // 这是个独立文件，专门用于取codeclass中的数据字典字段
 import api_config from "@/api_config.json";
-import { SimpleMessage, ErrConsole, SimpleNotify, ErrNotify } from "@/business_utils/ele_alert";
-import { postRequest, postRequestFormData, uploadFileRequest, getRequest, deleteRequest, putRequest, getBodyRequest } from "@/plugins/axios_api/api_utils";
+import LGAxios from '@/router/axios-wrap';
 import "linqjs";
 export const GetCode = async function(class_id, class_name) {
    try {
@@ -10,8 +9,7 @@ export const GetCode = async function(class_id, class_name) {
          classcode: class_id || null,
          classname: class_name || null
       };
-      var res =await getRequest(url, params);
-      // debugger;
+      var res =await LGAxios.get(url, params);
       var res1 = res.select(x => {
          return { value: x.code, label: x.name };
       });

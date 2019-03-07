@@ -56,7 +56,7 @@
         hOrderDel:async function(data, index, done, loading) {
          try {
             let a = await this.$confirm("确认删除", "提示", { type: "warning" });            
-            CRUD.deleteFunction([data]);
+            // CRUD.deleteFunction([data]);
             done();
          } catch (err) {
             this.$message({ type: "info", message: "已取消删除" });

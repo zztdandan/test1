@@ -1,0 +1,66 @@
+import getCodeByClass from "@/business_utils/getCodeByClass";
+
+async function getODEntity() {
+    const prodClassDic = await getCodeByClass("ORDC3");
+    const exportFlagDic = await getCodeByClass("ORDC4");
+    const pscDic = await getCodeByClass("ORDC5");
+    const entity = [
+        { type: "text", prop: "orderNo", label: "订单号", span: 8 },
+        {
+            type: "select",
+            prop: "prodClass",
+            label: "产品大类",
+            dicData: prodClassDic,
+            span: 8
+        },
+        {
+            type: "select",
+            prop: "exportFlag",
+            label: "出口标记",
+            dicData: exportFlagDic,
+            span: 8
+        },
+        {
+            type: "date",
+            prop: "prodReadyDate",
+            label: "生产备妥日期",
+            format: "yyyy-MM-dd",
+            valueFormat: "yyyyMMdd",
+            span: 8
+        },
+        {
+            type: "date",
+            prop: "delivyDateTrnp",
+            label: "船期交货日期",
+            format: "yyyy-MM-dd",
+            valueFormat: "yyyyMMdd",
+            span: 8
+        },
+        {
+            type: "date",
+            prop: "delivyDateUser",
+            label: "期望交货日期",
+            format: "yyyy-MM-dd",
+            valueFormat: "yyyyMMdd",
+            span: 8
+        },
+        {
+            type: "date",
+            prop: "delivyDate",
+            label: "交货日期",
+            format: "yyyy-MM-dd",
+            valueFormat: "yyyyMMdd",
+            span: 8
+        },
+        {
+            type: "select",
+            prop: "psc",
+            label: "产品规范",
+            dicData: pscDic,
+            span: 8
+        }
+    ];
+
+    return entity;
+}
+export default getODEntity;
