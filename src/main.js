@@ -31,7 +31,7 @@ Vue.component("basicContainer", basicContainer);
 Object.keys(urls).forEach(key => {
   Vue.prototype[key] = urls[key];
 });
-
+console.log('Vue.prototype',Vue.prototype)
 // 动态加载阿里云字体库
 iconfontVersion.forEach(ele => {
   loadStyle(iconfontUrl.replace("$key", ele));

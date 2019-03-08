@@ -15,8 +15,15 @@
           icon="el-icon-plus"
           size="small"
           plain
-          @click="handleAdd()"
+          @click="handleDialog('reportlet=YKCS_MARKET_PRICE.cpt&op=write&pcid=1',false)"
         >新增</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          size="small"
+          plain
+          @click="handleDialog('reportlet=YKCS_MARKET_PRICE_EDIT.cpt&op=write&pcid=1',true)"
+        >编辑</el-button>
       </template>
     </avue-crud>
 
@@ -35,6 +42,7 @@
         ></avue-form>
         <iframe
           :src="url"
+          v-if="this.dialog.form.prodCategories.length>0"
           frameborder="0"
         ></iframe>
       </div>
@@ -43,14 +51,17 @@
 </template>
 
 <script>
+const baseReportUrl="http://172.16.2.245:8080/WebReport/ReportServer?"
 export default {
   data() {
     return {
+      market_date: false,
       dialog: {
         visible: false,
         ifrUrl: "https://form.avue.top",
-        form: { url: "" },
+        form: { url: "",prodCategories:"" },
         formOption: {
+          labelWidth: 100,
           emptyBtn: false,
           submitBtn: false,
           column: [
@@ -71,6 +82,14 @@ export default {
                   trigger: "blur"
                 }
               ]
+            },
+            {
+              
+              label: "市场价日期",
+              display: this.market_date,
+              prop: "date",
+              type: "date",
+              format: "yyyy-MM-dd"
             }
 
           ]
@@ -85,6 +104,7 @@ export default {
       ],
       option: {
         addBtn: false,
+        editBtn: false,
         column: [
           {
             label: "产品大类",
@@ -108,12 +128,17 @@ export default {
   },
   computed:{
       url:function(){
-          return 'http://172.16.2.245:8080/WebReport/ReportServer?reportlet=YKCS_MARKET_PRICE.cpt&op=write&pcid=1&aa='+this.dialog.form.prodCategories
+          const date=dayjs(this.dialog.form.date).format("YYYY-MM-DD");
+          const url=`${baseReportUrl}${this.dialog.ifrPath}&marketdate=${date}&aa=`+this.dialog.form.prodCategories;
+          return url
+
       }
   },
   methods: {
-    handleAdd() {
+    handleDialog(path,v) {
       this.dialog.visible = true;
+      this.dialog.ifrPath=path;
+      this.market_date=v;
     },
     handleClose() {
       this.dialog.visible = false;
