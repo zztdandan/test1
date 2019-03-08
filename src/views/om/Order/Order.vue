@@ -22,7 +22,7 @@
 <script>
   import LgDashboard from "@/components/LgDashboard/main";
   import * as OrderSettings from "./utils/OrderEntity.js";
-  import { pagiLazyMixin, pagiMixin, pagiClass, pagiPara } from "@/business_utils/pagination";
+  import { pagiLazyMixin, pagiMixin, pagiClass, pagiPara } from "@/mixins/pagination";
   import * as CRUD from "./utils/CRUD";
   export default {
      components: { LgDashboard },

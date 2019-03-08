@@ -27,7 +27,7 @@
     pagiMixin,
     pagiClass,
     pagiPara
-  } from "@/business_utils/pagination";
+  } from "@/mixins/pagination";
   import * as CRUD from "./utils/CRUD";
   export default {
     components: { LgDashboard },

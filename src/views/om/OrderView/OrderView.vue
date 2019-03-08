@@ -2,59 +2,74 @@
   <div class="md">
     <lg-dashboard>
       <template slot="title">订单页面</template>
-      <div class="order-form">
-        <!-- <template slot="title">查询form</template> -->
-        <build-form
-          ref="sf"
-          :sync-data.sync="OData"
-          :form-array="OSearchOpt"
-          init-size="mini"
-          @search-click="hOrderSearch"
-        >
-          <template slot="s-icon">
-            <div class="mr-2">
-              <a class="hv moon-search" @click="hOpenOSDDialog"></a>
-            </div>
-          </template>
-        </build-form>
-      </div>
-      <div class="order-search-dialog">
-        <order-search-dialog ref="osd" @dialog-close="hOSDCloseDialog" :flag="globalStatus"></order-search-dialog>
-      </div>
+      <el-collapse :accordion="false" v-model="activeList">
+        <el-collapse-item name="1">
+          <template slot="title">搜索栏</template>
+          <div class="order-form">
+            <!-- <template slot="title">查询form</template> -->
+            <build-form
+              ref="sf"
+              :sync-data.sync="OData"
+              :form-array="OSearchOpt"
+              init-size="mini"
+              @search-click="hOrderSearch"
+            >
+              <template slot="s-icon">
+                <div class="mr-2">
+                  <a class="hv moon-search" @click="hOpenOSDDialog"></a>
+                </div>
+              </template>
+            </build-form>
+          </div>
+          <div class="order-search-dialog">
+            <order-search-dialog ref="osd" @dialog-close="hOSDCloseDialog" :flag="globalStatus"></order-search-dialog>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="2">
+          <template slot="title">订单细则列表</template>
+          <div class="order-det-table">
+            <!-- <template slot="title">细则table</template> -->
+            <order-det-table
+              ref="odt"
+              @single-selected="hODTSingleSelect"
+              @odt-view="hODTSingleSelect"
+              @odt-edit="hODTPreEdit"
+              @odt-add="hODTPreAdd"
+            ></order-det-table>
+            <el-button type="primary" v-if="globalStatus=='search'" @click="doAddOrder">创建预览</el-button>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="3">
+          <template slot="title">客户信息</template>
 
-      <div class="order-det-table">
-        <!-- <template slot="title">细则table</template> -->
-        <order-det-table
-          ref="odt"
-          @single-selected="hODTSingleSelect"
-          @odt-view="hODTSingleSelect"
-          @odt-edit="hODTPreEdit"
-          @odt-add="hODTPreAdd"
-        ></order-det-table>
-      </div>
-      <div class="order-info-form">
-        <!-- <template slot="title">订单信息form</template> -->
-        <order-info-form ref="oif"></order-info-form>
-      </div>
-      <hr>
-      <div class="order-det-info-form">
+          <div class="order-info-form">客户信息
+            <!-- <template slot="title">订单信息form</template> -->
+            <order-info-form ref="oif"></order-info-form>
+          </div>
+        </el-collapse-item>
+        <el-collapse-item name="4">
+          <template slot="title">订单明细</template>
+          <div class="order-det-info-form">
+            <!-- <template slot="title">订单细则信息form</template> -->
+            <order-det-info-form
+              ref="odif"
+              @confirm-add="hODIFConfirmAdd"
+              @confirm-edit="hODIFConfirmEdit"
+              @confirm-cancel="hODIFCancel"
+            ></order-det-info-form>
+          </div>
+        </el-collapse-item>
+
         <!-- <template slot="title">订单细则信息form</template> -->
-        <order-det-info-form
-          ref="odif"
-          @confirm-add="hODIFConfirmAdd"
-          @confirm-edit="hODIFConfirmEdit"
-          @confirm-cancel="hODIFCancel"
-        ></order-det-info-form>
-      </div>
-      <div class="button-group-form">
-        <!-- <template slot="title">按钮组</template> -->
-        <div class="flex-md-6">
-          <el-button type="primary" v-if="globalStatus=='search'" @click="doAddOrder">添加订单</el-button>
-          <el-button type="primary" v-if="globalStatus!='search'" @click="doSubmitOrder">提交新增订单</el-button>
-          <el-button type="primary" v-if="globalStatus!='search'" @click="doCancelSubmit">取消新增订单模式</el-button>
-          <el-button type="primary">打印</el-button>
+        <div class="button-group-form">
+          <!-- <template slot="title">按钮组</template> -->
+          <div class="flex-md-6">
+            <el-button type="primary" v-if="globalStatus!='search'" @click="doSubmitOrder">确定</el-button>
+            <el-button type="primary" v-if="globalStatus!='search'" @click="doCancelSubmit">取消当前新增</el-button>
+            <el-button type="primary">打印</el-button>
+          </div>
         </div>
-      </div>
+      </el-collapse>
     </lg-dashboard>
   </div>
 </template>
@@ -113,7 +128,8 @@
         OData: {},
         OSearchOpt: [],
         globalStatus: "search",
-        templateODStore: {}
+        templateODStore: {},
+        activeList: ["1", "2"]
       };
     },
     created: function() {},
@@ -168,13 +184,15 @@
       // 点击odt栏目的回调。如果处于pre-edit或search模式，会刷掉下面的表单，如果其他模式，不刷掉表单
       hODTSingleSelect(data) {
         if (this.globalStatus == "search" || this.globalStatus == "pre-edit") {
-          this.$refs["odif"].setData(data);
+          let tmp_data = Object.assign({}, data);
+          this.$refs["odif"].setData(tmp_data);
         }
       },
       // 从预编辑模式进入真编辑模式
       hODTPreEdit(data) {
         this.$set(this.templateODStore, data);
-        this.$refs["odif"].setData(data);
+        let tmp_data = Object.assign({}, data);
+        this.$refs["odif"].setData(tmp_data);
         this.tGlobalStatus("edit");
       },
       hODTPreAdd(data) {
@@ -183,9 +201,12 @@
       // 编辑完成，从编辑模式退回预编辑模式。add和edit会先mes验证表单，如果不通过不进行下面步骤
       hODIFConfirmAdd: async function(data) {
         try {
-          // debugger;
+          debugger;
           let res = await orderApis.mesCheckOrderDet(data);
-          this.$refs["odt"].hConfirmAddList(data);
+          let tmp_list = this.$refs["odt"].getData();
+          data.id = tmp_list.length + 1;
+          let tmp_data = Object.assign({}, data);
+          this.$refs["odt"].hConfirmAddList(tmp_data);
           this.tGlobalStatus("pre-edit");
         } catch (error) {}
       },
@@ -193,7 +214,9 @@
         try {
           // debugger;
           let res = await orderApis.mesCheckOrderDet(data);
-          this.$refs["odt"].hConfirmEditList(data);
+          let tmp_list = this.$refs["odt"].getData();
+          let tmp_data = Object.assign({}, data);
+          this.$refs["odt"].hConfirmEditList(tmp_data);
           this.tGlobalStatus("pre-edit");
         } catch (error) {}
       },
@@ -242,7 +265,7 @@
 </script>
 <style scoped>
 .md {
-  padding: 1rem 1rem;
+  padding: 1rem 0.2rem;
 }
 .order-form,
 .order-det-table,
@@ -250,6 +273,8 @@
 .order-det-info-form,
 .button-group-form {
   width: 100%;
+  max-height: 50vh;
+  overflow-y: auto;
 }
 .mr-2 {
   margin-right: 0.2rem;

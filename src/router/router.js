@@ -6,17 +6,18 @@
  * isTab是否加入到tag导航
  * isAuth是否需要授权
  */
-import VueRouter from 'vue-router';
-import PageRouter from './page/'
-import ViewsRouter from './views/'
-import AvueRouter from './avue-router';
-import Vue from 'vue';
-import i18n from '@/lang' // Internationalization
-import Store from '../store/';
-let Router = new VueRouter({
+import VueRouter from "vue-router";
+import PageRouter from "./page/";
+import ViewsRouter from "./views/";
+import AvueRouter from "./avue-router";
+import Vue from "vue";
+import i18n from "@/lang"; // Internationalization
+import Store from "../store/";
+const Router = new VueRouter({
+    // 存储页面位置模块
     scrollBehavior(to, from, savedPosition) {
         if (savedPosition) {
-            return savedPosition
+            return savedPosition;
         } else {
             if (from.meta.keepAlive) {
                 from.meta.savedPosition = document.body.scrollTop;
@@ -24,7 +25,7 @@ let Router = new VueRouter({
             return {
                 x: 0,
                 y: to.meta.savedPosition || 0
-            }
+            };
         }
     },
     routes: []

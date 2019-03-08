@@ -1,6 +1,7 @@
 <template>
   <div>
     <avue-crud
+      size="mini"
       :data="ODTList"
       :option="ODTOpt"
       @row-click="hSingleSelect"
@@ -27,7 +28,7 @@
     pagiMixin,
     pagiClass,
     pagiPara
-  } from "@/business_utils/pagination";
+  } from "@/mixins/pagination";
   import * as orderApis from "../apis/orderApi";
   export default {
     name: "order-det-table",
@@ -40,11 +41,11 @@
         ODTOpt: {
           menu: false,
           addBtn: false,
-           sortable: true,
+          sortable: true,
           editBtn: false,
           delBtn: false,
           selection: true,
-          menuWidth:"240",
+          menuWidth: "240",
           columnBtn: false,
           refreshBtn: false,
           column: []
@@ -96,10 +97,10 @@
         let that_vue = this;
         try {
           let a = await this.$confirm("确认删除", "提示", { type: "warning" });
-          that_vue.ODTList.remove(that_vue.ODTList.find(x=>x===row));
+          that_vue.ODTList.remove(that_vue.ODTList.find(x => x === row));
           that_vue.$emit("odt-del");
         } catch (err) {
-          debugger;
+          // debugger;
           that_vue.$message({ type: "info", message: "已取消删除" });
         }
       },
@@ -126,12 +127,14 @@
       },
 
       hConfirmAddList(data) {
+        // debugger;
         this.ODTList.push(data);
       },
       hConfirmEditList(newdata) {
-        this.ODTList = this.ODTList.map(x => {
-          return x.id === newdata.id ? newdata : x;
-        });
+        // debugger;
+        let findex = this.ODTList.findIndex(x => x.id == newdata.id);
+        this.ODTList.remove(this.ODTList[findex]);
+        this.ODTList.push(newdata);
       },
       hSelectionChange(data) {
         this.selectionArr = data;

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <avue-form v-model="ODIFObject" :option="ODIFOption" class="custom">
+    <avue-form ref="aform" v-model="ODIFObject" :option="ODIFOption" class="custom">
       <template slot="menuForm">
         <div class="flex-md">
           <el-button v-if="btnType=='add'" type="primary" @click="hConfirmAdd">确认添加</el-button>
@@ -34,9 +34,7 @@
       let tmp_column = await getODIFEntity();
       this.ODIFOption.column = this.calcODIFCol(tmp_column, this.editable);
     },
-    mounted: function() {
-
-    },
+    mounted: function() {},
     methods: {
       setData(data) {
         this.ODIFObject = data;
@@ -55,7 +53,16 @@
       },
 
       hConfirmAdd() {
-        this.$emit("confirm-add", this.ODIFObject);
+        // debugger
+        //验证通过后再触发
+        this.$refs["aform"].validate(flag => {
+          if (flag) {
+            this.$emit("confirm-add", this.ODIFObject);
+          } else {
+              this.$emit("confirm-add", this.ODIFObject);
+            console.log("验证不通过");
+          }
+        });
       },
       hConfirmEdit() {
         this.$emit("confirm-edit", this.ODIFObject);
@@ -96,7 +103,6 @@
 <style>
 .custom .avue-form__group {
   flex-direction: column !important;
-  
-  max-height:300px;
+  max-height: 150px;
 }
 </style>

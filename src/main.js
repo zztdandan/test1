@@ -13,10 +13,13 @@ import Element from "element-ui";
 import { iconfontUrl, iconfontVersion } from "@/config/env";
 import i18n from "./lang"; // Internationalization
 import "@/asset/css/buttons.css";
+
 import "./styles/common.scss";
 import "@/asset/moon-icon/style.css";
 
 import basicContainer from "./components/basic-container/main";
+
+import "@/asset/css/common.css";
 
 Vue.use(router);
 Vue.use(VueAxios, axios);
