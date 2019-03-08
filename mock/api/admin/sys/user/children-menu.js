@@ -31,6 +31,7 @@ const first = [
     {
         label: "标签",
         path: "/tags",
+        code:"tags",
         component: "views/util/tags",
         icon: "icon-caidan",
         meta: {

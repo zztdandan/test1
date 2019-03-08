@@ -118,6 +118,12 @@
             "updateMenu": "/admin/sys/menu/update",
             "deleteMenu": "/admin/sys/menu/delete"
         },
+        "viewMan": {
+            "queryViewLazy": "/admin/sys/view/list",
+            "createView": "/admin/sys/view/create",
+            "updateView": "/admin/sys/view/update",
+            "deleteView": "/admin/sys/view/delete"
+        },
         "actMan": {
             "queryActByMenu": "/admin/sys/menu/select",
             "createMenu": "/admin/sys/act/create",
@@ -187,8 +193,8 @@
         "OrderView": {
             "querySearchOrderDet": "/om/order-det/queryLazy",
             "queryOrderDetByON": "/om/order-det/query",
-            "mesCheckOrderDet":"/om/order-det/mesCheck",
-            "postOrder":"/om/order-det/create"
+            "mesCheckOrderDet": "/om/order-det/mesCheck",
+            "postOrder": "/om/order-det/create"
         },
         "Provision": {
             "create": "/om/provision/create",
