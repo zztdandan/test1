@@ -2,18 +2,24 @@
   <div class="avue-sidebar">
     <logo></logo>
     <el-scrollbar style="height:100%">
-      <div v-if="validatenull(menu)"
-           class="avue-sidebar--tip">{{$t('menuTip')}}</div>
-      <el-menu unique-opened
-               :default-active="nowTagValue"
-               mode="vertical"
-               :show-timeout="200"
-               :collapse="keyCollapse">
-        <sidebar-item :menu="menu"
-                      :screen="screen"
-                      first
-                      :props="website.menu.props"
-                      :collapse="keyCollapse"></sidebar-item>
+      <div
+        v-if="validatenull(menu)"
+        class="avue-sidebar--tip"
+      >{{$t('menuTip')}}</div>
+      <el-menu
+        unique-opened
+        :default-active="nowTagValue"
+        mode="vertical"
+        :show-timeout="200"
+        :collapse="keyCollapse"
+      >
+        <sidebar-item
+          :menu="menu"
+          :screen="screen"
+          first
+          :props="website.menu.props"
+          :collapse="keyCollapse"
+        ></sidebar-item>
       </el-menu>
     </el-scrollbar>
   </div>
@@ -30,6 +36,7 @@ export default {
     return {};
   },
   created() {
+    //获取菜单
     this.$store.dispatch("GetMenu").then(data => {
       if (data.length === 0) return;
       this.$router.$avueRouter.formatRoutes(data, true);
@@ -47,4 +54,3 @@ export default {
 </script>
 <style lang="scss" scoped>
 </style>
-
