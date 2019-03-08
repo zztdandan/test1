@@ -51,7 +51,7 @@
         <div class="flex-md-6">
           <el-button type="primary" v-if="globalStatus=='search'" @click="doAddOrder">添加订单</el-button>
           <el-button type="primary" v-if="globalStatus!='search'" @click="doSubmitOrder">提交新增订单</el-button>
-          <el-button type="primary" v-if="globalStatus!='search'">取消新增订单模式</el-button>
+          <el-button type="primary" v-if="globalStatus!='search'" @click="doCancelSubmit">取消新增订单模式</el-button>
           <el-button type="primary">打印</el-button>
         </div>
       </div>
@@ -180,28 +180,45 @@
       hODTPreAdd(data) {
         this.tGlobalStatus("add");
       },
-      // 编辑完成，从编辑模式退回预编辑模式
-      hODIFConfirmAdd(data) {
-        this.$refs["odt"].hConfirmAddList(data);
-        this.tGlobalStatus("pre-edit");
+      // 编辑完成，从编辑模式退回预编辑模式。add和edit会先mes验证表单，如果不通过不进行下面步骤
+      hODIFConfirmAdd: async function(data) {
+        try {
+          // debugger;
+          let res = await orderApis.mesCheckOrderDet(data);
+          this.$refs["odt"].hConfirmAddList(data);
+          this.tGlobalStatus("pre-edit");
+        } catch (error) {}
       },
-      hODIFConfirmEdit(data) {
-        this.$refs["odt"].hConfirmEditList(data);
-        this.tGlobalStatus("pre-edit");
+      hODIFConfirmEdit: async function(data) {
+        try {
+          // debugger;
+          let res = await orderApis.mesCheckOrderDet(data);
+          this.$refs["odt"].hConfirmEditList(data);
+          this.tGlobalStatus("pre-edit");
+        } catch (error) {}
       },
       // 取消添加或编辑，直接退回预编译模式
       hODIFCancel() {
         this.tGlobalStatus("pre-edit");
       },
-      // 点击添加订单，进入预编辑模式
+      // 点击添加订单，进入预编辑模式。根据要求，此时清空odt的数据
       doAddOrder() {
+        this.$refs["odt"].setData([]);
         this.tGlobalStatus("pre-edit");
       },
 
-      //确认新增订单的一系列编辑，并提交post
-      doSubmitOrder() {
-
-         this.tGlobalStatus("search");
+      //确认新增订单的一系列编辑，并提交post,退回search模式
+      doSubmitOrder: async function() {
+        // debugger;
+        let tmp_order_det = this.$refs["odt"].getData();
+        let tmp_order = this.$refs["oif"].getData();
+        //  这里定制post文件格式
+        let params = { order: tmp_order, order_det: tmp_order_det };
+        let res = await orderApis.postOrder(params);
+        this.tGlobalStatus("search");
+      },
+      doCancelSubmit() {
+        this.tGlobalStatus("search");
       },
 
       // 转换模式函数

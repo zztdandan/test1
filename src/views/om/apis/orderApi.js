@@ -28,8 +28,22 @@ export const mesCheckOrderDet = async function(obj) {
     try {
         const url = api_config.om.OrderView.mesCheckOrderDet;
         const res = await LG_axios.post(url, obj);
+        SimpleMessage("MES验证通过");
         return res;
     } catch (error) {
         ErrNotify("mesCheckOrderDet出现错误");
+        throw new Error();
+    }
+};
+
+export const postOrder = async function(obj) {
+    try {
+        const url = api_config.om.OrderView.postOrder;
+        const res = await LG_axios.post(url, obj);
+        SimpleMessage("添加成功");
+        return res;
+    } catch (error) {
+        ErrNotify("mesCheckOrderDet出现错误");
+        throw new Error();
     }
 };

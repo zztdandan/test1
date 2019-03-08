@@ -5,9 +5,12 @@ async function getODEntity() {
     const exportFlagDic = await getCodeByClass("ORDC4");
     const pscDic = await getCodeByClass("ORDC5");
     const entity = [
-        { type: "text", prop: "orderNo", label: "订单号" },
+        { type: "text", prop: "orderNo", label: "订单号", sortable: true },
         {
             type: "select",
+            sortable: true,
+            filter: true,
+            "filter-multiple": true,
             prop: "prodClass",
             label: "产品大类",
             dicData: prodClassDic
@@ -43,6 +46,7 @@ async function getODEntity() {
             type: "date",
             prop: "delivyDate",
             label: "交货日期",
+            sortable: true,
             format: "yyyy-MM-dd",
             valueFormat: "yyyyMMdd"
         },

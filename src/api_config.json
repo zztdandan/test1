@@ -187,7 +187,8 @@
         "OrderView": {
             "querySearchOrderDet": "/om/order-det/queryLazy",
             "queryOrderDetByON": "/om/order-det/query",
-            "mesCheckOrderDet":"/om/order-det/mesCheck"
+            "mesCheckOrderDet":"/om/order-det/mesCheck",
+            "postOrder":"/om/order-det/create"
         },
         "Provision": {
             "create": "/om/provision/create",

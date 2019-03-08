@@ -40,9 +40,11 @@
         ODTOpt: {
           menu: false,
           addBtn: false,
+           sortable: true,
           editBtn: false,
           delBtn: false,
           selection: true,
+          menuWidth:"240",
           columnBtn: false,
           refreshBtn: false,
           column: []
@@ -94,7 +96,7 @@
         let that_vue = this;
         try {
           let a = await this.$confirm("确认删除", "提示", { type: "warning" });
-          that_vue.ODTList.remove(that_vue.ODTList.find(row));
+          that_vue.ODTList.remove(that_vue.ODTList.find(x=>x===row));
           that_vue.$emit("odt-del");
         } catch (err) {
           debugger;
