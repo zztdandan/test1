@@ -20,25 +20,25 @@
         >新增</el-button>
       </template>
     </avue-crud>
-    <el-dialog
+    <!-- <el-dialog
       title
       :visible.sync="dialog.visible"
       width="80%"
       :fullscreen="!true"
       :before-close="handleClose"
-    >
-      <div>
-        <avue-form
-          :option="dialog.formOption"
-          v-model="dialog.form"
-        ></avue-form>
-        <iframe
-          :src="url"
-          v-if="dialog.form.url.length>0"
-          frameborder="0"
-        ></iframe>
-      </div>
-    </el-dialog>
+    >-->
+    <div>
+      <avue-form
+        :option="dialog.formOption"
+        v-model="dialog_form"
+      ></avue-form>
+      <iframe
+        :src="url"
+        v-if="dialog.form.url.length>0"
+        frameborder="0"
+      ></iframe>
+    </div>
+    <!-- </el-dialog> -->
   </basic-container>
 </template>
 
@@ -46,10 +46,11 @@
 export default {
   data() {
     return {
+      dialog_form: {},
       dialog: {
         visible: false,
         ifrUrl: "https://form.avue.top",
-        form: { url: "" },
+        form: { url: "", cityVisdiplay: false },
         formOption: {
           emptyBtn: false,
           submitBtn: false,
@@ -82,17 +83,23 @@ export default {
                 label: "city",
                 value: "id"
               },
+              display: this.cityVisdiplay,
               dicUrl: `/bd/city/query`,
               dicQuery: {
                 a: 1
               }
+            },
+            {
+              label: "显示城市",
+              prop: "cityVisdiplay",
+              type: "switch"
             }
           ]
         }
       },
 
       page: {
-        total: this.data.length
+        total: this.totalPage
       },
       data: [
         {
@@ -205,7 +212,19 @@ export default {
   },
   computed: {
     url: function() {
+      console.log(dialog.form);
       return this.dialog.form.url + "?wd=" + this.dialog.form.city;
+    },
+    totalPage: function() {
+      return this.data.length;
+    },
+    cityVisdiplay() {
+      return this.dialog.form.cityVisdiplay;
+    }
+  },
+  watch: {
+    dialog_form(newValue, oldValue) {
+      console.log("dialog_form", newValue);
     }
   },
   methods: {

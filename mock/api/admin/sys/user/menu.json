@@ -24,6 +24,18 @@
         "icon": "icon-caidan"
       },
       {
+        "label": "动态列demo",
+        "path": "user/columns",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan"
+      },
+      {
+        "label": "动态列demo2",
+        "path": "user/columns2",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan"
+      },
+      {
         "label": "标签",
         "path": "tags",
         "component": "views/util/tags",
