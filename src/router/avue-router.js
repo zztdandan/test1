@@ -109,7 +109,7 @@ RouterPlugin.install = function(vue, router, store, i18n) {
                     children = oMenu[propsDefault.children],
                     meta = oMenu[propsDefault.meta] || {};
 
-                const isChild = children.length !== 0;
+                const isChild = children ? children.length !== 0 : false;
                 const oRouter = {
                     path: path,
                     component(resolve) {
@@ -130,17 +130,19 @@ RouterPlugin.install = function(vue, router, store, i18n) {
                     icon: icon,
                     meta: meta,
                     redirect: (() => {
-                        if (!isChild && first && !isURL(path)) { return `${path}/index`; } else return "";
+                        if (!isChild && first && !isURL(path)) {
+                            return `${path}/index`;
+                        } else return "";
                     })(),
                     // 处理是否为一级路由
                     children: !isChild
                         ? (() => {
                               if (first) {
                                   if (!isURL(path)) {
- oMenu[
+                                      oMenu[
                                           propsDefault.path
                                       ] = `${path}/index`;
-}
+                                  }
                                   return [
                                       {
                                           component(resolve) {

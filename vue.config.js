@@ -1,7 +1,5 @@
 const devConfig = require("./config/dev.env");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
-const proxyTableName = process.env.proxyTableName || "proxyTable";
-const proxyTable = devConfig[proxyTableName];
 const setAlias = require("./vue_config/alias");
 
 // 基础路径 注意发布之前要先修改这里
@@ -15,13 +13,13 @@ module.exports = {
     devServer: {
         // open: process.platform === 'darwin',
         host: "localhost",
-        port: 9528,
+    port: 8877,
         https: false,
         open: true, // 启动服务后是否打开浏览器
         hotOnly: false,
         disableHostCheck: true,
         // See https://github.com/vuejs/vue-cli/blob/dev/docs/cli-service.md#configuring-proxy
-        proxy: proxyTable, // string | Object
+    proxy: devConfig.proxyTable, // string | Object
         before: () => {},
     },
     configureWebpack: config => {

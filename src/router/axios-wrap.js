@@ -46,38 +46,57 @@ service.interceptors.request.use(
 );
 
 // response 拦截器
-service.interceptors.response.use(
-  response => {
-    try {
-      loading.close(); // 响应成功关闭loading
-      const data = response.data;
-      // 返回值符合标准格式的，即同时包含code,reqId
-      if (typeof data.code === "number" && "reqId" in data) {
-        // 处理成功，code===0表示成功
-        if (
-          data.code ===
-          0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
-        ) {
-          return data.data || {};
-        } else {
-          // data.code!==0,业务出错
-          return Promise.reject(data);
-        }
-      } else {
-        return data;
-      }
-    } catch (e) {
-      Promise.reject(e);
-    }
-  },
-  error => {
-    loading.close();
-    Promise.reject(error);
-  }
-);
+// service.interceptors.response.use(
+//   response => {
+//     try {
+//       loading.close(); // 响应成功关闭loading
+//       const data = response.data;
+//       // 返回值符合标准格式的，即同时包含code,reqId
+//       if (typeof data.code === "number" && "reqId" in data) {
+//         // 处理成功，code===0表示成功
+//         if (
+//           data.code ===
+//           0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
+//         ) {
+//           return data.data || {};
+//         } else {
+//           // data.code!==0,业务出错
+//           return Promise.reject(data);
+//         }
+//       } else {
+//         return data;
+//       }
+//     } catch (e) {
+//       console.log("errrrrrrrrrrr", e);
+//       Promise.reject(e);
+//     }
+//   },
+//   error => {
+//     loading.close();
+//     console.log("errrrrrrrrrrr222222", error);
+//     Promise.reject(error);
+//   }
+// );
 const methods = ["get", "post", "put", "delete", "patch"];
 const axiosWrap = {};
 
+const checkResponse = response => {
+  const data = response.data;
+  // 返回值符合标准格式的，即同时包含code,reqId
+  if (typeof data.code === "number" && "reqId" in data) {
+    // 处理成功，code===0表示成功
+    if (
+      data.code === 0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
+    ) {
+      return data.data || {};
+    } else {
+      // data.code!==0,业务出错
+      throw Error("业务出错,data.code!==0", data);
+    }
+  } else {
+    return data;
+  }
+};
 // 生成axios的快捷方法，"get", "post", "put", "delete", "patch"，加前缀$$,提交数据格式为application/x-www-form-urlencoded,
 // 如果是json格式，则后缀为Json，如$$postJson
 const registerMethod = function(method, prefix, isJson) {
@@ -109,12 +128,21 @@ const registerMethod = function(method, prefix, isJson) {
           [TokenKey]: getToken() || ""
         }
       })
-        .then(data => {
-          [...successCallback, options.doneCallback, resolve].forEach(fn => {
-            typeof fn === "function" && fn(data);
-          });
+        .then(response => {
+          loading.close(); // 响应成功关闭loading
+          try {
+            const data = checkResponse(response);
+            [...successCallback, options.doneCallback, resolve].forEach(fn => {
+              typeof fn === "function" && fn(data);
+            });
+          } catch (err) {
+            return Promise.reject(err, response);
+          }
         })
         .catch(err => {
+          loading.close(); // 响应成功关闭loading
+          console.log("errrrrrrrrrrr33333", err);
+          console.log("reject", reject, "resolve", resolve);
           [...errorCallback, options.errorCallback, reject].forEach(fn => {
             typeof fn === "function" && fn(err);
           });

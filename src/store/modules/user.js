@@ -27,7 +27,7 @@ function addPath(ele, first) {
     ele[propsDefault.children] && ele[propsDefault.children].length !== 0;
   if (!isChild && first && !isURL(ele[propsDefault.path])) {
     ele[propsDefault.path] = ele[propsDefault.path] + "/index";
-  } else {
+  } else if (isChild) {
     ele[propsDefault.children].forEach(child => {
       if (!isURL(child[propsDefault.path])) {
         child[propsDefault.path] = `${ele[propsDefault.path]}/${

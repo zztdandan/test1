@@ -1,27 +1,23 @@
 {
-  "code": 0,
-  "msg": "成功",
-  "data": {
+  "username": "@cname()--管理员",
+  "imgpath": "/static/avatar/user.png",
+  "userInfo": {
     "username": "@cname()--管理员",
-    "imgpath": "/static/avatar/user.png",
-    "userInfo": {
-      "username": "@cname()--管理员",
-      "name": "@cname()--管理员",
-      "imgpath": "/img/user.png"
-    },
-    "roles": "admin",
-    "permission": [
-      "sys_crud_btn_add",
-      "sys_crud_btn_export",
-      "sys_menu_btn_add",
-      "sys_menu_btn_edit",
-      "sys_menu_btn_del",
-      "sys_role_btn1",
-      "sys_role_btn2",
-      "sys_role_btn3",
-      "sys_role_btn4",
-      "sys_role_btn5",
-      "sys_role_btn6"
-    ]
-  }
+    "name": "@cname()--管理员",
+    "imgpath": "/img/user.png"
+  },
+  "roles": "admin",
+  "permission": [
+    "sys_crud_btn_add",
+    "sys_crud_btn_export",
+    "sys_menu_btn_add",
+    "sys_menu_btn_edit",
+    "sys_menu_btn_del",
+    "sys_role_btn1",
+    "sys_role_btn2",
+    "sys_role_btn3",
+    "sys_role_btn4",
+    "sys_role_btn5",
+    "sys_role_btn6"
+  ]
 }
