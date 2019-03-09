@@ -54,6 +54,20 @@
           "i18n": "table"
         },
         "children": []
+      },
+      {
+        "label": "订单管理页面",
+        "path": "order-view",
+        "component": "views/om/OrderView/OrderView",
+        "icon": "icon-caidan",
+        "children": []
+      },
+      {
+        "label": "画面资源注册",
+        "path": "views-man",
+        "component": "views/bi/MenuReg/ViewMan/ViewMan",
+        "icon": "icon-caidan",
+        "children": []
       }
     ]
   }

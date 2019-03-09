@@ -75,6 +75,7 @@ export const pagiMixin = {
 
 // 以pageUtils为根据的class
 export const pagiClass = function(pagination_return) {
+   // debugger;
    const tmp_res = {
       pageNumber: pagination_return.currPage,
       totalPage: pagination_return.totalPage,

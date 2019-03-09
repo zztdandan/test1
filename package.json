@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "cross-env --MOCK_LOGIN=true --API_PATH_REWRITE=/api/ vue-cli-service serve --open=true --port 8866",
+    "dev": "cross-env --MOCK_LOGIN=true --API_PATH_REWRITE=/api/ vue-cli-service serve --open=true ",
     "dev-local": "cross-env --PROXY_API_IP=local --PROXY_API_PORT=8080 --MOCK_LOGIN=true vue-cli-service serve --open --port 8866",
     "dev-local8888": "cross-env --PROXY_API_IP=local --PROXY_API_PORT=8888 --MOCK_LOGIN=false vue-cli-service serve --open --port 8877",
     "build": "vue-cli-service build",

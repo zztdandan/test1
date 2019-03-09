@@ -1,19 +1,25 @@
 <template>
   <lg-dashboard>页面资源管理
     <avue-crud
+      ref="crud"
       :data="ViewTList"
       :option="viewOption"
       :page="tablePage"
       v-model="ViewData"
       @row-save="hViewSave"
       @row-update="hViewUpdate"
-      @row-del="hViewDel"
       :before-close="hCloseDialog"
       @refresh-change="hRefresh"
       @size-change="hSizeChange"
       @current-change="hCurrentChange"
       @search-change="hSearch"
-    ></avue-crud>
+      @selection-change="hSelectionChange"
+    >
+      <template slot="menuLeft">
+        <el-button size="mini" type="primary" @click="hOpenUpdate">编辑</el-button>
+        <el-button size="mini" type="warning" @click="hViewDelList">删除选中</el-button>
+      </template>
+    </avue-crud>
   </lg-dashboard>
 </template>
 <script>
@@ -28,38 +34,67 @@
   } from "@/mixins/pagination";
   export default {
     name: "view-man",
-    components: {},
+    components: { LgDashboard },
     mixins: [pagiLazyMixin],
     data: function() {
       return {
         ViewTList: [],
         ViewData: {},
+        ViewSelection: [],
         viewOption: {
           menuType: "icon",
           align: "center",
-          viewBtn: true,
+          size: "mini",
+          refreshBtn: false,
+          columnBtn: false,
+          selection: true,
+          viewBtn: false,
+          editBtn: false,
+          delBtn: false,
+          menu: false,
           menuAlign: "center",
-          column: viewEntity
+          column: []
         },
         searchParams: {}
       };
     },
-    created: function() {},
+    created: async function() {
+      let set = await viewEntity();
+      this.$set(this.viewOption, "column", set);
+      this.doQuery(1, 20);
+    },
     mounted: function() {},
     methods: {
+      hOpenUpdate() {
+        debugger;
+        if (this.ViewSelection && this.ViewSelection.length >= 0) {
+          this.$refs["crud"].rowEdit(this.ViewSelection[0]);
+        } else {
+          this.$alert("没有选择列");
+        }
+      },
       hViewSave: async function(data) {
         await CRUD.createView(data);
       },
       hViewUpdate: async function(data) {
         await CRUD.updateView(data);
       },
-      hViewDel: async function(data) {
-        await CRUD.deleteView(data);
+      hViewDel: async function(data) {},
+      hViewDelList: async function() {
+        try {
+          let a = await this.$confirm("确认删除", "提示", { type: "warning" });
+          await CRUD.deleteView(this.ViewSelection);
+        } catch (err) {
+          this.$message({ type: "info", message: "已取消删除" });
+        }
       },
       hCloseDialog() {},
       hSearch(data) {
         this.searchParams = data || {};
         this.doQuery();
+      },
+      hSelectionChange(list) {
+        this.ViewSelection = list;
       },
       doQuery: async function(curr, size) {
         curr = curr || 1;
