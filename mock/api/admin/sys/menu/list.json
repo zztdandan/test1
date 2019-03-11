@@ -3,79 +3,87 @@
         "label": "demo",
         "path": "/dm",
         "component": "views/dm/demo",
+        "icon": "icon-caidan"
+    },
+    {
+        "label": "demo",
+        "path": "demo",
+        "component": "views/dm/demo",
         "icon": "icon-caidan",
-        "children": [
-            {
-                "label": "demo",
-                "path": "demo",
-                "component": "views/dm/demo",
-                "icon": "icon-caidan"
-            },
-            {
-                "label": "no catch demo",
-                "path": "nocatch-demo",
-                "component": "views/dm/nocatch-demo",
-                "icon": "icon-caidan"
-            },
-            {
-                "label": "table demo",
-                "path": "table-dm",
-                "component": "views/dm/table",
-                "icon": "icon-caidan"
-            },
-            {
-                "label": "动态列demo",
-                "path": "user/columns",
-                "component": "views/dm/dync-columns",
-                "icon": "icon-caidan"
-            },
-            {
-                "label": "动态列demo2",
-                "path": "user/columns2",
-                "component": "views/dm/dync-columns",
-                "icon": "icon-caidan"
-            },
-            {
-                "label": "标签",
-                "path": "tags",
-                "component": "views/util/tags",
-                "icon": "icon-caidan",
-                "meta": {
-                    "i18n": "tags"
-                },
-                "children": []
-            },
-            {
-                "label": "表格",
-                "path": "table",
-                "component": "views/util/table",
-                "icon": "icon-caidan",
-                "meta": {
-                    "i18n": "table"
-                },
-                "children": []
-            },
-            {
-                "label": "订单管理页面",
-                "path": "order-view",
-                "component": "views/om/OrderView/OrderView",
-                "icon": "icon-caidan",
-                "children": []
-            },
-            {
-                "label": "画面资源管理",
-                "path": "views-man",
-                "component": "views/bi/MenuReg/ViewMan/ViewManDash",
-                "icon": "icon-caidan",
-                "children": []
-            },
-            {
-                "label": "权限注册",
-                "path": "act-man",
-                "component": "views/bi/MenuReg/ActMan/ActMan",
-                "icon": "icon-caidan",
-                "children": []
-            }
-        ]
+        "parentId": "demo"
+    },
+    {
+        "label": "no catch demo",
+        "path": "nocatch-demo",
+        "component": "views/dm/nocatch-demo",
+        "icon": "icon-caidan",
+        "parentId": "demo"
+    },
+    {
+        "label": "table demo",
+        "path": "table-dm",
+        "component": "views/dm/table",
+        "icon": "icon-caidan",
+        "parentId": "demo"
+    },
+    {
+        "label": "动态列demo",
+        "path": "user/columns",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan",
+        "parentId": "demo"
+    },
+    {
+        "label": "动态列demo2",
+        "path": "user/columns2",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan",
+        "parentId": "demo"
+    },
+    {
+        "label": "标签",
+        "path": "tags",
+        "component": "views/util/tags",
+        "icon": "icon-caidan",
+        "meta": {
+            "i18n": "tags"
+        },
+        "children": [],
+        "parentId": "demo"
+    },
+    {
+        "label": "表格",
+        "path": "table",
+        "component": "views/util/table",
+        "icon": "icon-caidan",
+        "meta": {
+            "i18n": "table"
+        },
+        "children": [],
+        "parentId": "demo"
+    },
+    {
+        "label": "订单管理页面",
+        "path": "order-view",
+        "component": "views/om/OrderView/OrderView",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentId": "demo"
+    },
+    {
+        "label": "画面资源管理",
+        "path": "views-man",
+        "component": "views/bi/MenuReg/ViewMan/ViewManDash",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentId": "demo"
+    },
+    {
+        "label": "权限注册",
+        "path": "act-man",
+        "component": "views/bi/MenuReg/ActMan/ActMan",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentId": "demo"
     }
 ]

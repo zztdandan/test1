@@ -70,12 +70,20 @@
                 "children": []
             },
             {
-                "label": "权限注册",
+                "label": "权限管理",
                 "path": "act-man",
                 "component": "views/bi/MenuReg/ActMan/ActMan",
                 "icon": "icon-caidan",
                 "children": []
+            },
+            {
+                "label": "目录管理",
+                "path": "/menu-man",
+                "component": "views/bi/MenuReg/MenuMan/MenuMan",
+                "icon": "icon-caidan",
+                "children": []
             }
+            
         ]
     }
 ]
