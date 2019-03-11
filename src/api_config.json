@@ -196,7 +196,7 @@
             "querySearchOrderDet": "/om/order-det/queryLazy",
             "queryOrderDetByON": "/om/order-det/query",
             "mesCheckOrderDet": "/om/order-det/mesCheck",
-            "postOrder": "/om/order-det/create"
+            "postOrder": "/om/order/input"
         },
         "Provision": {
             "create": "/om/provision/create",

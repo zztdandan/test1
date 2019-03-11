@@ -16,7 +16,6 @@ async function viewEntity() {
             search: true,
             labelWidth: "120"
         },
-        { type: "text", prop: "icon", label: "画面图标类", labelWidth: "120" },
         {
             type: "text",
             prop: "path",

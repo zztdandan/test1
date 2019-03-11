@@ -7,15 +7,32 @@ import {
 import LG_axios from "@/router/axios-wrap";
 import { list_to_tree } from "@/util/tree_convert";
 
+export async function queryMenuTree(params) {
+    try {
+        const url = api_config.bi.menuMan.queryMenu;
+
+        const res = await LG_axios.get(url, params);
+  
+        const res1 = list_to_tree(res, "code","label", "parentCode");
+      //   debugger;
+        return res1;
+    } catch (err) {
+        // debugger;
+        SimpleNotify("查询出现错误", "目录管理");
+        // console.log(err);
+    }
+}
+
+
 export async function queryMenu(params) {
     try {
         const url = api_config.bi.menuMan.queryMenu;
 
         const res = await LG_axios.get(url, params);
-
-        const res1 = list_to_tree(res, "code", "parentCode");
-        debugger;
-        return res1;
+  
+       
+      //   debugger;
+        return res;
     } catch (err) {
         // debugger;
         SimpleNotify("查询出现错误", "目录管理");

@@ -22,7 +22,7 @@
 </template>
 <script>
   import "linqjs";
-  import getODTEntity from "./utils/ODTEntity";
+  import getODTEntity from "./utils/OADTEntity";
   import {
     pagiLazyMixin,
     pagiMixin,
@@ -31,7 +31,7 @@
   } from "@/mixins/pagination";
   import * as orderApis from "../apis/orderApi";
   export default {
-    name: "order-det-table",
+    name: "order-and-det-table",
     mixins: [pagiLazyMixin],
     components: {},
     props: {},

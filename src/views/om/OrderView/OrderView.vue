@@ -13,20 +13,21 @@
               :form-array="OSearchOpt"
               init-size="mini"
               @search-click="hOrderSearch"
+              @add-order-click="doAddOrder"
             >
               <template slot="s-icon">
                 <div class="mr-2">
                   <a class="hv moon-search" @click="hOpenOSDDialog"></a>
                 </div>
               </template>
+              <!-- <el-button
+                type="primary"
+                v-if="globalStatus=='search'"
+                size="mini"
+                @click="doAddOrder"
+              >创建预览</el-button> -->
             </build-form>
           </div>
-          <div class="order-search-dialog">
-            <order-search-dialog ref="osd" @dialog-close="hOSDCloseDialog" :flag="globalStatus"></order-search-dialog>
-          </div>
-        </el-collapse-item>
-        <el-collapse-item name="2">
-          <template slot="title">订单细则列表</template>
           <div class="order-det-table">
             <!-- <template slot="title">细则table</template> -->
             <order-det-table
@@ -36,9 +37,15 @@
               @odt-edit="hODTPreEdit"
               @odt-add="hODTPreAdd"
             ></order-det-table>
-            <el-button type="primary" v-if="globalStatus=='search'" size="mini" @click="doAddOrder">创建预览</el-button>
+          </div>
+          <div class="order-search-dialog">
+            <order-search-dialog ref="osd" @dialog-close="hOSDCloseDialog" :flag="globalStatus"></order-search-dialog>
           </div>
         </el-collapse-item>
+        <!-- <el-collapse-item name="2">
+          <template slot="title">订单细则列表</template>
+
+        </el-collapse-item>-->
         <el-collapse-item name="3">
           <template slot="title">客户信息</template>
 
@@ -139,7 +146,7 @@
         OSearchOpt: [],
         globalStatus: "search",
         templateODStore: {},
-        activeList: ["1", "2"]
+        activeList: ["1"]
       };
     },
     created: function() {},
@@ -170,6 +177,15 @@
             class: "button button-primary button-small",
             label: "搜索",
             emit: "search-click"
+          });
+        }
+        if (this.globalStatus == "search") {
+          tmp_res = tmp_res.concat({
+            id: "btn-sc1",
+            type: "button",
+            class: "button button-primary button-small",
+            label: "创建预览",
+            emit: "add-order-click"
           });
         }
         return tmp_res;
@@ -247,7 +263,7 @@
         let tmp_order = this.$refs["oif"].getData();
         //  这里定制post文件格式
         let params = { order: tmp_order, order_det: tmp_order_det };
-        let res = await orderApis.postOrder(params);
+        let res = await orderApis.postOrder(tmp_order, tmp_order_det);
         this.tGlobalStatus("search");
       },
       doCancelSubmit() {
@@ -261,7 +277,6 @@
           tmp_status = status;
         }
         this.globalStatus = tmp_status;
-
         //一系列切换的操作
         this.OSearchOpt = this.calcOSOption(statusSetting[status]["s-btn"]);
         this.$refs["odt"].toggleEditable(statusSetting[status]["odt"]);

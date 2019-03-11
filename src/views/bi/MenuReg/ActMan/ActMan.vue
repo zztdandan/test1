@@ -7,7 +7,7 @@
       <el-collapse-item title="管理画面所属权限" name="2">
         <avue-crud
           ref="act-crud"
-          :data="actTList"
+          :data="actListShown"
           :option="actOption"
           :page="tablePage"
           v-model="actData"
@@ -54,6 +54,7 @@
       return {
         activeList: ["1", "2"],
         actTList: [],
+        actListShown: [],
         actData: {},
         actSelection: [],
         actOption: {
@@ -146,7 +147,11 @@
       doQuery: async function() {
         //  得到分页数据
         let res = await CRUD.queryAct(this.searchParams);
-        this.actTList = res;
+        this.totalData = res;
+        this.skipPage();
+      },
+      skipPage() {
+        this.actTList = this.calcShownData;
       }
     },
     watch: {}

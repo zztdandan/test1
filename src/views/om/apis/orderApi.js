@@ -36,10 +36,11 @@ export const mesCheckOrderDet = async function(obj) {
     }
 };
 
-export const postOrder = async function(obj) {
+export const postOrder = async function(order,order_det) {
     try {
         const url = api_config.om.OrderView.postOrder;
-        const res = await LG_axios.post(url, obj);
+        const params={order:order,orderDetList:order_det}
+        const res = await LG_axios.postJson(url, params);
         SimpleMessage("添加成功");
         return res;
     } catch (error) {
