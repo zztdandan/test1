@@ -2,6 +2,9 @@ const CompressionWebpackPlugin = require("compression-webpack-plugin");
 const setAlias = require("./vue_config/alias");
 const proxy = require("./config/proxy");
 
+console.log(
+  `${process.env.OPEN_BROWSER} ? ${process.env.OPEN_BROWSER !== "false"}`
+);
 // 基础路径 注意发布之前要先修改这里
 const publicPath = "./";
 const PROD = process.env.NODE_ENV === "production";
