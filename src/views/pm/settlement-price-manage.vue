@@ -1,0 +1,169 @@
+<template>
+  <basic-container>
+    <avue-crud
+      :option="option"
+      :page="page"
+      :data="data"
+      ref="crud1"
+    >
+      <template
+        slot-scope="scope"
+        slot="menuLeft"
+      >
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          size="small"
+          plain
+          @click="handleDialog('reportlet=YKCS_SETTLEMENT_PRICE.cpt&op=write&pcid=1',false)"
+        >新增</el-button>
+        <el-button
+          type="primary"
+          icon="el-icon-plus"
+          size="small"
+          plain
+          @click="handleDialog('reportlet=YKCS_SETTLEMENT_PRICE_EDIT.cpt&op=write&pcid=1',true)"
+        >编辑</el-button>
+      </template>
+    </avue-crud>
+
+
+    <el-dialog
+      title
+      :visible.sync="dialog.visible"
+      width="80%"
+      :fullscreen="true"
+      :before-close="handleClose"
+    >
+      <div>
+        <avue-form
+          :option="dialog.formOption"
+          v-model="dialog.form"
+        ></avue-form>
+        <iframe
+          :src="url"
+          v-if="this.dialog.form.prodCategories.length>0"
+          frameborder="0"
+        ></iframe>
+      </div>
+    </el-dialog>
+  </basic-container>
+</template>
+
+<script>
+const baseReportUrl="http://172.16.2.245:8080/WebReport/ReportServer?"
+export default {
+  data() {
+    return {
+      settlement_date: false,
+      dialog: {
+        visible: false,
+        ifrPath: "",
+        form: { url: "",prodCategories:"" },
+        formOption: {
+          labelWidth: 100,
+          emptyBtn: false,
+          submitBtn: false,
+          column: [
+            
+            {
+              label: "产品大类",
+              prop: "prodCategories",
+              type: "select",
+              props: {
+                label: "prodCategories",
+                value: "id"
+              },
+              dicUrl: '/bd/product-categories/query',
+              rules: [
+                {
+                  required: true,
+                  message: "请选择产品大类 ",
+                  trigger: "blur"
+                }
+              ]
+            },
+            {
+              label: "结算价日期",
+              display: this.settlement_date,
+              prop: "date",
+              type: "date",
+              format: "yyyy-MM-dd"
+            }
+
+          ]
+        }
+      },
+
+      page: {
+        total: 122
+      },
+      data: [
+        
+      ],
+      option: {
+        addBtn: false,
+        editBtn: false,
+        column: [
+          {
+            label: "产品大类",
+            prop: "prodCategories",
+            span: 14,
+            row: true
+          },
+          {
+            label: "最新结算价日期",
+            prop: "latestSettlementDate",
+            span: 14,
+            row: true
+          }
+          
+        ]
+      }
+    };
+  },
+  created(){
+      this.query()
+  },
+  computed:{
+      url:function(){
+          const date=dayjs(this.dialog.form.date).format("YYYY-MM-DD");
+          const url=`${baseReportUrl}${this.dialog.ifrPath}&settlementdate=${date}&aa=`+this.dialog.form.prodCategories;
+          return url
+
+      }
+  },
+  methods: {
+    handleDialog(path,visible) {
+      this.dialog.visible = true;
+      this.dialog.ifrPath=path;
+      this.settlement_date=visible;
+    },
+    // handleUpdate() {
+    //   this.dialog.visible = true;
+    // },
+    handleClose() {
+      this.dialog.visible = false;
+    },
+    query(){
+        const self=this;
+        const data=[];
+        this.$$get("/mockxx/pm/settlement-price/queryLatestDateByProdCate").then(d=>{
+            
+            d.forEach(v=>data.push(v.tails));
+            self.data=data;
+        })
+    }
+  }
+};
+</script>
+
+<style>
+iframe {
+  display: block; /* iframes are inline by default */
+  border: none; /* Reset default border */
+  height: 100%; /* Viewport-relative units */
+  width: 100%;
+  min-height: calc(85vh - 10rem);
+}
+</style>

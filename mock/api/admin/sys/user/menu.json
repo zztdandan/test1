@@ -70,5 +70,25 @@
         "children": []
       }
     ]
+  },
+  {
+    "label": "价格管理",
+    "path": "/pm",
+    "component": "views/pm/demo",
+    "icon": "icon-caidan",
+    "children": [
+      {
+        "label": "市场价管理",
+        "path": "market-price-manage",
+        "component": "views/pm/market-price-manage",
+        "icon": "icon-caidan"
+      },
+      {
+        "label": "结算价管理",
+        "path": "settlement-price-manage",
+        "component": "views/pm/settlement-price-manage",
+        "icon": "icon-caidan"
+      }
+    ]
   }
 ]
