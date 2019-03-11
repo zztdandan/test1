@@ -9,7 +9,7 @@
       </div>
       <div class="flex-item-16 main-height">
         <avue-crud
-          :data="menuListShown"
+          :data="menuTList"
           :option="MenuOption"
           :page="tablePage"
           v-model="MenuData"
@@ -53,7 +53,6 @@
       return {
         mainMenuList: [],
         menuTList: [],
-        menuListShown: [],
         MenuData: {},
         sMenuLabel: "",
         sMenuEntity: {}
@@ -65,7 +64,7 @@
       let that_vue = this;
       let res = await CRUD.queryMenu({});
       this.totalData = res;
-      this.menuTList = this.calcShownData;
+      this.skipPage();
     },
     methods: {
       hMenuSelect(label, entity) {
@@ -75,11 +74,31 @@
       },
       hRefreshList(entity) {
         let tmp_arr = [].concat(this.mainMenuList);
-        this.menuList = tmp_arr.where(x => x.parentCode == entity.code);
+        this.menuList = tmp_arr.where(x => x.parentId == entity.id);
       },
       hCloseDialog() {},
       skipPage() {
         this.menuTList = this.calcShownData;
+      },
+      hMenuSave: async function(data, index, done, loading) {
+        try {
+          await CRUD.createMenu(data);
+          done();
+          this.doQuery();
+        } catch (error) {
+          done();
+          console.log(error);
+        }
+      },
+      hMenuUpdate: async function(data, index, done, loading) {
+        try {
+          await CRUD.updateMenu(data);
+          done();
+          this.doQuery();
+        } catch (error) {
+          done();
+          console.log(error);
+        }
       }
     }
   };

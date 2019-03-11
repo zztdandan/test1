@@ -22,7 +22,7 @@ async function menuEntity() {
         },
         {
             type: "text",
-            prop: "parentName",
+            prop: "viewCode",
             label: "画面名",
             readonly: true,
             labelWidth: "80"

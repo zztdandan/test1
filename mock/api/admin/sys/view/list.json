@@ -9,7 +9,6 @@
             "code": "EPEP01",
             "label": "常数项注册",
             "path": "/bicc01",
-
             "component": "views/bi/ConstantCodeMan"
         },
         {

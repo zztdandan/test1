@@ -81,9 +81,8 @@
     mounted: function() {},
     methods: {
       hpcodeSelect(code, name) {
-        debugger;
         this.actData.pcode = code;
-        this.actData.parentName = name;
+        this.actData.viewLabel = name;
       },
       hViewSelection(list) {
         if (list.length > 0) {
@@ -92,7 +91,6 @@
         }
       },
       hOpenUpdate() {
-        // debugger;
         if (this.actSelection && this.actSelection.length > 0) {
           this.$refs["act-crud"].rowEdit(this.actSelection[0]);
         } else {
