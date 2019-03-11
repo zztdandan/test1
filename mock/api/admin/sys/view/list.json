@@ -1,0 +1,24 @@
+{
+    "currPage": 1,
+    "totalPage": 1,
+    "pageSize": 30,
+    "totalCount": 2,
+    "list": [
+        {
+            "id": 1,
+            "code": "EPEP01",
+            "label": "常数项注册",
+            "path": "/bicc01",
+            "icon": "icon-caidan",
+            "component": "views/bi/ConstantCodeMan"
+        },
+        {
+            "id": 2,
+            "code": "EPED54",
+            "label": "列管理画面",
+            "path": "/bicm02",
+            "icon": "icon-caidan",
+            "component": "views/bi/ConstantCodeMan"
+        }
+    ]
+}

@@ -13,7 +13,7 @@ module.exports = {
     devServer: {
         // open: process.platform === 'darwin',
         host: "localhost",
-    port: 8877,
+    port: 9528,
         https: false,
         open: true, // 启动服务后是否打开浏览器
         hotOnly: false,

@@ -1,8 +1,4 @@
 {
-    "reqId": "5c807bb2e4b0f686891ded11",
-    "code": 0,
-    "msg": "处理成功",
-    "data": {
         "totalCount": 2,
         "pageSize": 20,
         "totalPage": 1,
@@ -30,4 +26,4 @@
             }
         ]
     }
-}
+

@@ -14,7 +14,8 @@
       @size-change="hSizeChange"
       @current-change="hCurrentChange"
       @search-change="hSearch"
-    ></avue-crud>
+    >
+    </avue-crud>
   </lg-dashboard>
 </template>
 
@@ -41,7 +42,10 @@
           menuType: "icon",
           title: "订单明细",
           align: "center",
-          viewBtn: true,
+          
+          viewBtn: false,
+          editBtn: false,
+          delBtn: false,
           menuAlign: "center",
           column: OrderDetSettings.entity
         }

@@ -9,12 +9,12 @@
       @selection-change="hSelectionChange"
     >
       <template slot="menuLeft">
-        <el-button v-if="editable" type="primary" size="small" @click="hAddClick">新增</el-button>
+        <el-button v-if="editable" type="primary" size="mini" @click="hAddClick">新增</el-button>
       </template>
       <template slot-scope="scope" slot="menu">
         <div class="flex-column flex-between">
-          <el-button v-if="editable" type="primary" size="small" @click="hEditClick(scope)">编辑</el-button>
-          <el-button v-if="editable" type="danger" size="small" @click="hDeleteClick(scope)">删除</el-button>
+          <el-button v-if="editable" type="primary" size="mini" @click="hEditClick(scope)">编辑</el-button>
+          <el-button v-if="editable" type="danger" size="mini" @click="hDeleteClick(scope)">删除</el-button>
         </div>
       </template>
     </avue-crud>
@@ -43,6 +43,7 @@
           addBtn: false,
           sortable: true,
           editBtn: false,
+          size: "mini",
           delBtn: false,
           selection: true,
           menuWidth: "240",

@@ -36,7 +36,7 @@
               @odt-edit="hODTPreEdit"
               @odt-add="hODTPreAdd"
             ></order-det-table>
-            <el-button type="primary" v-if="globalStatus=='search'" @click="doAddOrder">创建预览</el-button>
+            <el-button type="primary" v-if="globalStatus=='search'" size="mini" @click="doAddOrder">创建预览</el-button>
           </div>
         </el-collapse-item>
         <el-collapse-item name="3">
@@ -64,9 +64,19 @@
         <div class="button-group-form">
           <!-- <template slot="title">按钮组</template> -->
           <div class="flex-md-6">
-            <el-button type="primary" v-if="globalStatus!='search'" @click="doSubmitOrder">确定</el-button>
-            <el-button type="primary" v-if="globalStatus!='search'" @click="doCancelSubmit">取消当前新增</el-button>
-            <el-button type="primary">打印</el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              v-if="globalStatus!='search'"
+              @click="doSubmitOrder"
+            >确定</el-button>
+            <el-button
+              type="primary"
+              size="mini"
+              v-if="globalStatus!='search'"
+              @click="doCancelSubmit"
+            >取消当前新增</el-button>
+            <el-button type="primary" size="mini">打印</el-button>
           </div>
         </div>
       </el-collapse>
