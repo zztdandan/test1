@@ -1,0 +1,33 @@
+{
+    "reqId": "5c807bb2e4b0f686891ded11",
+    "code": 0,
+    "msg": "处理成功",
+    "data": {
+        "totalCount": 2,
+        "pageSize": 20,
+        "totalPage": 1,
+        "currPage": 1,
+        "list": [
+            {
+                "orderNo": "2",
+                "prodClass": "1",
+                "exportFlag": "1",
+                "prodReadyDate": "20190101",
+                "delivyDateTrnp": "20190101",
+                "delivyDateUser": "20190101",
+                "delivyDate": "20190101",
+                "psc": "1"
+            },
+            {
+                "orderNo": "3",
+                "prodClass": "0",
+                "exportFlag": "0",
+                "prodReadyDate": "20190101",
+                "delivyDateTrnp": "20190101",
+                "delivyDateUser": "20190101",
+                "delivyDate": "20190101",
+                "psc": "0"
+            }
+        ]
+    }
+}

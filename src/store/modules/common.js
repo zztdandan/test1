@@ -15,7 +15,7 @@ const common = {
     showLock: true,
     showFullScren: true,
     showTheme: true,
-    showMenu: true,
+    showMenu: false,
     showColor: true,
     colorName: getStore({ name: "colorName" }) || "#409EFF",
     themeName: getStore({ name: "themeName" }) || "theme-white",

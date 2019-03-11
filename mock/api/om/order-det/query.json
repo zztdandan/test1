@@ -1,0 +1,38 @@
+{
+    "reqId": "5c807bb2e4b0f686891ded11",
+    "code": 0,
+    "msg": "处理成功",
+    "data":{
+        "order":{
+              "orderNo":"2",
+              "orderRecvTime":"20190301",
+              "orderTransactor":"张三",
+              "customerConfirmFlag":"1",
+              "numOfCars":50
+        },
+        "orderDet":[
+            {
+                "id":1,
+                "orderNo": "2",
+                "prodClass": "1",
+                "exportFlag": "1",
+                "prodReadyDate": "20190101",
+                "delivyDateTrnp": "20190101",
+                "delivyDateUser": "20190101",
+                "delivyDate": "20190101",
+                "psc": "1"
+            },
+            {
+                "id":2,
+                "orderNo": "2",
+                "prodClass": "0",
+                "exportFlag": "0",
+                "prodReadyDate": "20190101",
+                "delivyDateTrnp": "20190101",
+                "delivyDateUser": "20190101",
+                "delivyDate": "20190101",
+                "psc": "2"
+            }
+        ]
+    } 
+}
