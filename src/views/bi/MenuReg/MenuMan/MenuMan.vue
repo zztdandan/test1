@@ -3,7 +3,7 @@
     <template slot="title">菜单管理</template>
 
     <div class="flex-column">
-      <div class="pd-3 flex-item-8 main-height">
+      <div class="flex-item-8 main-height">
         <!-- 加载菜单树 -->
         <el-tree
           ref="menu-tree"
@@ -12,9 +12,7 @@
           @node-click="handleNodeClick"
         ></el-tree>
       </div>
-      <div class="pd3 flex-item-16 main-height">
-        
-      </div>
+      <div class="flex-item-16 main-height"></div>
     </div>
   </lg-dashboard>
 </template>

@@ -42,6 +42,7 @@
           menuType: "icon",
           title: "订单明细",
           align: "center",
+          
           viewBtn: false,
           editBtn: false,
           delBtn: false,

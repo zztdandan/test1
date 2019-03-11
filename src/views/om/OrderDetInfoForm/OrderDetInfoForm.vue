@@ -3,8 +3,8 @@
     <avue-form ref="aform" v-model="ODIFObject" :option="ODIFOption" class="custom">
       <template slot="menuForm">
         <div class="flex-md">
-          <el-button v-if="btnType=='add'" type="primary" @click="hConfirmAdd">确认添加</el-button>
-          <el-button v-if="btnType=='edit'" type="primary" @click="hConfirmEdit">确认编辑</el-button>
+          <el-button v-if="btnType=='add'" type="primary" size="mini" @click="hConfirmAdd">确认添加</el-button>
+          <el-button v-if="btnType=='edit'" type="primary" size="mini"  @click="hConfirmEdit">确认编辑</el-button>
           <el-button v-if="btnType!=''" @click="hConfirmCancel">取消</el-button>
         </div>
       </template>
@@ -21,6 +21,7 @@
       return {
         ODIFObject: {},
         ODIFOption: {
+          size:"mini",
           menuBtn: true,
           submitBtn: false,
           emptyBtn: false,

@@ -10,8 +10,8 @@
     <order-det-table :editable="false" ref="order-det"></order-det-table>
     <template slot="footer">
       <div class="flex-md">        
-        <el-button type="primary" @click="hSelectOrderNum" >确定</el-button>
-        <el-button @click="hCancel">取消</el-button>
+        <el-button size="mini" type="primary" @click="hSelectOrderNum" >确定</el-button>
+        <el-button size="mini" @click="hCancel">取消</el-button>
       </div>
     </template>
   </el-dialog>
@@ -21,8 +21,6 @@
   import OrderDetTable from "../OrderDetTable/OrderDetTable";
   import getOSBE from "./utils/OrderSearchBarEntity";
   import * as orderApis from "../apis/orderApi";
-  import { constants } from "fs";
-  import { async } from "q";
   export default {
     name: "order-search-dialog",
     components: { BuildForm, OrderDetTable },
