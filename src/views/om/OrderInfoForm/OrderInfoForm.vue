@@ -14,6 +14,7 @@
         OIFObject: {},
         OIFOption: {
           menuBtn: false,
+          size:"mini",
           submitBtn: false,
           emptyBtn: false,
           column: []

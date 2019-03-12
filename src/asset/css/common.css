@@ -52,3 +52,10 @@
     align-items: center;
     flex-wrap: wrap;
 }
+.flex-cmd{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}

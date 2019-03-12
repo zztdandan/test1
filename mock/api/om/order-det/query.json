@@ -1,8 +1,4 @@
 {
-    "reqId": "5c807bb2e4b0f686891ded11",
-    "code": 0,
-    "msg": "处理成功",
-    "data":{
         "order":{
               "orderNo":"2",
               "orderRecvTime":"20190301",
@@ -35,4 +31,4 @@
             }
         ]
     } 
-}
+

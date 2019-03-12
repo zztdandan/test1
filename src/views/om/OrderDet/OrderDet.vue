@@ -14,8 +14,7 @@
       @size-change="hSizeChange"
       @current-change="hCurrentChange"
       @search-change="hSearch"
-    >
-    </avue-crud>
+    ></avue-crud>
   </lg-dashboard>
 </template>
 
@@ -42,6 +41,7 @@
           menuType: "icon",
           title: "订单明细",
           align: "center",
+
           viewBtn: false,
           editBtn: false,
           delBtn: false,
@@ -74,11 +74,15 @@
       },
       doQuery: async function() {
         let res = await CRUD.queryOrderDet(this.searchParams);
-        this.OrderDetTList = res;
+        this.totalData = res;
+        this.skipPage();
       },
       hSearch(params) {
         this.searchParams = params || {};
         this.doQuery();
+      },
+      skipPage() {
+        this.OrderDetTList = calcShownData;
       }
     }
   };

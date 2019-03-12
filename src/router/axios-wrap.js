@@ -25,24 +25,24 @@ import { getToken, TokenKey } from "@/util/auth";
 import { isArray, loading, mergeOptions } from "./axios-util";
 
 const service = axios.create({
-  timeout: process.env.NODE_ENV === "production" ? 1000 * 60 * 10 : 1000 * 30, // 请求超时时间,正式环境10分钟，测试环境30s
-  headers: {
-    // axio默认使用json格式，这里改为form-data格式
-    // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-  }
+    timeout: process.env.NODE_ENV === "production" ? 1000 * 60 * 10 : 1000 * 30, // 请求超时时间,正式环境10分钟，测试环境30s
+    headers: {
+        // axio默认使用json格式，这里改为form-data格式
+        // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+    }
 });
 
 // request拦截器
 service.interceptors.request.use(
-  config => {
-    if (typeof config.Loading !== "undefined") {
-      loading.open(!!config.Loading); // 请求打开loading
-    }
-    config.headers[TokenKey] = getToken() || "";
+    config => {
+        if (typeof config.Loading !== "undefined") {
+            loading.open(!!config.Loading); // 请求打开loading
+        }
+        config.headers[TokenKey] = getToken() || "";
 
-    return config;
-  },
-  error => Promise.reject(error)
+        return config;
+    },
+    error => Promise.reject(error)
 );
 
 // response 拦截器
@@ -111,9 +111,6 @@ const checkResponse = response => {
       // data.code!==0,业务出错
       throw Error(`业务出错:${data.extMsg || data.msg}`);
     }
-  } else {
-    return data;
-  }
 };
 // 生成axios的快捷方法，"get", "post", "put", "delete", "patch"，加前缀$$,提交数据格式为application/x-www-form-urlencoded,
 // 如果是json格式，则后缀为Json，如$$postJson
@@ -163,22 +160,22 @@ const registerMethod = function(method, prefix, isJson) {
 };
 // 初始化
 (function init() {
-  methods.forEach(method => {
-    registerMethod(method, "$$", false);
-    registerMethod(method, "$$", true);
-  });
+    methods.forEach(method => {
+        registerMethod(method, "$$", false);
+        registerMethod(method, "$$", true);
+    });
 })();
 axiosWrap.install = function(Vue, options) {
-  Vue.prototype.$defaultAxios = axios;
-  Vue.prototype.$axios = service;
-  Vue.prototype.$qs = qs;
-  if (typeof window !== "undefined") {
-    window.LG_axios = axiosWrap;
-  }
-  methods.forEach(method => {
-    Vue.prototype["$$" + method] = axiosWrap[/* "$$" +  */ method];
-    Vue.prototype["$$" + method + "Json"] =
-      axiosWrap[/* "$$" +  */ method + "Json"];
-  });
+    Vue.prototype.$defaultAxios = axios;
+    Vue.prototype.$axios = service;
+    Vue.prototype.$qs = qs;
+    if (typeof window !== "undefined") {
+        window.LG_axios = axiosWrap;
+    }
+    methods.forEach(method => {
+        Vue.prototype["$$" + method] = axiosWrap[/* "$$" +  */ method];
+        Vue.prototype["$$" + method + "Json"] =
+            axiosWrap[/* "$$" +  */ method + "Json"];
+    });
 };
 export default axiosWrap;

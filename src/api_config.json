@@ -120,15 +120,17 @@
         },
         "viewMan": {
             "queryViewLazy": "/admin/sys/view/list",
+            "queryViewFilter": "/admin/sys/view/query",
             "createView": "/admin/sys/view/create",
             "updateView": "/admin/sys/view/update",
             "deleteView": "/admin/sys/view/delete"
         },
         "actMan": {
-            "queryActByMenu": "/admin/sys/menu/select",
-            "createMenu": "/admin/sys/act/create",
-            "updateMenu": "/admin/sys/act/update",
-            "deleteMenu": "/admin/sys/act/delete"
+           
+            "queryActByMenu": "/admin/sys/act/select",
+            "createAct": "/admin/sys/act/create",
+            "updateAct": "/admin/sys/act/update",
+            "deleteAct": "/admin/sys/act/delete"
         },
         "deptMan": {
             "queryDeptLazy": "/admin/sys/dept/lazy",
@@ -194,7 +196,7 @@
             "querySearchOrderDet": "/om/order-det/queryLazy",
             "queryOrderDetByON": "/om/order-det/query",
             "mesCheckOrderDet": "/om/order-det/mesCheck",
-            "postOrder": "/om/order-det/create"
+            "postOrder": "/om/order/input"
         },
         "Provision": {
             "create": "/om/provision/create",

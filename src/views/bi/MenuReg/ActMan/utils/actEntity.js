@@ -1,11 +1,11 @@
 import getCodeByClass from "@/business_utils/getCodeByClass";
 
-async function menuEntity() {
+async function actEntity() {
     const entity = [
         {
             type: "text",
             prop: "code",
-            label: "目录编码",
+            label: "权限编码",
             labelWidth: "80"
         },
         {
@@ -19,7 +19,7 @@ async function menuEntity() {
             label: "画面代码",
             prop: "pcode",
             formslot: true
-        },
+          },
         {
             type: "text",
             prop: "parentName",
@@ -31,4 +31,4 @@ async function menuEntity() {
     return entity;
 }
 
-export default menuEntity;
+export default actEntity;

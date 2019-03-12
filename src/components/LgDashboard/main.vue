@@ -1,6 +1,7 @@
 <template>
   <div class="dash-board-panel" :style="dashboard_bg">
     <div class="dash-board-title">
+      {{title}}
       <slot name="title"></slot>
     </div>
     <div class="dash-board-content">
@@ -19,7 +20,8 @@
       fc: {
         type: String,
         default: "black"
-      }
+      },
+      title:{type:String,default:""}
     },
     name: "lg-dash-board",
     computed: {
