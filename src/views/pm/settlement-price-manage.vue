@@ -15,14 +15,14 @@
           icon="el-icon-plus"
           size="small"
           plain
-          @click="handleDialog('reportlet=YKCS_SETTLEMENT_PRICE.cpt&op=write&pcid=1',false)"
+          @click="handleDialog('reportlet=PM_SETTLEMENT_PRICE_CREATE.cpt&op=write',false)"
         >新增</el-button>
         <el-button
           type="primary"
           icon="el-icon-plus"
           size="small"
           plain
-          @click="handleDialog('reportlet=YKCS_SETTLEMENT_PRICE_EDIT.cpt&op=write&pcid=1',true)"
+          @click="handleDialog('reportlet=PM_SETTLEMENT_PRICE_EDIT.cpt&op=write',true)"
         >编辑</el-button>
       </template>
     </avue-crud>
@@ -51,7 +51,7 @@
 </template>
 
 <script>
-const baseReportUrl="http://172.16.2.245:8080/WebReport/ReportServer?"
+const baseReportUrl="http://172.16.4.148:8080/WebReport/ReportServer?"
 export default {
   data() {
     return {
@@ -104,6 +104,8 @@ export default {
       option: {
         addBtn: false,
         editBtn: false,
+        index: true,
+        indexLabel: '序号',
         column: [
           {
             label: "产品大类",
@@ -148,7 +150,7 @@ export default {
     query(){
         const self=this;
         const data=[];
-        this.$$get("/mockxx/pm/settlement-price/queryLatestDateByProdCate").then(d=>{
+        this.$$get("/api/pm/settlement-price/queryLatestDateByProdCate").then(d=>{
             
             d.forEach(v=>data.push(v.tails));
             self.data=data;

@@ -10,20 +10,6 @@
         slot-scope="scope"
         slot="menuLeft"
       >
-        <el-button
-          type="primary"
-          icon="el-icon-plus"
-          size="small"
-          plain
-          @click="handleDialog('reportlet=PM_MARKET_PRICE_CREATE.cpt&op=write',false)"
-        >新增</el-button>
-        <el-button
-          type="primary"
-          icon="el-icon-plus"
-          size="small"
-          plain
-          @click="handleDialog('reportlet=PM_MARKET_PRICE_EDIT.cpt&op=write',true)"
-        >编辑</el-button>
       </template>
     </avue-crud>
 
@@ -108,19 +94,61 @@ export default {
         index: true,
         indexLabel: '序号',
         column: [
+            
           {
             label: "产品大类",
-            prop: "prodCategories",
+            prop: "productCategories",
             span: 14,
             row: true
           },
           {
-            label: "最新市场价日期",
-            prop: "latestMarketDate",
+            label: "产品名称",
+            prop: "productName",
+            span: 14,
+            row: true
+          },
+          {
+            label: "牌号",
+            prop: "steelGrade",
+            span: 14,
+            row: true
+          },
+          {
+            label: "规格",
+            prop: "specifications",
+            span: 14,
+            row: true
+          },
+          {
+            label: "省份",
+            prop: "province",
+            span: 14,
+            row: true
+          },
+          {
+            label: "市区",
+            prop: "city",
+            span: 14,
+            row: true
+          },
+          {
+            label: "倒推天数",
+            prop: "delayDays",
+            span: 14,
+            row: true
+          },
+          {
+            label: "开始日期",
+            prop: "beginDate",
+            span: 14,
+            row: true
+          },
+          {
+            label: "结束日期",
+            prop: "endDate",
             span: 14,
             row: true
           }
-          
         ]
       }
     };
@@ -131,7 +159,7 @@ export default {
   computed:{
       url:function(){
           const date=dayjs(this.dialog.form.date).format("YYYY-MM-DD");
-          const url=`${baseReportUrl}${this.dialog.ifrPath}&marketdate=${date}&pcid=`+this.dialog.form.prodCategories;
+          const url=`${baseReportUrl}${this.dialog.ifrPath}&marketdate=${date}&aa=`+this.dialog.form.prodCategories;
           return url
 
       }
@@ -148,7 +176,7 @@ export default {
     query(){
         const self=this;
         const data=[];
-        this.$$get('/pm/market-price/queryLatestDateByProdCate').then(d=>{
+        this.$$get('/pm/delay-days/query').then(d=>{
             d.forEach(v=>data.push(v.tails));
             self.data=data;
         })

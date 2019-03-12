@@ -74,6 +74,26 @@
         "path": "settlement-price-manage",
         "component": "views/pm/settlement-price-manage",
         "icon": "icon-caidan"
+      },
+      {
+        "label": "倒推天数维护",
+        "path": "retrodict-day",
+        "component": "views/pm/retrodict-day",
+        "icon": "icon-caidan"
+      }
+    ]
+  },
+  {
+    "label": "合同管理",
+    "path": "/om",
+    "component": "views/om/demo",
+    "icon": "icon-caidan",
+    "children": [
+      {
+        "label": "订单录入Demo",
+        "path": "OrderView",
+        "component": "views/om/OrderView/OrderView",
+        "icon": "icon-caidan"
       }
     ]
   }
