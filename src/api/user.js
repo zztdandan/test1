@@ -1,7 +1,7 @@
 import lgAxios from "@/router/axios-wrap";
 import { baseUrl } from "@/config/env";
 export const loginByUsername = (username, password, code, redomStr) =>
-  lgAxios.get(baseUrl + "/admin/login", {
+  lgAxios.post(baseUrl + "/admin/login", {
     username,
     password,
     code,
@@ -24,4 +24,4 @@ export const getTopMenu = () =>
  */
 export const sendLogs = list => lgAxios.post(baseUrl + "/user/logout", list);
 
-export const logout = () => lgAxios.get(baseUrl + "/user/logout");
+export const logout = () => lgAxios.get(baseUrl + "/admin/sys/user/logout");

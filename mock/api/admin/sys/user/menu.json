@@ -1,7 +1,7 @@
 [
   {
     "label": "订单模块",
-    "path": "om",
+    "path": "/om",
     "component": "views/om/OrderView/OrderView",
     "icon": "icon-caidan",
     "children": [
@@ -35,7 +35,7 @@
   },
   {
     "label": "基础模块",
-    "path": "views-man",
+    "path": "/bi",
     "component": "views/bi/MenuReg/ViewMan/ViewMan",
     "icon": "icon-caidan",
     "children": [
