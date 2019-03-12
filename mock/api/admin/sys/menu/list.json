@@ -1,121 +1,79 @@
 [
     {
-        "code":"demo",
-        "label": "测试目录",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
+        "id": 1,
+        "name": "根目录",
         "icon": "icon-caidan",
-        "parentCode": null
+        "parentId": null,
+        "parentName": null
     },
     {
-        "code":"demo1",
-        "label": "demo",
-        "path": "demo",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "component": "views/dm/demo",
+        "id": 2,
+        "name": "demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
         "icon": "icon-caidan",
-        "parentCode": "demo"
+        "parentId": 1,
+        "parentName": "根目录"
     },
     {
-        "code":"demo2",
-        "label": "no catch demo",
-        "path": "nocatch-demo",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "component": "views/dm/nocatch-demo",
+        "id": 3,
+        "name": "no catch demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
         "icon": "icon-caidan",
-        "parentCode": "demo"
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo3",
-        "label": "table demo",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "path": "table-dm",
-        "component": "views/dm/table",
+        "id": 4,
+        "name": "table demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
         "icon": "icon-caidan",
-        "parentCode": "demo"
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo4",
-        "label": "动态列demo",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "path": "user/columns",
-        "component": "views/dm/dync-columns",
+        "id": 5,
+        "name": "动态列demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
         "icon": "icon-caidan",
-        "parentCode": "demo"
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo5",
-        "label": "动态列demo2",
-        "path": "user/columns2",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "component": "views/dm/dync-columns",
-        "icon": "icon-caidan",
-        "parentCode": "demo"
+        "id": 6,
+        "name": "动态列demo2",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo6",
-        "label": "标签",
-        "path": "tags",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "component": "views/util/tags",
+        "id": 7,
+        "name": "订单管理页面",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
         "icon": "icon-caidan",
-        "meta": {
-            "i18n": "tags"
-        },
-        "children": [],
-        "parentCode": "demo"
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo7",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "label": "表格",
-        "path": "table",
-        "component": "views/util/table",
+        "id": 8,
+        "name": "画面资源管理",
+        "viewCode": "EPESOBJ",
+        "viewLabel": "画面资源管理",
         "icon": "icon-caidan",
-        "meta": {
-            "i18n": "table"
-        },
-        "children": [],
-        "parentCode": "demo"
+        "parentName": "根目录",
+        "parentId": 1
     },
     {
-        "code":"demo8",
-        "label": "订单管理页面",
-        "viewCode":"demo",
-        "viewLabel":"测试目录",
-        "path": "order-view",
-        "component": "views/om/OrderView/OrderView",
-        "icon": "icon-caidan",
-        "children": [],
-        "parentCode": "demo"
-    },
-    {
-        "code":"demo9",
-        "label": "画面资源管理",
-        "viewCode":"EPESOBJ",
-        "viewLabel":"画面资源管理",
-        "path": "views-man",
-        "component": "views/bi/MenuReg/ViewMan/ViewManDash",
-        "icon": "icon-caidan",
-        "children": [],
-        "parentCode": "demo"
-    },
-    {
-        "code":"demo10",
-        "viewCode":"BIAM01",
-        "viewLabel":"权限管理页面",
-        "label": "权限管理页面",
-        "path": "act-man",
-        "component": "views/bi/MenuReg/ActMan/ActMan",
-        "icon": "icon-caidan",
-        "children": [],
-        "parentCode": "demo"
+        "id": 9,
+        "name": "权限管理页面",
+        "viewCode": "BIAM01",
+        "viewLabel": "权限管理页面",
+        "parentName": "根目录",
+        "parentId": 1
     }
 ]

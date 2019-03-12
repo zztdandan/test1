@@ -2,6 +2,7 @@
 <template>
   <el-autocomplete
     class="wd"
+    name="pcode"
     v-model="data1"
     :fetch-suggestions="hQueryView"
     placeholder="请输入内容"
