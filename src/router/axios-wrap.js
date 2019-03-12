@@ -21,7 +21,7 @@ import axios from "axios";
 import changeUrl from "./change-url";
 import qs from "qs";
 import { getToken, TokenKey } from "@/util/auth";
-//import { Loading, MessageBox, Notification } from "element-ui";
+// import { Loading, MessageBox, Notification } from "element-ui";
 import { isArray, loading, mergeOptions } from "./axios-util";
 
 const service = axios.create({
@@ -79,7 +79,15 @@ service.interceptors.request.use(
 // );
 const methods = ["get", "post", "put", "delete", "patch"];
 const axiosWrap = {};
+axiosWrap.originAxios = axios;
 
+/**
+ * 预处理返回值，如果是标准格式{包含code/reqId/data}，并且code===0，则：
+ * 如果存在tails，则将tails里的属性扩展到data里；
+ * 然后直接返回业务数据data
+ * 如果code！==0的，
+ * 不是标准格式的，直接返回response.data
+ */
 const checkResponse = response => {
   const data = response.data;
   // 返回值符合标准格式的，即同时包含code,reqId
@@ -88,10 +96,20 @@ const checkResponse = response => {
     if (
       data.code === 0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
     ) {
-      return data.data || {};
+      // /////////tails内容放到bean里去，使得bean是个扩展的对象，其属性与tails内的属性同级/////////////////
+      let arrData = data.data || {};
+      if (Array.isArray(arrData)) {
+        // 数组结构
+        arrData = arrData.map(d => Object.assign(d, d.tails));
+      } else {
+        // 单个对象结构
+        Object.assign(arrData, arrData.tails);
+      }
+      return arrData;
+      // end tails处理
     } else {
       // data.code!==0,业务出错
-      throw Error("业务出错,data.code!==0", data);
+      throw Error(`业务出错:${data.extMsg || data.msg}`);
     }
   } else {
     return data;
@@ -100,13 +118,13 @@ const checkResponse = response => {
 // 生成axios的快捷方法，"get", "post", "put", "delete", "patch"，加前缀$$,提交数据格式为application/x-www-form-urlencoded,
 // 如果是json格式，则后缀为Json，如$$postJson
 const registerMethod = function(method, prefix, isJson) {
-  axiosWrap[/* prefix +  */ method + (isJson ? "Json" : "")] = (
+  axiosWrap[/* prefix +  */ method + (isJson ? "Json" : "")] = async function(
     url,
     data,
     successCallback,
     errorCallback,
     options = {}
-  ) => {
+  ) {
     options = mergeOptions(options);
     if (!isArray(successCallback)) {
       successCallback = [successCallback];
@@ -114,8 +132,8 @@ const registerMethod = function(method, prefix, isJson) {
     if (errorCallback) {
       errorCallback = [errorCallback];
     }
-    return new Promise((resolve, reject) => {
-      service({
+    try {
+      const response = await service({
         ...options,
         url: changeUrl(url),
         method: method,
@@ -127,27 +145,20 @@ const registerMethod = function(method, prefix, isJson) {
             : "application/x-www-form-urlencoded",
           [TokenKey]: getToken() || ""
         }
-      })
-        .then(response => {
-          loading.close(); // 响应成功关闭loading
-          try {
-            const data = checkResponse(response);
-            [...successCallback, options.doneCallback, resolve].forEach(fn => {
-              typeof fn === "function" && fn(data);
-            });
-          } catch (err) {
-            return Promise.reject(err, response);
-          }
-        })
-        .catch(err => {
-          loading.close(); // 响应成功关闭loading
-          console.log("errrrrrrrrrrr33333", err);
-          console.log("reject", reject, "resolve", resolve);
-          [...errorCallback, options.errorCallback, reject].forEach(fn => {
-            typeof fn === "function" && fn(err);
-          });
-        });
-    });
+      });
+      loading.close(); // 响应成功关闭loading
+      const responseData = checkResponse(response);
+      [...successCallback, options.doneCallback].forEach(fn => {
+        typeof fn === "function" && fn(responseData);
+      });
+      return responseData;
+    } catch (err) {
+      loading.close(); // 响应成功关闭loading
+      [...errorCallback, options.errorCallback].forEach(fn => {
+        typeof fn === "function" && fn(err);
+      });
+      throw err;
+    }
   };
 };
 // 初始化

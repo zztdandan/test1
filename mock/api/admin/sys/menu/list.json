@@ -1,0 +1,79 @@
+[
+    {
+        "id": 1,
+        "name": "根目录",
+        "icon": "icon-caidan",
+        "parentId": null,
+        "parentName": null
+    },
+    {
+        "id": 2,
+        "name": "demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "icon": "icon-caidan",
+        "parentId": 1,
+        "parentName": "根目录"
+    },
+    {
+        "id": 3,
+        "name": "no catch demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "icon": "icon-caidan",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 4,
+        "name": "table demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "icon": "icon-caidan",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 5,
+        "name": "动态列demo",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "icon": "icon-caidan",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 6,
+        "name": "动态列demo2",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 7,
+        "name": "订单管理页面",
+        "viewCode": "demo",
+        "viewLabel": "测试目录",
+        "icon": "icon-caidan",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 8,
+        "name": "画面资源管理",
+        "viewCode": "EPESOBJ",
+        "viewLabel": "画面资源管理",
+        "icon": "icon-caidan",
+        "parentName": "根目录",
+        "parentId": 1
+    },
+    {
+        "id": 9,
+        "name": "权限管理页面",
+        "viewCode": "BIAM01",
+        "viewLabel": "权限管理页面",
+        "parentName": "根目录",
+        "parentId": 1
+    }
+]

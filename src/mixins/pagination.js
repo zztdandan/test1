@@ -56,18 +56,18 @@ export const pagiMixin = {
          this.tablePage.total = total || 0;
       },
       hSizeChange(size) {
-         this.paginationSet(size, this.tablePage.total, this.tablePage.currentPage);
+         this.paginationSet(size, this.totalData.length, this.tablePage.currentPage);
          const a = this.skipPage() || null;
          return a;
       },
       hCurrentChange(curr) {
-         this.paginationSet(this.tablePage.pageSize, this.tablePage.total, curr);
+         this.paginationSet(this.tablePage.pageSize,  this.totalData.length, curr);
          const a = this.skipPage() || null;
          return a;
       },
       hRefresh() {
          // 重新读取,页面回到1
-         this.paginationSet(this.tablePage.pageSize, this.tablePage.total, 1);
+         this.paginationSet(this.tablePage.pageSize,  this.totalData.length, 1);
          this.doQuery();
       }
    }
@@ -75,6 +75,7 @@ export const pagiMixin = {
 
 // 以pageUtils为根据的class
 export const pagiClass = function(pagination_return) {
+   // debugger;
    const tmp_res = {
       pageNumber: pagination_return.currPage,
       totalPage: pagination_return.totalPage,

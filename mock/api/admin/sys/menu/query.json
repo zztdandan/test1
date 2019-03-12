@@ -1,0 +1,101 @@
+[
+    {
+        "code":"demo",
+        "label": "demo",
+        "path": "/dm",
+        "component": "views/dm/demo",
+        "icon": "icon-caidan"
+    },
+    {
+        "code":"demo1",
+        "label": "demo",
+        "path": "demo",
+        "component": "views/dm/demo",
+        "icon": "icon-caidan",
+        "parentCode": "demo"
+    },
+    {
+        "code":"demo2",
+        "label": "no catch demo",
+        "path": "nocatch-demo",
+        "component": "views/dm/nocatch-demo",
+        "icon": "icon-caidan",
+        "parentCode": "demo"
+    },
+    {
+        "code":"demo3",
+        "label": "table demo",
+        "path": "table-dm",
+        "component": "views/dm/table",
+        "icon": "icon-caidan",
+        "parentCode": "demo"
+    },
+    {
+        "code":"demo4",
+        "label": "动态列demo",
+        "path": "user/columns",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan",
+        "parentCode": "demo"
+    },
+    {
+        "code":"demo5",
+        "label": "动态列demo2",
+        "path": "user/columns2",
+        "component": "views/dm/dync-columns",
+        "icon": "icon-caidan",
+        "parentCode": "demo"
+    },
+    {
+        "code":"demo6",
+        "label": "标签",
+        "path": "tags",
+        "component": "views/util/tags",
+        "icon": "icon-caidan",
+        "meta": {
+            "i18n": "tags"
+        },
+        "children": [],
+        "parentCode": "demo"
+    },
+    {
+
+        "code":"demo7",
+        "label": "表格",
+        "path": "table",
+        "component": "views/util/table",
+        "icon": "icon-caidan",
+        "meta": {
+            "i18n": "table"
+        },
+        "children": [],
+        "parentCode": "demo"
+    },
+    {
+        "code":"orderview",
+        "label": "订单管理页面",
+        "path": "order-view",
+        "component": "views/om/OrderView/OrderView",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentCode": "demo"
+    },
+    {
+        "code":"viewsman",
+        "label": "画面资源管理",
+        "path": "views-man",
+        "component": "views/bi/MenuReg/ViewMan/ViewManDash",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentCode": "demo"
+    },
+    {
+        "code":"actman",
+        "label": "权限注册",
+        "path": "act-man",
+        "component": "views/bi/MenuReg/ActMan/ActMan",
+        "icon": "icon-caidan",
+        "children": [],
+        "parentCode": "demo"
+    }
+]

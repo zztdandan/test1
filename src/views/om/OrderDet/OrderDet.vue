@@ -41,7 +41,10 @@
           menuType: "icon",
           title: "订单明细",
           align: "center",
-          viewBtn: true,
+
+          viewBtn: false,
+          editBtn: false,
+          delBtn: false,
           menuAlign: "center",
           column: OrderDetSettings.entity
         }
@@ -71,11 +74,15 @@
       },
       doQuery: async function() {
         let res = await CRUD.queryOrderDet(this.searchParams);
-        this.OrderDetTList = res;
+        this.totalData = res;
+        this.skipPage();
       },
       hSearch(params) {
         this.searchParams = params || {};
         this.doQuery();
+      },
+      skipPage() {
+        this.OrderDetTList = calcShownData;
       }
     }
   };
