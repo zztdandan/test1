@@ -77,7 +77,7 @@ export default {
       },
 
       page: {
-        total: 122
+        total: 0
       },
       data: [
         
@@ -153,6 +153,11 @@ export default {
   computed:{
       
   },
+  watch:{
+    data(d){
+      this.page.total=d.length;
+    }
+  },
   methods: {
     handleDialog(path,v) {
       this.dialog.visible = true;
@@ -162,13 +167,17 @@ export default {
     handleClose() {
       this.dialog.visible = false;
     },
-    query(){
-        const self=this;
-        const data=[];
-        this.$$get('/pm/delay-days/query').then(d=>{
-            d.forEach(v=>data.push(v.tails));
-            self.data=data;
-        })
+    // 该query写法与下方写法等效
+    // query(){
+    //     const self=this;
+    //     //const data=[];
+    //     this.$$get('/pm/delay-days/query').then(data=>{
+    //         //d.forEach(v=>data.push(v.tails));
+    //         self.data=data;
+    //     })
+    // },
+    query:async function(){
+        this.data=await this.$$get('/pm/delay-days/query');
     }
   }
 };
@@ -181,5 +190,8 @@ iframe {
   height: 100%; /* Viewport-relative units */
   width: 100%;
   min-height: calc(85vh - 10rem);
+}
+.avue-form{
+  padding: 0px;
 }
 </style>
