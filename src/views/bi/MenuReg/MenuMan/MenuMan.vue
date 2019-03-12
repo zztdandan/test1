@@ -25,12 +25,16 @@
           <template slot="pcodeForm">
             <pcode-auto-com style="width:100%" @pcode-select="hFormPcodeSelect"></pcode-auto-com>
           </template>
+          <template slot="parentForm">
+            <el-button size="mini" @click="hFormOpenMenuSelect">选择</el-button>
+          </template>
           <template slot="menuLeft">
             <el-button size="mini" type="primary" @click="hOpenCpCreate">复制新增</el-button>
             <el-button size="mini" type="primary" @click="hOpenUpdate">编辑</el-button>
             <el-button size="mini" type="warning" @click="hDelList">删除选中</el-button>
           </template>
         </avue-crud>
+        <menu-select-dialog ref="menu-dialog" @menu-confirm="hFormMenuConfirm"></menu-select-dialog>
       </div>
     </div>
   </lg-dashboard>
@@ -43,6 +47,7 @@
   import * as CRUD from "./utils/CRUD";
   import PcodeAutoCom from "../ActMan/pcodeAutoCom.vue";
   import MenuTree from "./MenuTree";
+  import MenuSelectDialog from "./MenuSelectDialog";
   import { topCrud } from "@/mixins/crudFunction";
   import {
     pagiLazyMixin,
@@ -55,7 +60,8 @@
     components: {
       MenuTree,
       LgDashboard,
-      PcodeAutoCom
+      PcodeAutoCom,
+      MenuSelectDialog
       //   BuildForm
     },
     mixins: [pagiMixin, topCrud],
@@ -88,7 +94,7 @@
         let tmp_arr = [].concat(this.mainMenuList);
         this.totalData = tmp_arr.where(x => x.parentId == entity.id);
         this.totalData.unshift(entity);
-        // debugger;
+        debugger;
         this.skipPage();
       },
       hCloseDialog() {
@@ -104,8 +110,15 @@
         this.menuData.pcode = code;
         this.menuData.viewLabel = name;
       },
+      hFormOpenMenuSelect() {
+        this.$refs["menu-dialog"].hOpen();
+      },
+      hFormMenuConfirm(text, entity) {
+        this.crudData.parentName = entity.name;
+        this.crudData.parentId = entity.id;
+      },
       colorful1stRow({ row, rowIndex }) {
-    // debugger
+        // debugger
         if (rowIndex == 0) {
           return "color-row";
         } else {
@@ -122,10 +135,9 @@
 .flex-item-16 {
   width: 66.6%;
 }
-
 </style>
 <style>
 .color-row {
-  background-color:#ffdfdf!important;
+  background-color: #ffdfdf !important;
 }
 </style>

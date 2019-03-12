@@ -19,7 +19,6 @@ async function menuEntity() {
             type: "text",
             prop: "icon",
             label: "目录图标类",
-
             labelWidth: "100"
         },
         {
@@ -33,6 +32,25 @@ async function menuEntity() {
             prop: "viewLabel",
             label: "画面名",
             readonly: true,
+            labelWidth: "100"
+        },
+        {
+            label: "父级目录代码",
+            prop: "parentId",
+            readonly: true,
+            labelWidth: "100"
+        },
+        {
+            label: "父级目录名称",
+            prop: "parentName",
+            readonly: true,
+            labelWidth: "100"
+        },
+        {
+            label: "选择父级目录",
+            prop: "parent",
+            hide: true,
+            formslot: true,
             labelWidth: "100"
         }
     ];

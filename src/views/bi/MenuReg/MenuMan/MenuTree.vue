@@ -1,8 +1,9 @@
 <template>
   <div>
-    <div v-if="this.select" class="flex-cmd">
-      <el-input :readonly="false" v-model="selected"></el-input>
+    <div v-if="this.select" class="flex-md">
+      <el-input size="mini" class="span8" :readonly="true" v-model="selected"></el-input>
       <el-button size="mini" type="primary" @click="hMenuClick">选择</el-button>
+      <el-button size="mini" type="primary" @click="hRefresh">刷新</el-button>
     </div>
     <el-tree
       ref="menu-tree"
@@ -10,7 +11,7 @@
       :default-expand-all="true"
       :check-on-click-node="true"
       :data="menuTree"
-      check-strictly	
+      check-strictly
       @check-change="hCheckChange"
     ></el-tree>
   </div>
@@ -47,7 +48,7 @@
     mounted: function() {},
     methods: {
       hMenuClick() {
-        // this.$emit("menu-select", this.selected, this.selectedNode);
+        this.$emit("menu-confirm", this.selected, this.selectedNode);
       },
       hRefresh: async function() {
         let res = await CRUD.queryMenuTree({});
@@ -69,4 +70,8 @@
   };
 </script>
 <style scoped>
+.span8 {
+  width: 33% !important;
+  margin-right: 1rem;
+}
 </style>
