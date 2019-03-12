@@ -67,7 +67,10 @@ const bypass = function(req, res) {
       msg: "成功",
       data: resData
     });
-    console.log("-------mock ok-------,data=", JSON.stringify(resData));
+    console.log(
+      "-------mock ok-------,data=",
+      JSON.stringify(resData, null, 4)
+    );
     return true;
   }
   return false;

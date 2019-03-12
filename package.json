@@ -34,7 +34,6 @@
     "@vue/cli-service": "^3.1.4",
     "chai": "^4.1.2",
     "compression-webpack-plugin": "^2.0.0",
-    "cross-env": "^5.2.0",
     "mockjs": "^1.0.1-beta3",
     "node-sass": "^4.9.0",
     "sass-loader": "^7.0.1",

@@ -11,7 +11,7 @@ const PROD = process.env.NODE_ENV === "production";
 // const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin
 module.exports = {
   publicPath: publicPath, // 根据你的实际情况更改这里
-  lintOnSave: false, // 编译时eslint校验代码
+  lintOnSave: process.env.LINT_ON_SAVE === "true", // 编译时eslint校验代码
   productionSourceMap: false,
   devServer: {
     // open: process.platform === 'darwin',
