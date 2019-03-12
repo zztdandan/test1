@@ -28,15 +28,12 @@ export default {
     };
   },
   watch: {
-    "this.$route.path": {
-      handler(path, oldName) {
-        path = path || this.$route.path;
-        console.log("path changed2222", path);
-        if (path && path.indexOf("/dm/user/column") === 0) {
-          this.initColumn(path);
-        }
+    // 监视路由变化，真正使用应该优化，缓存已经加载过的列，避免重复加载
+    $route: {
+      handler(to, from) {
+        console.log("$route", { to, from });
+        this.initColumn(to.path);
       },
-      deep: true,
       immediate: true
     }
   },

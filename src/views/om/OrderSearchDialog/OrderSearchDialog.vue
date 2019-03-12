@@ -7,7 +7,7 @@
     @closed="hDialogClose"
   >
     <avue-form v-model="OSFObject" :option="OSFOpt" @submit="hSearchClick"></avue-form>
-    <order-det-table :editable="false" ref="order-det"></order-det-table>
+    <order-and-det-table :editable="false" ref="order-det"></order-and-det-table>
     <template slot="footer">
       <div class="flex-md">        
         <el-button size="mini" type="primary" @click="hSelectOrderNum" >确定</el-button>
@@ -18,12 +18,12 @@
 </template>
 <script>
   import BuildForm from "@/components/BuildForm/main";
-  import OrderDetTable from "../OrderDetTable/OrderDetTable";
+  import OrderAndDetTable from "../OrderAndDetTable/OrderAndDetTable";
   import getOSBE from "./utils/OrderSearchBarEntity";
   import * as orderApis from "../apis/orderApi";
   export default {
     name: "order-search-dialog",
-    components: { BuildForm, OrderDetTable },
+    components: { BuildForm, OrderAndDetTable },
     props: {
       flag: {
         type: String,

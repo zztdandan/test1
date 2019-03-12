@@ -30,7 +30,7 @@
     <div>
       <avue-form
         :option="dialog.formOption"
-        v-model="dialog_form"
+        v-model="dialog.form"
       ></avue-form>
       <iframe
         :src="url"
@@ -39,6 +39,9 @@
       ></iframe>
     </div>
     <!-- </el-dialog> -->
+    <el-form>
+      <el-switch v-model="cityVisable">显示城市</el-switch>
+    </el-form>
   </basic-container>
 </template>
 
@@ -46,6 +49,7 @@
 export default {
   data() {
     return {
+      cityVisable: false,
       dialog_form: {},
       dialog: {
         visible: false,
@@ -68,26 +72,7 @@ export default {
                   label: "百度",
                   value: "https://www.baidu.com/"
                 }
-              ],
-              span: 6,
-              mock: {
-                type: "dic"
-              }
-            },
-            {
-              label: "城市",
-              prop: "city",
-              type: "select",
-              // remote: true,
-              props: {
-                label: "city",
-                value: "id"
-              },
-              display: this.cityVisdiplay,
-              dicUrl: `/bd/city/query`,
-              dicQuery: {
-                a: 1
-              }
+              ]
             },
             {
               label: "显示城市",
@@ -212,19 +197,49 @@ export default {
   },
   computed: {
     url: function() {
-      console.log(dialog.form);
+      console.log("this.dialog.form", this.dialog.form);
       return this.dialog.form.url + "?wd=" + this.dialog.form.city;
     },
     totalPage: function() {
       return this.data.length;
-    },
-    cityVisdiplay() {
-      return this.dialog.form.cityVisdiplay;
     }
   },
   watch: {
-    dialog_form(newValue, oldValue) {
-      console.log("dialog_form", newValue);
+    "dialog.form.cityVisdiplay": function(val, oldVal) {
+      console.log("cityVisdiplay", val);
+      if (val) {
+        this.dialog.formOption.column.push({
+          label: "城市",
+          prop: "city",
+          type: "select",
+          // remote: true,
+          props: {
+            label: "city",
+            value: "id"
+          },
+          dicUrl: `/bd/city/query`,
+          dicQuery: {
+            a: 1
+          }
+        });
+      } else {
+        this.dialog.formOption.column.pop();
+      }
+    },
+    cityVisable: function(val) {
+      console.log("cityVisdiplay222", val);
+      this.dialog.formOption.column = val
+        ? [
+            {
+              label: "显示城市333",
+              prop: "cityVisdiplay",
+              type: "switch"
+            }
+          ]
+        : [];
+    },
+    $route(to, from) {
+      console.log("$route", { to, from });
     }
   },
   methods: {
@@ -233,6 +248,53 @@ export default {
     },
     handleClose() {
       this.dialog.visible = false;
+    },
+    getColumns() {
+      const columns = [
+        {
+          label: "url",
+          prop: "url",
+          type: "select",
+          dicData: [
+            {
+              label: "form-maker",
+              value: "https://form.avue.top"
+            },
+            {
+              label: "百度",
+              value: "https://www.baidu.com/"
+            }
+          ]
+        },
+        {
+          label: "城市",
+          prop: "city",
+          type: "select",
+          // remote: true,
+          props: {
+            label: "city",
+            value: "id"
+          },
+          dicUrl: `/bd/city/query`,
+          dicQuery: {
+            a: 1
+          }
+        },
+        {
+          label: "显示城市",
+          prop: "cityVisdiplay",
+          type: "switch"
+        }
+      ];
+      const self = this;
+      console.log("self", JSON.stringify(self.dialog));
+      const cols = columns.filter(
+        c =>
+          c.prop !== "city" ||
+          (c.prop === "city" && self.dialog && self.dialog.form.cityVisdiplay)
+      );
+
+      return cols;
     }
   }
 };

@@ -10,7 +10,6 @@ const API_PATH_REWRITE = process.env.API_PATH_REWRITE || "/";
 const MOCK_URL = "http://localhost:" + process.env.PROXY_MOCK_PORT || "8080";
 
 console.log(`***********************server run in ************************`);
-console.log("reportBaseUrl", process.env.reportBaseUrl);
 console.log(`API_URL= ${API_URL}`);
 console.log(`API_PATH_REWRITE= ${API_PATH_REWRITE}`);
 console.log(`MOCK_URL= ${MOCK_URL}`);
@@ -20,7 +19,7 @@ console.log(`***********************server run in ************************`);
 const loginMock = function(req, res) {
   if (
     process.env.MOCK_LOGIN === "true" &&
-    req.url.indexOf("/api/admin/sys/login") === 0
+    req.url.indexOf("/api/admin/login") === 0
   ) {
     res.json({
       code: 0,
@@ -68,7 +67,10 @@ const bypass = function(req, res) {
       msg: "成功",
       data: resData
     });
-    console.log("-----------mock ok-------------,data=", resData);
+    console.log(
+      "-------mock ok-------,data=",
+      JSON.stringify(resData, null, 4)
+    );
     return true;
   }
   return false;

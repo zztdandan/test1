@@ -25,24 +25,24 @@ import { getToken, TokenKey } from "@/util/auth";
 import { isArray, loading, mergeOptions } from "./axios-util";
 
 const service = axios.create({
-    timeout: process.env.NODE_ENV === "production" ? 1000 * 60 * 10 : 1000 * 30, // 请求超时时间,正式环境10分钟，测试环境30s
-    headers: {
-        // axio默认使用json格式，这里改为form-data格式
-        // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
-    }
+  timeout: process.env.NODE_ENV === "production" ? 1000 * 60 * 10 : 1000 * 30, // 请求超时时间,正式环境10分钟，测试环境30s
+  headers: {
+    // axio默认使用json格式，这里改为form-data格式
+    // 'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+  }
 });
 
 // request拦截器
 service.interceptors.request.use(
-    config => {
-        if (typeof config.Loading !== "undefined") {
-            loading.open(!!config.Loading); // 请求打开loading
-        }
-        config.headers[TokenKey] = getToken() || "";
+  config => {
+    if (typeof config.Loading !== "undefined") {
+      loading.open(!!config.Loading); // 请求打开loading
+    }
+    config.headers[TokenKey] = getToken() || "";
 
-        return config;
-    },
-    error => Promise.reject(error)
+    return config;
+  },
+  error => Promise.reject(error)
 );
 
 // response 拦截器
@@ -79,103 +79,106 @@ service.interceptors.request.use(
 // );
 const methods = ["get", "post", "put", "delete", "patch"];
 const axiosWrap = {};
+axiosWrap.originAxios = axios;
 
+/**
+ * 预处理返回值，如果是标准格式{包含code/reqId/data}，并且code===0，则：
+ * 如果存在tails，则将tails里的属性扩展到data里；
+ * 然后直接返回业务数据data
+ * 如果code！==0的，
+ * 不是标准格式的，直接返回response.data
+ */
 const checkResponse = response => {
-    const data = response.data;
-    // 返回值符合标准格式的，即同时包含code,reqId
-    if (typeof data.code === "number" && "reqId" in data) {
-        // 处理成功，code===0表示成功
-        if (
-            data.code ===
-            0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
-        ) {
-            // console.log(data);
-            return data.data || {};
-        } else {
-            // data.code!==0,业务出错
-            throw Error("业务出错,data.code!==0", data);
-        }
+  const data = response.data;
+  // 返回值符合标准格式的，即同时包含code,reqId
+  if (typeof data.code === "number" && "reqId" in data) {
+    // 处理成功，code===0表示成功
+    if (
+      data.code === 0 /* && (data.msg === "处理成功" || data.msg === "成功")*/
+    ) {
+      // /////////tails内容放到bean里去，使得bean是个扩展的对象，其属性与tails内的属性同级/////////////////
+      let arrData = data.data || {};
+      if (Array.isArray(arrData)) {
+        // 数组结构
+        arrData = arrData.map(d => Object.assign(d, d.tails));
+      } else {
+        // 单个对象结构
+        Object.assign(arrData, arrData.tails);
+      }
+      return arrData;
+      // end tails处理
     } else {
-        throw Error("返回数据不符合格式", data);
+      // data.code!==0,业务出错
+      throw Error(`业务出错:${data.extMsg || data.msg}`);
     }
+  } else {
+    return data;
+  }
 };
 // 生成axios的快捷方法，"get", "post", "put", "delete", "patch"，加前缀$$,提交数据格式为application/x-www-form-urlencoded,
 // 如果是json格式，则后缀为Json，如$$postJson
 const registerMethod = function(method, prefix, isJson) {
-    axiosWrap[/* prefix +  */ method + (isJson ? "Json" : "")] = (
-        url,
-        data,
-        successCallback,
-        errorCallback,
-        options = {}
-    ) => {
-        options = mergeOptions(options);
-        if (!isArray(successCallback)) {
-            successCallback = [successCallback];
+  axiosWrap[/* prefix +  */ method + (isJson ? "Json" : "")] = async function(
+    url,
+    data,
+    successCallback,
+    errorCallback,
+    options = {}
+  ) {
+    options = mergeOptions(options);
+    if (!isArray(successCallback)) {
+      successCallback = [successCallback];
+    }
+    if (errorCallback) {
+      errorCallback = [errorCallback];
+    }
+    try {
+      const response = await service({
+        ...options,
+        url: changeUrl(url),
+        method: method,
+        data: isJson ? data : qs.stringify(data),
+        params: method === "get" ? data : {},
+        headers: {
+          "Content-Type": isJson
+            ? "application/json"
+            : "application/x-www-form-urlencoded",
+          [TokenKey]: getToken() || ""
         }
-        if (errorCallback) {
-            errorCallback = [errorCallback];
-        }
-        return new Promise((resolve, reject) => {
-            service({
-                ...options,
-                url: changeUrl(url),
-                method: method,
-                data: isJson ? data : qs.stringify(data),
-                params: method === "get" ? data : {},
-                headers: {
-                    "Content-Type": isJson
-                        ? "application/json"
-                        : "application/x-www-form-urlencoded",
-                    [TokenKey]: getToken() || ""
-                }
-            })
-                .then(response => {
-                    loading.close(); // 响应成功关闭loading
-                    try {
-                        const data = checkResponse(response);
-                        [
-                            ...successCallback,
-                            options.doneCallback,
-                            resolve
-                        ].forEach(fn => {
-                            typeof fn === "function" && fn(data);
-                        });
-                    } catch (err) {
-                        return Promise.reject(err, response);
-                    }
-                })
-                .catch(err => {
-                    loading.close(); // 响应成功关闭loading
-                    console.log("errrrrrrrrrrr33333", err);
-                    console.log("reject", reject, "resolve", resolve);
-                    [...errorCallback, options.errorCallback, reject].forEach(
-                        fn => {
-                            typeof fn === "function" && fn(err);
-                        }
-                    );
-                });
-        });
-    };
+      });
+      loading.close(); // 响应成功关闭loading
+      const responseData = checkResponse(response);
+      [...successCallback, options.doneCallback].forEach(fn => {
+        typeof fn === "function" && fn(responseData);
+      });
+      return responseData;
+    } catch (err) {
+      loading.close(); // 响应成功关闭loading
+      [...errorCallback, options.errorCallback].forEach(fn => {
+        typeof fn === "function" && fn(err);
+      });
+      throw err;
+    }
+  };
 };
 // 初始化
 (function init() {
-    methods.forEach(method => {
-        registerMethod(method, "$$", false);
-        registerMethod(method, "$$", true);
-    });
+  methods.forEach(method => {
+    registerMethod(method, "$$", false);
+    registerMethod(method, "$$", true);
+  });
 })();
 axiosWrap.install = function(Vue, options) {
-    Vue.prototype.$defaultAxios = axios;
-    Vue.prototype.$axios = service;
-    Vue.prototype.$qs = qs;
-    if (typeof window !== "undefined") {
-        window.LG_axios = axiosWrap;
-    }
-    methods.forEach(method => {
-        Vue.prototype["$$" + method] = axiosWrap[/* "$$" +  */ method];
-        Vue.prototype["$$" + method + "Json"] =
-            axiosWrap[/* "$$" +  */ method + "Json"];
-    });
+  Vue.prototype.$defaultAxios = axios;
+  Vue.prototype.$axios = service;
+  Vue.prototype.$qs = qs;
+  if (typeof window !== "undefined") {
+    window.LG_axios = axiosWrap;
+  }
+  methods.forEach(method => {
+    Vue.prototype["$$" + method] = axiosWrap[/* "$$" +  */ method];
+    Vue.prototype["$$" + method + "Json"] =
+      axiosWrap[/* "$$" +  */ method + "Json"];
+  });
 };
 export default axiosWrap;

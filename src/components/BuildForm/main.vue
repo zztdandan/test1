@@ -35,7 +35,7 @@
         </div>
       </div>
     </div>
-    <!-- <slot name="add-on"></slot> -->
+    <slot></slot>
   </el-form>
 </template>
 
