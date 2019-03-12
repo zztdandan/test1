@@ -13,25 +13,25 @@ console.log(`***********************server run in ************************`);
 console.log(`API_URL= ${API_URL}`);
 console.log(`API_PATH_REWRITE= ${API_PATH_REWRITE}`);
 console.log(`MOCK_URL= ${MOCK_URL}`);
-console.log(`MOCK_LOGIN === "true" ? ${process.env.MOCK_LOGIN === "true"}`);
+console.log(`MOCK_LOGIN === "true" ? ${process.env.MOCK_LOGIN}`);
 console.log(`***********************server run in ************************`);
-
-const loginMock = function(req, res) {
-  if (
-    process.env.MOCK_LOGIN === "true" &&
-    req.url.indexOf("/api/admin/login") === 0
-  ) {
-    res.json({
-      code: 0,
-      msg: "成功",
-      reqId: "dd" + new Date().getTime(),
-      data: {
-        token: "pw33test-@id()"
-      }
-    });
-    return true;
-  }
-};
+// 20190312，在mock文件中实现
+// const loginMock = function(req, res) {
+//   if (
+//     process.env.MOCK_LOGIN === "true" &&
+//     req.url.indexOf("/api/admin/login") === 0
+//   ) {
+//     res.json({
+//       code: 0,
+//       msg: "成功",
+//       reqId: "dd" + new Date().getTime(),
+//       data: {
+//         token: "pw33test-@id()"
+//       }
+//     });
+//     return true;
+//   }
+// };
 const bypass = function(req, res) {
   // 该函数必须返回false或返回被部署的文件路径，返回false继续。
   const key = req.method.toUpperCase() + " " + req.url;
@@ -41,10 +41,10 @@ const bypass = function(req, res) {
   const jsFileName = path.resolve(mockPath, "./" + urlPath + ".js");
   console.log("----------------request----------------", key);
   // 是否需要本地模拟登陆
-  if (loginMock(req, res)) {
-    console.log("-----------loginMock ok-------------");
-    return true;
-  }
+  // if (loginMock(req, res)) {
+  //   console.log("-----------loginMock ok-------------");
+  //   return true;
+  // }
 
   // 是否存在json或者js文件
   if (fs.existsSync(fileName) || fs.existsSync(jsFileName)) {
