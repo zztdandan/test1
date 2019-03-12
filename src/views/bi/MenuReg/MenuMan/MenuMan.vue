@@ -2,26 +2,35 @@
   <lg-dashboard>
     <template slot="title">菜单管理</template>
 
-    <div class="flex-column">
+    <div class="flex-md">
       <div class="flex-item-8 main-height">
         <menu-tree ref="menu-tree" @menu-select="hMenuSelect"></menu-tree>
         <!-- 加载菜单树 -->
       </div>
       <div class="flex-item-16 main-height">
         <avue-crud
-          :data="menuTList"
-          :option="MenuOption"
+          ref="menu-crud"
+          :data="dataTList"
+          :option="crudOption"
           :page="tablePage"
-          v-model="MenuData"
-          @row-save="hMenuSave"
-          @row-update="hMenuUpdate"
+          v-model="crudData"
+          @row-save="hSave"
+          @row-update="hUpdate"
+          :row-class-name="colorful1stRow"
           :before-close="hCloseDialog"
-          @refresh-change="hRefresh"
           @size-change="hSizeChange"
           @current-change="hCurrentChange"
-          @search-change="hSearch"
           @selection-change="hSelectionChange"
-        ></avue-crud>
+        >
+          <template slot="pcodeForm">
+            <pcode-auto-com style="width:100%" @pcode-select="hFormPcodeSelect"></pcode-auto-com>
+          </template>
+          <template slot="menuLeft">
+            <el-button size="mini" type="primary" @click="hOpenCpCreate">复制新增</el-button>
+            <el-button size="mini" type="primary" @click="hOpenUpdate">编辑</el-button>
+            <el-button size="mini" type="warning" @click="hDelList">删除选中</el-button>
+          </template>
+        </avue-crud>
       </div>
     </div>
   </lg-dashboard>
@@ -32,7 +41,9 @@
   import { list_to_tree } from "@/util/tree_convert";
   import menuEntity from "./utils/menuEntity";
   import * as CRUD from "./utils/CRUD";
+  import PcodeAutoCom from "../ActMan/pcodeAutoCom.vue";
   import MenuTree from "./MenuTree";
+  import { topCrud } from "@/mixins/crudFunction";
   import {
     pagiLazyMixin,
     pagiMixin,
@@ -43,19 +54,20 @@
     name: "menu-man",
     components: {
       MenuTree,
-      LgDashboard
+      LgDashboard,
+      PcodeAutoCom
       //   BuildForm
     },
-    mixins: [pagiMixin],
+    mixins: [pagiMixin, topCrud],
     data: function() {
       //  将MenuDef转化为数组
-
       return {
-        mainMenuList: [],
-        menuTList: [],
-        MenuData: {},
-        sMenuLabel: "",
-        sMenuEntity: {}
+        getEntity: menuEntity,
+        createData: CRUD.createMenu,
+        updateData: CRUD.updateMenu,
+        deleteData: CRUD.deleteMenu,
+        crudCompName: "menu-crud",
+        mainMenuList: []
       };
     },
 
@@ -63,41 +75,41 @@
       //  debugger;
       let that_vue = this;
       let res = await CRUD.queryMenu({});
-      this.totalData = res;
-      this.skipPage();
+      this.mainMenuList = res;
     },
     methods: {
       hMenuSelect(label, entity) {
         this.sMenuLabel = label;
         this.sMenuEntity = entity;
-        this.hRefreshList(entity);
+        this.showSelectedMenu(entity);
       },
-      hRefreshList(entity) {
+
+      showSelectedMenu(entity) {
         let tmp_arr = [].concat(this.mainMenuList);
-        this.menuList = tmp_arr.where(x => x.parentId == entity.id);
+        this.totalData = tmp_arr.where(x => x.parentId == entity.id);
+        this.totalData.unshift(entity);
+        // debugger;
+        this.skipPage();
       },
-      hCloseDialog() {},
-      skipPage() {
-        this.menuTList = this.calcShownData;
+      hCloseDialog() {
+        let that_vue = this;
+        this.crudData = {};
+        this.$refs["menu-tree"].hRefresh();
+        CRUD.queryMenu({}).then(res => {
+          that_vue.mainMenuList = res;
+          // that_vue.hRefreshList();
+        });
       },
-      hMenuSave: async function(data, index, done, loading) {
-        try {
-          await CRUD.createMenu(data);
-          done();
-          this.doQuery();
-        } catch (error) {
-          done();
-          console.log(error);
-        }
+      hFormPcodeSelect(code, name) {
+        this.menuData.pcode = code;
+        this.menuData.viewLabel = name;
       },
-      hMenuUpdate: async function(data, index, done, loading) {
-        try {
-          await CRUD.updateMenu(data);
-          done();
-          this.doQuery();
-        } catch (error) {
-          done();
-          console.log(error);
+      colorful1stRow({ row, rowIndex }) {
+    // debugger
+        if (rowIndex == 0) {
+          return "color-row";
+        } else {
+          return "";
         }
       }
     }
@@ -109,5 +121,11 @@
 }
 .flex-item-16 {
   width: 66.6%;
+}
+
+</style>
+<style>
+.color-row {
+  background-color:#ffdfdf!important;
 }
 </style>

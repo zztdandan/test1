@@ -11,10 +11,9 @@
           :option="actOption"
           :page="tablePage"
           v-model="actData"
-          @row-save="hactSave"
-          @row-update="hactUpdate"
+          @row-save="hActSave"
+          @row-update="hActUpdate"
           :before-close="hCloseDialog"
-          @refresh-change="hRefresh"
           @size-change="hSizeChange"
           @current-change="hCurrentChange"
           @search-change="hSearch"
@@ -105,7 +104,7 @@
           this.$message("没有选择列");
         }
       },
-      hactSave: async function(data, index, done, loading) {
+      hActSave: async function(data, index, done, loading) {
         try {
           await CRUD.createAct(data);
           done();
@@ -115,7 +114,7 @@
           console.log(error);
         }
       },
-      hactUpdate: async function(data, index, done, loading) {
+      hActUpdate: async function(data, index, done, loading) {
         try {
           await CRUD.updateAct(data);
           done();

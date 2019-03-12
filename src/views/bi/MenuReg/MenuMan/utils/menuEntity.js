@@ -4,28 +4,36 @@ async function menuEntity() {
     const entity = [
         {
             type: "text",
-            prop: "code",
+            prop: "id",
             label: "目录编码",
-            labelWidth: "80"
+            labelWidth: "100"
         },
         {
             type: "text",
-            prop: "label",
-            label: "权限名称",
+            prop: "name",
+            label: "目录名称",
 
-            labelWidth: "80"
+            labelWidth: "100"
+        },
+        {
+            type: "text",
+            prop: "icon",
+            label: "目录图标类",
+
+            labelWidth: "100"
         },
         {
             label: "画面代码",
             prop: "pcode",
-            formslot: true
+            formslot: true,
+            labelWidth: "100"
         },
         {
             type: "text",
-            prop: "viewCode",
+            prop: "viewLabel",
             label: "画面名",
             readonly: true,
-            labelWidth: "80"
+            labelWidth: "100"
         }
     ];
     return entity;
