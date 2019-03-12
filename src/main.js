@@ -16,6 +16,7 @@ import "@/asset/css/buttons.css";
 
 import "./styles/common.scss";
 import "@/asset/moon-icon/style.css";
+import "@/asset/css/lg.scss";
 
 import basicContainer from "./components/basic-container/main";
 

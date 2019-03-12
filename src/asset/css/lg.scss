@@ -1,0 +1,20 @@
+.avue-crud__menu {
+    min-height: 0px;
+    margin-bottom: 0px;
+}
+
+.el-table td,
+.el-table th {
+    padding: 2px 0px;
+}
+
+.avue-crud .el-table--medium td,
+.avue-form .el-table--medium td {
+    padding: 2px 0 !important;
+}
+
+.avue-crud__pagination {
+    margin-top: 3px!important;
+    margin-bottom: 0px!important;
+    padding: 0px 0px!important;
+}

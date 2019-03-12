@@ -125,8 +125,7 @@
             "updateView": "/admin/sys/view/update",
             "deleteView": "/admin/sys/view/delete"
         },
-        "actMan": {
-           
+        "actMan": {           
             "queryActByMenu": "/admin/sys/act/select",
             "createAct": "/admin/sys/act/create",
             "updateAct": "/admin/sys/act/update",
