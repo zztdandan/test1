@@ -1,8 +1,6 @@
-# avuex-sms
+# 开发画面步骤
 
-这是基于 vue-cli@3.0 改的一个脚手架
-
-## Run vueUI
+##
 
 - 1.npm install -g @vue/cli 全局安装 vue 脚手架最新版
 - 2.vue --version 查看版本是否为 3.x 版本
