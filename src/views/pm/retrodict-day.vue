@@ -26,11 +26,6 @@
           :option="dialog.formOption"
           v-model="dialog.form"
         ></avue-form>
-        <iframe
-          :src="url"
-          v-if="this.dialog.form.prodCategories.length>0"
-          frameborder="0"
-        ></iframe>
       </div>
     </el-dialog>
   </basic-container>
@@ -44,39 +39,38 @@ export default {
       market_date: false,
       dialog: {
         visible: false,
-        ifrUrl: "https://form.avue.top",
-        form: { url: "",prodCategories:"" },
+        form: { prodCategories:"" },
         formOption: {
           labelWidth: 100,
           emptyBtn: false,
           submitBtn: false,
           column: [
             
-            {
-              label: "产品大类",
-              prop: "prodCategories",
-              type: "select",
-              props: {
-                label: "prodCategories",
-                value: "id"
-              },
-              dicUrl: '/bd/product-categories/query',
-              rules: [
-                {
-                  required: true,
-                  message: "请选择产品大类 ",
-                  trigger: "blur"
-                }
-              ]
-            },
-            {
+            // {
+            //   label: "产品大类",
+            //   prop: "prodCategories",
+            //   type: "select",
+            //   props: {
+            //     label: "prodCategories",
+            //     value: "id"
+            //   },
+            //   dicUrl: '/bd/product-categories/query',
+            //   rules: [
+            //     {
+            //       required: true,
+            //       message: "请选择产品大类 ",
+            //       trigger: "blur"
+            //     }
+            //   ]
+            // },
+            // {
               
-              label: "市场价日期",
-              display: this.market_date,
-              prop: "date",
-              type: "date",
-              format: "yyyy-MM-dd"
-            }
+            //   label: "市场价日期",
+            //   display: this.market_date,
+            //   prop: "date",
+            //   type: "date",
+            //   format: "yyyy-MM-dd"
+            // }
 
           ]
         }
@@ -157,18 +151,13 @@ export default {
       this.query()
   },
   computed:{
-      url:function(){
-          const date=dayjs(this.dialog.form.date).format("YYYY-MM-DD");
-          const url=`${baseReportUrl}${this.dialog.ifrPath}&marketdate=${date}&aa=`+this.dialog.form.prodCategories;
-          return url
-
-      }
+      
   },
   methods: {
     handleDialog(path,v) {
       this.dialog.visible = true;
-      this.dialog.ifrPath=path;
-      this.market_date=v;
+      // this.dialog.ifrPath=path;
+      // this.market_date=v;
     },
     handleClose() {
       this.dialog.visible = false;
