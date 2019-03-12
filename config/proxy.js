@@ -13,7 +13,8 @@ console.log(`***********************server run in ************************`);
 console.log(`API_URL= ${API_URL}`);
 console.log(`API_PATH_REWRITE= ${API_PATH_REWRITE}`);
 console.log(`MOCK_URL= ${MOCK_URL}`);
-console.log(`MOCK_LOGIN === "true" ? ${process.env.MOCK_LOGIN}`);
+console.log(`MOCK_LOGIN =${process.env.VUE_APP_MOCK_LOGIN}`);
+console.log(`MOCK_MENU =${process.env.VUE_APP_MOCK_MENU}`);
 console.log(`***********************server run in ************************`);
 // 20190312，在mock文件中实现
 // const loginMock = function(req, res) {
