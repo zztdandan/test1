@@ -7,7 +7,7 @@ export const queryAct = async function(param) {
         const url = api_config.bi.actMan.queryActByMenu;
         let res = await LG_axios.get(url, param);
         res = res.select(x => {
-            x.pcode = x.parentCode;
+            x.pcode = x.viewCode;
             return x;
         });
         // SimpleMessage("查询资源成功");
@@ -21,7 +21,7 @@ export const queryAct = async function(param) {
 export const createAct = async function(param) {
     try {
         const url = api_config.bi.actMan.createAct;
-        param.parentCode = param.pcode;
+        param.viewCode = param.pcode;
         const res = await LG_axios.post(url, param);
         SimpleMessage("创建资源成功");
         return res;
@@ -33,7 +33,7 @@ export const createAct = async function(param) {
 export const updateAct = async function(param) {
     try {
         const url = api_config.bi.actMan.updateAct;
-        param.parentCode = param.pcode;
+        param.viewCode = param.pcode;
         const res = await LG_axios.put(url, param);
         SimpleMessage("修改成功");
         return res;
@@ -45,6 +45,9 @@ export const updateAct = async function(param) {
 export const deleteAct = async function(param) {
     try {
         const url = api_config.bi.actMan.deleteAct;
+        param.forEach(element => {
+            element.viewCode = element.pcode;
+        });
         const res = await LG_axios.deleteJson(url, param);
         SimpleMessage("删除成功");
         return res;

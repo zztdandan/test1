@@ -22,7 +22,7 @@ async function actEntity() {
           },
         {
             type: "text",
-            prop: "parentName",
+            prop: "viewLabel",
             label: "画面名",
             readonly: true,
             labelWidth: "80"

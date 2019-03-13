@@ -11,10 +11,9 @@
           :option="actOption"
           :page="tablePage"
           v-model="actData"
-          @row-save="hactSave"
-          @row-update="hactUpdate"
+          @row-save="hActSave"
+          @row-update="hActUpdate"
           :before-close="hCloseDialog"
-          @refresh-change="hRefresh"
           @size-change="hSizeChange"
           @current-change="hCurrentChange"
           @search-change="hSearch"
@@ -81,9 +80,8 @@
     mounted: function() {},
     methods: {
       hpcodeSelect(code, name) {
-        debugger;
         this.actData.pcode = code;
-        this.actData.parentName = name;
+        this.actData.viewLabel = name;
       },
       hViewSelection(list) {
         if (list.length > 0) {
@@ -92,7 +90,6 @@
         }
       },
       hOpenUpdate() {
-        // debugger;
         if (this.actSelection && this.actSelection.length > 0) {
           this.$refs["act-crud"].rowEdit(this.actSelection[0]);
         } else {
@@ -107,7 +104,7 @@
           this.$message("没有选择列");
         }
       },
-      hactSave: async function(data, index, done, loading) {
+      hActSave: async function(data, index, done, loading) {
         try {
           await CRUD.createAct(data);
           done();
@@ -117,7 +114,7 @@
           console.log(error);
         }
       },
-      hactUpdate: async function(data, index, done, loading) {
+      hActUpdate: async function(data, index, done, loading) {
         try {
           await CRUD.updateAct(data);
           done();
