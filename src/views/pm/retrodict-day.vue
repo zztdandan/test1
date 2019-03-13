@@ -26,6 +26,10 @@
           :option="dialog.formOption"
           v-model="dialog.form"
         ></avue-form>
+        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
       </div>
     </el-dialog>
   </basic-container>
@@ -46,31 +50,30 @@ export default {
           submitBtn: false,
           column: [
             
-            // {
-            //   label: "产品大类",
-            //   prop: "prodCategories",
-            //   type: "select",
-            //   props: {
-            //     label: "prodCategories",
-            //     value: "id"
-            //   },
-            //   dicUrl: '/bd/product-categories/query',
-            //   rules: [
-            //     {
-            //       required: true,
-            //       message: "请选择产品大类 ",
-            //       trigger: "blur"
-            //     }
-            //   ]
-            // },
-            // {
+            {
+              label: "产品大类",
+              prop: "prodCategories",
+              type: "select",
+              props: {
+                label: "prodCategories",
+                value: "id"
+              },
+              dicUrl: '/bd/product-categories/query',
+              rules: [
+                {
+                  required: true,
+                  message: "请选择产品大类 ",
+                  trigger: "blur"
+                }
+              ]
+            },
+            {
               
-            //   label: "市场价日期",
-            //   display: this.market_date,
-            //   prop: "date",
-            //   type: "date",
-            //   format: "yyyy-MM-dd"
-            // }
+              label: "牌号",
+              prop: "steelGrade",
+              type: "checkbox",
+              format: "yyyy-MM-dd"
+            }
 
           ]
         }
@@ -167,15 +170,6 @@ export default {
     handleClose() {
       this.dialog.visible = false;
     },
-    // 该query写法与下方写法等效
-    // query(){
-    //     const self=this;
-    //     //const data=[];
-    //     this.$$get('/pm/delay-days/query').then(data=>{
-    //         //d.forEach(v=>data.push(v.tails));
-    //         self.data=data;
-    //     })
-    // },
     query:async function(){
         this.data=await this.$$get('/pm/delay-days/query');
     }
