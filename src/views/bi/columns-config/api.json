@@ -1,0 +1,6 @@
+{
+  "query": "/sys/json-dictionary/query",
+  "create": "/sys/json-dictionary/create",
+  "update": "/sys/json-dictionary/update",
+  "delete": "/sys/json-dictionary/delete"
+}
