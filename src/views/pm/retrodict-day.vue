@@ -1,18 +1,16 @@
 <template>
   <basic-container>
-    <avue-crud
-      :option="option"
-      :page="page"
-      :data="data"
-      ref="crud1"
-    >
-      <template
-        slot-scope="scope"
-        slot="menuLeft"
-      >
+    <avue-crud :option="option" :page="page" :data="data" ref="crud1">
+      <template slot-scope="scope" slot="menuLeft">
+        <el-button
+          type="primary"
+          icon="moon-plus"
+          size="small"
+          plain
+          @click="handleDialog('add')"
+        >新增</el-button>
       </template>
     </avue-crud>
-
 
     <el-dialog
       title
@@ -22,34 +20,51 @@
       :before-close="handleClose"
     >
       <div>
-        <avue-form
-          :option="dialog.formOption"
-          v-model="dialog.form"
-        ></avue-form>
-        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
-        <el-checkbox-group v-model="checkList"></el-checkbox-group><el-checkbox :indeterminate="isIndeterminate" v-model="checkAll" @change="handleCheckAllChange">全选</el-checkbox>
+        <avue-form :option="dialog.formOption" v-model="dialog.form"></avue-form>
+        
+        <el-checkbox-group v-model="steelGradeCL"></el-checkbox-group>
+        <el-checkbox
+          :indeterminate="isIndeterminate"
+          v-model="steelGradeCheckAll"
+          @change="steelGradeHandleCheckAllChange"
+        >全选</el-checkbox>
+        <el-checkbox-group v-model="specCL"></el-checkbox-group>
+        <el-checkbox
+          :indeterminate="isIndeterminate"
+          v-model="specCheckAll"
+          @change="specHandleCheckAllChange"
+        >全选</el-checkbox>
+        <el-checkbox-group v-model="provinceCL"></el-checkbox-group>
+        <el-checkbox
+          :indeterminate="isIndeterminate"
+          v-model="provinceCheckAll"
+          @change="provinceHandleCheckAllChange"
+        >全选</el-checkbox>
+        <el-checkbox-group v-model="cityCL"></el-checkbox-group>
+        <el-checkbox
+          :indeterminate="isIndeterminate"
+          v-model="cityCheckAll"
+          @change="cityHandleCheckAllChange"
+        >全选</el-checkbox>
       </div>
     </el-dialog>
   </basic-container>
 </template>
 
 <script>
-const baseReportUrl="http://172.16.4.148:8080/WebReport/ReportServer?"
+
 export default {
   data() {
     return {
       market_date: false,
       dialog: {
         visible: false,
-        form: { prodCategories:"" },
+        form: { prodCategories: "" },
         formOption: {
           labelWidth: 100,
           emptyBtn: false,
           submitBtn: false,
           column: [
-            
             {
               label: "产品大类",
               prop: "prodCategories",
@@ -58,7 +73,7 @@ export default {
                 label: "prodCategories",
                 value: "id"
               },
-              dicUrl: '/bd/product-categories/query',
+              dicUrl: "/bd/product-categories/query",
               rules: [
                 {
                   required: true,
@@ -66,15 +81,7 @@ export default {
                   trigger: "blur"
                 }
               ]
-            },
-            {
-              
-              label: "牌号",
-              prop: "steelGrade",
-              type: "checkbox",
-              format: "yyyy-MM-dd"
             }
-
           ]
         }
       },
@@ -82,16 +89,13 @@ export default {
       page: {
         total: 0
       },
-      data: [
-        
-      ],
+      data: [],
       option: {
         addBtn: false,
         editBtn: false,
         index: true,
-        indexLabel: '序号',
+        indexLabel: "序号",
         column: [
-            
           {
             label: "产品大类",
             prop: "productCategories",
@@ -150,28 +154,24 @@ export default {
       }
     };
   },
-  created(){
-      this.query()
+  created() {
+    this.query();
   },
-  computed:{
-      
-  },
-  watch:{
-    data(d){
-      this.page.total=d.length;
+  computed: {},
+  watch: {
+    data(d) {
+      this.page.total = d.length;
     }
   },
   methods: {
-    handleDialog(path,v) {
+    handleDialog(v) {
       this.dialog.visible = true;
-      // this.dialog.ifrPath=path;
-      // this.market_date=v;
     },
     handleClose() {
       this.dialog.visible = false;
     },
-    query:async function(){
-        this.data=await this.$$get('/pm/delay-days/query');
+    query: async function() {
+      this.data = await this.$$get("/pm/delay-days/query");
     }
   }
 };
@@ -185,7 +185,7 @@ iframe {
   width: 100%;
   min-height: calc(85vh - 10rem);
 }
-.avue-form{
+.avue-form {
   padding: 0px;
 }
 </style>
