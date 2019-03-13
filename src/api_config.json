@@ -126,10 +126,16 @@
             "deleteView": "/admin/sys/view/delete"
         },
         "actMan": {           
-            "queryActByMenu": "/admin/sys/act/select",
+            "queryActByView": "/admin/sys/act/query",
             "createAct": "/admin/sys/act/create",
             "updateAct": "/admin/sys/act/update",
             "deleteAct": "/admin/sys/act/delete"
+        },
+        "apiMan": {           
+            "queryApi": "/admin/sys/server/query",
+            "createApi": "/admin/sys/server/create",
+            "updateApi": "/admin/sys/server/update",
+            "deleteApi": "/admin/sys/server/delete"
         },
         "deptMan": {
             "queryDeptLazy": "/admin/sys/dept/lazy",

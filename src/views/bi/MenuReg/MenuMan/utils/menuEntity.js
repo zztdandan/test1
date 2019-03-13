@@ -28,8 +28,14 @@ async function menuEntity() {
             labelWidth: "100"
         },
         {
+            label: "url",
+            prop: "url",
+            labelWidth: "100",
+            hide:true
+        },
+        {
             type: "text",
-            prop: "viewLabel",
+            prop: "viewName",
             label: "画面名",
             readonly: true,
             labelWidth: "100"
@@ -38,7 +44,8 @@ async function menuEntity() {
             label: "父级目录代码",
             prop: "parentId",
             readonly: true,
-            labelWidth: "100"
+            labelWidth: "100",
+            hide:true
         },
         {
             label: "父级目录名称",

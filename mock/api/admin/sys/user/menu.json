@@ -1,5 +1,69 @@
 [
     {
+        "label": "基础模块",
+        "path": "/bi",
+
+        "icon": "icon-caidan",
+        "children": [
+            {
+                "label": "api注册",
+                "path": "api-man",
+                "component": "views/bi/ApiMan/ApiMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "控件注册",
+                "path": "views-man",
+                "component": "views/bi/MenuReg/ViewMan/ViewManDash",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "权限注册",
+                "path": "act-man",
+                "component": "views/bi/MenuReg/ActMan/ActMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "目录编辑",
+                "path": "menu-man",
+                "component": "views/bi/MenuReg/MenuMan/MenuMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "常数项管理",
+                "path": "constant-code-man",
+                "component": "views/bi/ConstantCodeMan/ConstantCodeMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "用户管理",
+                "path": "user-man",
+                "component": "views/bi/UserMan/UserMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "部门管理",
+                "path": "dept-man",
+                "component": "views/bi/DeptMan/DeptMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "角色管理",
+                "path": "role-man",
+                "component": "views/bi/RoleMan/RoleMan",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
+    },
+    {
         "label": "订单模块",
         "path": "/om",
         "component": "views/om/OrderView/OrderView",
@@ -36,35 +100,7 @@
             }
         ]
     },
-    {
-        "label": "基础模块",
-        "path": "/bi",
-        
-        "icon": "icon-caidan",
-        "children": [
-            {
-                "label": "基础管理",
-                "path": "/views-man",
-                "component": "views/bi/MenuReg/ViewMan/ViewMan",
-                "icon": "icon-caidan",
-                "children": []
-            },
-            {
-                "label": "权限注册",
-                "path": "/act-man",
-                "component": "views/bi/MenuReg/ActMan/ActMan",
-                "icon": "icon-caidan",
-                "children": []
-            },
-            {
-              "label": "目录编辑",
-              "path": "/menu-man",
-              "component": "views/bi/MenuReg/MenuMan/MenuMan",
-              "icon": "icon-caidan",
-              "children": []
-          }
-        ]
-    },
+
     {
         "label": "demo",
         "path": "/dm",

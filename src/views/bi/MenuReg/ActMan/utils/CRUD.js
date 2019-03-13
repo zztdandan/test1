@@ -4,7 +4,7 @@ import LG_axios from "@/router/axios-wrap";
 
 export const queryAct = async function(param) {
     try {
-        const url = api_config.bi.actMan.queryActByMenu;
+        const url = api_config.bi.actMan.queryActByView;
         let res = await LG_axios.get(url, param);
         res = res.select(x => {
             x.pcode = x.viewCode;
@@ -22,7 +22,7 @@ export const createAct = async function(param) {
     try {
         const url = api_config.bi.actMan.createAct;
         param.viewCode = param.pcode;
-        const res = await LG_axios.post(url, param);
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("创建资源成功");
         return res;
     } catch (error) {
@@ -34,7 +34,7 @@ export const updateAct = async function(param) {
     try {
         const url = api_config.bi.actMan.updateAct;
         param.viewCode = param.pcode;
-        const res = await LG_axios.put(url, param);
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("修改成功");
         return res;
     } catch (error) {

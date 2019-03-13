@@ -1,11 +1,11 @@
 import "linqjs";
-export function list_to_tree(list, list_id_name, list_label_name, list_parent_name) {
+export function list_to_tree(list, list_id_name, list_label_name, list_parent_name,root_parent) {
    // 建造新节点的函数
-
+   root_parent=""||root_parent;
    // 先取出母节点
    let tree_res = new Array();
    // 判断根节点的判断代码
-   let loot_node = list.where(x => x[list_parent_name] == null || x[list_parent_name] === "");
+   let loot_node = list.where(x => x[list_parent_name] == null || x[list_parent_name] === ""|| x[list_parent_name] === root_parent);
    
    loot_node.forEach(ele => {
       let new_node = build_new_node(ele, list, list_id_name, list_label_name, list_parent_name, null);
