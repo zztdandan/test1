@@ -1,10 +1,10 @@
 <template>
   <div class="wrapper">
-    <div>dddkdk</div>
+    <div>路由嵌套demo</div>
     <input
       type="text"
       name="ddd"
-      id
+      value="ddd"
     >
     <ul id="main">
       <li>
@@ -18,6 +18,7 @@
       </li>
     </ul>
     <router-view></router-view>
+    <div>after router view</div>
   </div>
 </template>
 
@@ -26,8 +27,7 @@ import VueRouter from "vue-router";
 const User = {
   template: `
     <div class="user">
-      <h2>User {{ $route.params.id }}</h2>
-      <router-view></router-view>
+      <h2>你选择： {{ $route.params.id }}</h2>
     </div>
   `
 };
