@@ -3,15 +3,35 @@
     <avue-form
       :option="formOption"
       v-model="form"
-    ></avue-form>
-    <avue-crud
+    >
+      <template
+        slot="search"
+        slot-scope="scope"
+      >
+        <el-select
+          filterable
+          allow-create
+          default-first-option
+          placeholder="请选择功能号"
+        >
+          <el-option
+            ref="search"
+            v-for="(item,index) in searchOptions"
+            :key="index"
+            :label="item[scope.column.props.label]"
+            :value="item[scope.column.props.value]"
+          ></el-option>
+        </el-select>
+      </template>
+    </avue-form>
+    <!-- <avue-crud
       :data="data"
       :option="option"
       @search-change="searchChange"
       @row-save="rowSave"
       @row-update="rowUpdate"
       @row-del="rowDel"
-    />
+    />-->
   </div>
 </template>
 
@@ -21,20 +41,24 @@ export default {
   name: "Index",
   data() {
     return {
-      avueForm: {},
-      avueFormOption: {
+      form: {},
+      searchOptions: [],
+      formOption: {
         labelWidth: 120,
         column: [
           {
             label: "资源代码",
             prop: "search",
-            type: "search",
-            appendClick: () => {
-              this.$message.success("搜索回调" + this.form.search);
+            type: "select",
+            allowCreate: true,
+            filterable: true,
+            formslot: true,
+            // remote: true,
+            dicUrl: "/bd/base-option-value-set/info?optCateCode=OM01",
+            props: {
+              label: "optionName",
+              value: "optionCode"
             }
-          },
-          {
-            prop: "预览"
           }
         ]
       },
@@ -48,40 +72,13 @@ export default {
   computed: {},
   watch: {},
   created() {
-    this.query();
+    // this.query();
+    // this.initSearchOptions();
   },
   methods: {
-    callApi(method, url, data, done) {
-      const self = this;
-      this["$$" + method](url, data)
-        .then(d => {
-          typeof done === "function" && done();
-          if (method === "get") {
-            self.data = d;
-          } else {
-            self.query();
-          }
-        })
-        .catch(err => self.$alert(err));
-    },
-    query() {
-      this.callApi("get", this.baseUrl + "/query", this.row);
-    },
-    searchChange(params) {
-      this.row = params;
-      this.query();
-    },
-    // add
-    rowSave(row, done, loading) {
-      this.callApi("post", this.baseUrl + "/create", row, done);
-    },
-    rowUpdate(row, index, done, loading) {
-      this.callApi("put", this.baseUrl + "/update", row, done);
-    },
-    rowDel(row, index) {
-      const self = this;
-      this.$confirm("你确认要删除！？！", "删除确认").then(() => {
-        self.callApi("deleteJson", self.baseUrl + "/delete", [row]);
+    async initSearchOptions() {
+      this.searchOptions = await this.$$get("/bd/base-option-value-set/info", {
+        optCateCode: "OM01"
       });
     }
   }
