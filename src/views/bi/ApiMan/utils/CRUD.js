@@ -74,3 +74,18 @@ export const queryAuthApi = async function({ roleId }) {
         throw new Error();
     }
 };
+
+
+
+export const setAuthApi = async function({ roleId,fullIds,ids }) {
+    try {
+        const param = { roleId: roleId,fullIds:fullIds,ids:ids };
+        const url = api_config.bi.security.api.setAuth;
+        const res = await LG_axios.postJson(url, param);
+        SimpleMessage("设置权限成功");
+        return res;
+    } catch (error) {
+        ErrNotify(error);
+        throw new Error();
+    }
+};

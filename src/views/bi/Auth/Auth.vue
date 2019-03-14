@@ -3,7 +3,11 @@
     <div class="flex-md">
       <div class="w50">
         <div class="rl">
-          <role-man :editable="false" @role-selection="hRoleSelection"/>
+          <role-man
+            :editable="false"
+           
+            @role-selection="hRoleSelection"
+          />
         </div>
       </div>
       <div class="w50">
@@ -11,7 +15,7 @@
           <p>选择的角色:{{calcRoleName}}</p>
           <el-tabs class v-model="activeTab">
             <el-tab-pane label="Api授权" name="api">
-              <api-auth></api-auth>
+              <api-auth  :roleId="calcRoleId"></api-auth>
             </el-tab-pane>
             <el-tab-pane label="目录授权" name="menu">配置管理</el-tab-pane>
             <el-tab-pane label="功能授权" name="act">角色管理</el-tab-pane>
@@ -44,6 +48,13 @@
         } else {
           return "";
         }
+      },
+      calcRoleId(){
+          if (this.roleSelect.roleId) {
+          return this.roleSelect.roleId;
+        } else {
+          return "";
+        }
       }
     },
     methods: {
@@ -62,6 +73,7 @@
 .rl {
   border-right: solid 1px #201f1d;
   padding: 0.2rem;
+  min-height: 100vh;
 }
 .p2 {
   padding: 0.2rem;

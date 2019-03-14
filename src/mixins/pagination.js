@@ -137,7 +137,7 @@ export const pagiClass1 = function(pagination_return) {
 
 // 传入两个分页参数的初始化类型
 
-export const pagiPara = function(curr, size, orderby, desc) {
+export const pagiPara = function(curr, size, para, orderby, desc) {
     let tmp_orderby = "";
     if (orderby) {
         orderby.forEach(element => {
@@ -148,10 +148,12 @@ export const pagiPara = function(curr, size, orderby, desc) {
     if (desc) {
         tmp_orderby = tmp_orderby + " desc";
     }
+    const tmp_para = para || {};
     const tmp = {
-        page: curr,
-        limit: size,
-        orderby: tmp_orderby
+        pageNumber: curr,
+        pageSize: size,
+        orderBy: tmp_orderby,
+        paras:tmp_para
     };
     return tmp;
 };

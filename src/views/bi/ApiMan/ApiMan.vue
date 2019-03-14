@@ -62,21 +62,21 @@
         type: "text",
         label: "子系统",
         prop: "subsys",
-        labelWidth:"60",
+        labelWidth: "60",
         span: 12
       },
       {
         type: "text",
         label: "子模块",
         prop: "submodule",
-         labelWidth:"60",
+        labelWidth: "60",
         span: 12
       },
       {
         type: "text",
         label: "api名称",
         prop: "apiname",
-         labelWidth:"60",
+        labelWidth: "60",
         span: 12
       },
       {
@@ -84,7 +84,7 @@
         labelWidth: "1",
         prop: "sbtn",
         formslot: true,
-         labelWidth:"60",
+        labelWidth: "60",
         span: 12
       }
     ]
@@ -135,10 +135,12 @@
         this.doQuery();
       },
       hApiSearch() {
+         debugger;
         this.doQuery();
       },
       doQuery: async function() {
         let res = await CRUD.queryApiTree(this.searchParams);
+       
         this.$refs["api-tree"].setTree(res);
       },
       hFormPidSelect() {
@@ -149,7 +151,13 @@
         this.crudData.parentId = entity.id;
       },
       setTreeKey(list) {
-        this.$refs["api-tree"].setSelectKey(list);
+        this.$refs["api-tree"].setTreeKey(list);
+      },
+      getSelectKey() {
+      return  this.$refs["api-tree"].getSelectKey();
+      },
+      getAllKey() {
+      return  this.$refs["api-tree"].getAllKey();
       }
     },
     watch: {}

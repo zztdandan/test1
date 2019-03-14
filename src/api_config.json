@@ -168,8 +168,12 @@
         },
         "security": {
             "api": {
-                "queryAuth": "/admin/sys/sec/api/list",
-                "setAuth": "/admin/sys/sec/api/save"
+                "queryAuth": "/admin/sys/sec/server/list",
+                "setAuth": "/admin/sys/sec/server/save"
+            },
+            "menu":{
+                "queryAuth": "/admin/sys/sec/menu/list",
+                "setAuth": "/admin/sys/sec/menu/save"
             }
         }
     },

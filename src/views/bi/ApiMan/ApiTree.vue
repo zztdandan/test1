@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import { list_to_tree } from "@/util/tree_convert";
+  import { list_to_tree, tree_to_list } from "@/util/tree_convert";
   import * as CRUD from "./utils/CRUD";
 
   export default {
@@ -80,9 +80,22 @@
       },
       setTree(data) {
         this.apiTree = data;
+        this.$refs["api-tree"].setCheckedKeys([]);
       },
-      setSelectKey(list) {
+      setTreeKey(list) {
         this.$refs["api-tree"].setCheckedKeys(list);
+      },
+      getSelectKey() {
+        let a = this.$refs["api-tree"].getCheckedKeys();
+        return a;
+      },
+      getAllKey() {
+        // debugger;
+        let tmpTree = JSON.parse(JSON.stringify(this.apiTree));
+        let list = tree_to_list(tmpTree, "children");
+        return list.select(x => {
+          return x.id;
+        });
       }
     },
     watch: {}
