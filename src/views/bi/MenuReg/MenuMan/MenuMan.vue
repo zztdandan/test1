@@ -1,7 +1,6 @@
 <template>
   <lg-dashboard>
     <template slot="title">菜单管理</template>
-
     <div class="flex-md">
       <div class="flex-item-8 main-height">
         <menu-tree ref="menu-tree" @menu-select="hMenuSelect"></menu-tree>
@@ -45,7 +44,7 @@
   import { list_to_tree } from "@/util/tree_convert";
   import menuEntity from "./utils/menuEntity";
   import * as CRUD from "./utils/CRUD";
-  import PcodeAutoCom from "../ActMan/pcodeAutoCom.vue";
+  import PcodeAutoCom from "../ViewMan/pcodeAutoCom.vue";
   import MenuTree from "./MenuTree";
   import MenuSelectDialog from "./MenuSelectDialog";
   import { topCrud } from "@/mixins/crudFunction";
@@ -66,7 +65,6 @@
     },
     mixins: [pagiMixin, topCrud],
     data: function() {
-      //  将MenuDef转化为数组
       return {
         getEntity: menuEntity,
         createData: CRUD.createMenu,
@@ -94,7 +92,7 @@
         let tmp_arr = [].concat(this.mainMenuList);
         this.totalData = tmp_arr.where(x => x.parentId == entity.id);
         this.totalData.unshift(entity);
-        debugger;
+        // debugger;
         this.skipPage();
       },
       hCloseDialog() {
@@ -106,9 +104,10 @@
           // that_vue.hRefreshList();
         });
       },
-      hFormPcodeSelect(code, name) {
-        this.menuData.pcode = code;
-        this.menuData.viewLabel = name;
+      hFormPcodeSelect(id,code, name) {
+          this.crudData.viewId = id;
+        this.crudData.pcode = code;
+        this.crudData.viewLabel = name;
       },
       hFormOpenMenuSelect() {
         this.$refs["menu-dialog"].hOpen();

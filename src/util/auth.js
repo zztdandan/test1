@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-export const TokenKey = "accesstoken";
+export const TokenKey = "ACCESS_TOKEN";
 var inFifteenMinutes = new Date(new Date().getTime() + 120 * 60 * 1000);
 
 export function getToken() {

@@ -25,7 +25,7 @@ export const topCrud = {
     },
     methods: {
         hSelectionChange(list) {
-            this.dataSelection = list;
+            this.dataSelection = [].concat(list);
         },
         hCloseDialog() {
             const that_vue = this;
@@ -39,9 +39,12 @@ export const topCrud = {
             }
         },
         hOpenCpCreate() {
+            let that_vue=this;
             if (this.dataSelection && this.dataSelection.length > 0) {
                 this.$refs[this.crudCompName].rowAdd();
-                this.crudData = this.dataSelection[0];
+                this.$nextTick(function() {
+                  that_vue.crudData =that_vue.dataSelection[0];
+                });
             } else {
                 this.$message("没有选择列");
             }
@@ -79,7 +82,7 @@ export const topCrud = {
             }
         },
         skipPage() {
-            
+            this.tablePage.total = this.totalData.length;
             this.dataTList = this.calcShownData;
         }
     }

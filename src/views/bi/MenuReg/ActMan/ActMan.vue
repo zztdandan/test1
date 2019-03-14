@@ -7,7 +7,7 @@
       <el-collapse-item title="管理画面所属权限" name="2">
         <avue-crud
           ref="act-crud"
-          :data="actListShown"
+          :data="actTList"
           :option="actOption"
           :page="tablePage"
           v-model="actData"
@@ -36,7 +36,7 @@
   import ViewMan from "../ViewMan/ViewMan";
   import LgDashboard from "@/components/LgDashboard/main";
   import actEntity from "./utils/actEntity";
-  import PcodeAutoCom from "./pcodeAutoCom.vue";
+  import PcodeAutoCom from "../ViewMan/pcodeAutoCom.vue";
   import * as CRUD from "./utils/CRUD";
   import {
     pagiLazyMixin,
@@ -44,7 +44,6 @@
     pagiClass,
     pagiPara
   } from "@/mixins/pagination";
-  import { constants } from "fs";
   export default {
     name: "act-man",
     components: { LgDashboard, ViewMan, PcodeAutoCom },
@@ -53,7 +52,6 @@
       return {
         activeList: ["1", "2"],
         actTList: [],
-        actListShown: [],
         actData: {},
         actSelection: [],
         actOption: {
@@ -79,13 +77,15 @@
     },
     mounted: function() {},
     methods: {
-      hpcodeSelect(code, name) {
+      hpcodeSelect(id,code, name) {
+        this.actData.viewId = id;
         this.actData.pcode = code;
-        this.actData.viewLabel = name;
+        this.actData.viewName = name;
       },
       hViewSelection(list) {
         if (list.length > 0) {
-          this.searchParams = { code: list[0].code };
+          // 使用viewCode查询
+          this.searchParams = { viewCode: list[0].code };
           this.doQuery();
         }
       },
@@ -148,7 +148,7 @@
         this.skipPage();
       },
       skipPage() {
-        this.actTList = this.calcShownData;
+        this.actTList = this.totalData;
       }
     },
     watch: {}

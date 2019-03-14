@@ -125,11 +125,17 @@
             "updateView": "/admin/sys/view/update",
             "deleteView": "/admin/sys/view/delete"
         },
-        "actMan": {           
-            "queryActByMenu": "/admin/sys/act/select",
+        "actMan": {
+            "queryActByView": "/admin/sys/act/query",
             "createAct": "/admin/sys/act/create",
             "updateAct": "/admin/sys/act/update",
             "deleteAct": "/admin/sys/act/delete"
+        },
+        "apiMan": {
+            "queryApi": "/admin/sys/server/query",
+            "createApi": "/admin/sys/server/create",
+            "updateApi": "/admin/sys/server/update",
+            "deleteApi": "/admin/sys/server/delete"
         },
         "deptMan": {
             "queryDeptLazy": "/admin/sys/dept/lazy",
@@ -159,6 +165,16 @@
             "createItem": "/admin/sys/code/item/save",
             "updateItem": "/admin/sys/code/item/update",
             "deleteItem": "/admin/sys/code/item/delete"
+        },
+        "security": {
+            "api": {
+                "queryAuth": "/admin/sys/sec/server/list",
+                "setAuth": "/admin/sys/sec/server/save"
+            },
+            "menu":{
+                "queryAuth": "/admin/sys/sec/menu/list",
+                "setAuth": "/admin/sys/sec/menu/save"
+            }
         }
     },
     "rm": {
