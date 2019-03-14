@@ -33,6 +33,13 @@
                 "component": "views/pm/settlement-price-manage",
                 "icon": "icon-caidan",
                 "children": []
+            },
+            {
+                "label": "倒推天数设定",
+                "path": "retrodict-day",
+                "component": "views/pm/retrodict-day",
+                "icon": "icon-caidan",
+                "children": []
             }
         ]
     },

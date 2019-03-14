@@ -12,6 +12,6 @@ if (env.NODE_ENV === "development") {
 } else if (env.NODE_ENV === "test") {
   baseUrl = ``; // 测试环境地址
 }
-env.reportBaseUrl = "http://172.16.2.245:8080/WebReport/ReportServer?";
+env.reportBaseUrl = "http://172.16.4.148:8080/WebReport/ReportServer?";
 
 export { baseUrl, iconfontUrl, iconfontVersion, codeUrl, env };
