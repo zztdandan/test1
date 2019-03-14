@@ -125,13 +125,13 @@
             "updateView": "/admin/sys/view/update",
             "deleteView": "/admin/sys/view/delete"
         },
-        "actMan": {           
+        "actMan": {
             "queryActByView": "/admin/sys/act/query",
             "createAct": "/admin/sys/act/create",
             "updateAct": "/admin/sys/act/update",
             "deleteAct": "/admin/sys/act/delete"
         },
-        "apiMan": {           
+        "apiMan": {
             "queryApi": "/admin/sys/server/query",
             "createApi": "/admin/sys/server/create",
             "updateApi": "/admin/sys/server/update",
@@ -165,6 +165,12 @@
             "createItem": "/admin/sys/code/item/save",
             "updateItem": "/admin/sys/code/item/update",
             "deleteItem": "/admin/sys/code/item/delete"
+        },
+        "security": {
+            "api": {
+                "queryAuth": "/admin/sys/sec/api/list",
+                "setAuth": "/admin/sys/sec/api/save"
+            }
         }
     },
     "rm": {

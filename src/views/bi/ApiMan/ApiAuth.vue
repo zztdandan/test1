@@ -1,20 +1,21 @@
 <template>
-    <div>
-    </div>
+  <div>
+    <api-man :editable="false"></api-man>
+  </div>
 </template>
 <script>
-export default {
-    name:'name',
-    components:{},
-    data:function(){
-        return{
-        }
+  import ApiMan from "./ApiMan";
+  export default {
+    name: "api-auth",
+    components: { ApiMan },
+    data: function() {
+      return {};
     },
-    created:function(){},
-    mounted:function(){},
-    methods:{},
-    watch:{},
-}
+    created: function() {},
+    mounted: function() {},
+    methods: {},
+    watch: {}
+  };
 </script>
 <style scoped>
 </style>

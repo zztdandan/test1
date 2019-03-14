@@ -15,7 +15,7 @@ async function actEntity() {
             label: "名称",
             labelWidth: "80"
         },
-      
+
         {
             type: "text",
             label: "权限命名",
@@ -31,15 +31,20 @@ async function actEntity() {
             label: "父级服务id",
             prop: "parentId",
             readonly: true,
-            hide:true
+            hide: true
         },
         {
-            label: "父级画面名称",
+            label: "父级名称",
             prop: "parentName",
-            readonly: true,
-
+            readonly: true
         },
-        { label: "选择父级画面", prop: "pid", formslot: true,hide:true }
+        {
+            label: "",
+            labelWidth: "1",
+            prop: "pid",
+            formslot: true,
+            hide: true
+        }
     ];
     return entity;
 }

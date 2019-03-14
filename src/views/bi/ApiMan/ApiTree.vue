@@ -11,6 +11,7 @@
       :default-expand-all="true"
       :check-on-click-node="true"
       :data="apiTree"
+      node-key="id"
       check-strictly
       @check-change="hCheckChange"
     ></el-tree>
@@ -50,7 +51,7 @@
     mounted: function() {},
     methods: {
       hApiClick() {
-        this.$emit("api-confirm",this.selected, this.selectedNode);
+        this.$emit("api-confirm", this.selected, this.selectedNode);
       },
       hDoQuery: async function() {
         let that_vue = this;
@@ -79,6 +80,9 @@
       },
       setTree(data) {
         this.apiTree = data;
+      },
+      setSelectKey(list) {
+        this.$refs["api-tree"].setCheckedKeys(list);
       }
     },
     watch: {}

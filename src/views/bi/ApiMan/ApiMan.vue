@@ -1,12 +1,11 @@
 <template>
   <div>
-    <build-form
-      ref="sf"
-      :sync-data.sync="searchParams"
-      :form-array="apiSFormSet"
-      init-size="mini"
-      @btn-s-click="hApiSearch"
-    ></build-form>
+    <avue-form ref="sf" :option="apiSFormSet" v-model="searchParams">
+      <template slot="sbtn">
+        <a class="button button-primary button-block button-small" @click="hApiSearch">搜索</a>
+      </template>
+    </avue-form>
+
     <div class="flex-md">
       <div :class="treeClass">
         <api-tree ref="api-tree" @api-select="hApiSelect"></api-tree>
@@ -26,7 +25,7 @@
           @selection-change="hSelectionChange"
         >
           <template slot="pidForm">
-            <el-button size="mini" @click="hFormPidSelect">选择</el-button>
+            <el-button size="mini" @click="hFormPidSelect">选择父级画面</el-button>
           </template>
           <template slot="menuLeft">
             <el-button size="mini" type="primary" @click="hOpenCpCreate">复制新增</el-button>
@@ -55,35 +54,41 @@
     pagiClass,
     pagiPara
   } from "@/mixins/pagination";
-
-  const formSet = [
-    {
-      type: "text",
-      id: "subsys",
-      label: "子系统",
-      labelWidth: "4rem"
-    },
-    {
-      type: "text",
-      id: "submodule",
-      label: "子模块",
-      labelWidth: "4rem"
-    },
-    {
-      type: "text",
-      id: "apiname",
-      label: "api名称",
-      labelWidth: "4rem"
-    },
-    {
-      type: "button",
-      id: "btn_s",
-      label: "搜索",
-      class: "button button-primary button-small",
-      emit: "btn-s-click"
-    }
-  ];
-
+  const formSet1 = {
+    size: "mini",
+    menuBtn: false,
+    column: [
+      {
+        type: "text",
+        label: "子系统",
+        prop: "subsys",
+        labelWidth:"60",
+        span: 12
+      },
+      {
+        type: "text",
+        label: "子模块",
+        prop: "submodule",
+         labelWidth:"60",
+        span: 12
+      },
+      {
+        type: "text",
+        label: "api名称",
+        prop: "apiname",
+         labelWidth:"60",
+        span: 12
+      },
+      {
+        label: "",
+        labelWidth: "1",
+        prop: "sbtn",
+        formslot: true,
+         labelWidth:"60",
+        span: 12
+      }
+    ]
+  };
   export default {
     name: "api-man",
     props: {
@@ -98,7 +103,7 @@
       return {
         treeClass: "w33",
         apiSData: {},
-        apiSFormSet: formSet,
+        apiSFormSet: formSet1,
         getEntity: apiEntity,
         createData: CRUD.createApi,
         updateData: CRUD.updateApi,
@@ -107,7 +112,7 @@
       };
     },
     created: async function() {
-      this.toggleEditable(editable);
+      this.toggleEditable(this.editable);
     },
     mounted: function() {},
     methods: {
@@ -142,6 +147,9 @@
       hFormApiConfirm(text, entity) {
         this.crudData.parentName = entity.name;
         this.crudData.parentId = entity.id;
+      },
+      setTreeKey(list) {
+        this.$refs["api-tree"].setSelectKey(list);
       }
     },
     watch: {}

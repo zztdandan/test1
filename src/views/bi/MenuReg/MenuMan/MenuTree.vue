@@ -11,6 +11,7 @@
       :default-expand-all="true"
       :check-on-click-node="true"
       :data="menuTree"
+      node-key="id"
       check-strictly
       @check-change="hCheckChange"
     ></el-tree>

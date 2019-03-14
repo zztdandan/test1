@@ -13,7 +13,7 @@
     @size-change="hSizeChange"
     @current-change="hCurrentChange"
     @search-change="hSearch"
-    @selectionChange="hSelectChange"
+    @selection-change="hSelectChange"
   >
     <template slot="menuLeft">
       <el-button v-if="this.editable" type="danger" size="small" @click="hRoleManDelList()">删除选中</el-button>
@@ -37,7 +37,7 @@
   } from "@/mixins/pagination";
   import * as CRUD from "./utils/CRUD";
   export default {
-    name: "table-man",
+    name: "role-man",
     components: { LgDashboard },
     props: {
       editable: {
@@ -55,8 +55,8 @@
         option: {
           selection: true,
           page: true,
-          refreshBtn:false,
-          columnBtn:false,
+          refreshBtn: false,
+          columnBtn: false,
           align: "center",
           menuAlign: "center",
           menuWidth: "240",
@@ -117,8 +117,9 @@
         this.doQuery();
       },
       hSelectChange(dataList) {
+        // debugger;
         this.RoleManSList = dataList;
-        this.$emit("role-selection",dataList)
+        this.$emit("role-selection", dataList);
       },
       toggleEditable(flag) {
         this.option.editBtn = flag;
