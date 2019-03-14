@@ -1,0 +1,6 @@
+{
+  "query": { "url": "/sys/json-dictionary/query", "params": "" },
+  "create": "/sys/json-dictionary/create",
+  "update": "/sys/json-dictionary/update",
+  "delete": "/sys/json-dictionary/delete"
+}
