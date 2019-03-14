@@ -79,11 +79,7 @@ export const topCrud = {
       }
     },
     skipPage() {
-      this.paginationSet(
-        this.tablePage.pageSize,
-        this.totalData.length,
-        this.currentPage
-      );
+      this.tablePage.total=this.totalData.length;
       this.dataTList = this.calcShownData;
     }
   }

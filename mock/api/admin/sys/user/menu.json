@@ -6,9 +6,16 @@
         "icon": "icon-caidan",
         "children": [
             {
-                "label": "api注册",
+                "label": "权限管理",
+                "path": "auth-man",
+                "component": "views/bi/Auth/Auth",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "api管理",
                 "path": "api-man",
-                "component": "views/bi/ApiMan/ApiMan",
+                "component": "views/bi/ApiMan/ApiManDash",
                 "icon": "icon-caidan",
                 "children": []
             },

@@ -1,19 +1,17 @@
 <template>
-  <lg-dashboard title="Api管理">
-    <div>
-      <build-form
-        ref="sf"
-        :sync-data.sync="searchParams"
-        :form-array="apiSFormSet"
-        init-size="mini"
-        @btn-s-click="hApiSearch"
-      ></build-form>
-    </div>
+  <div>
+    <build-form
+      ref="sf"
+      :sync-data.sync="searchParams"
+      :form-array="apiSFormSet"
+      init-size="mini"
+      @btn-s-click="hApiSearch"
+    ></build-form>
     <div class="flex-md">
-      <div class="w33">
+      <div :class="treeClass">
         <api-tree ref="api-tree" @api-select="hApiSelect"></api-tree>
       </div>
-      <div class="w66">
+      <div v-if="this.editable==true" class="w66">
         <avue-crud
           ref="api-crud"
           :data="dataTList"
@@ -39,7 +37,7 @@
       </div>
       <api-select-dialog ref="api-dialog" @api-confirm="hFormApiConfirm"></api-select-dialog>
     </div>
-  </lg-dashboard>
+  </div>
 </template>
 <script>
   import "linqjs";
@@ -88,10 +86,17 @@
 
   export default {
     name: "api-man",
+    props: {
+      editable: {
+        type: Boolean,
+        default: true
+      }
+    },
     components: { LgDashboard, ApiTree, ApiSelectDialog, BuildForm },
     mixins: [pagiMixin, topCrud],
     data: function() {
       return {
+        treeClass: "w33",
         apiSData: {},
         apiSFormSet: formSet,
         getEntity: apiEntity,
@@ -101,9 +106,18 @@
         crudCompName: "api-crud"
       };
     },
-    created: async function() {},
+    created: async function() {
+      this.toggleEditable(editable);
+    },
     mounted: function() {},
     methods: {
+      toggleEditable(flag) {
+        if (flag) {
+          this.treeClass = "w33";
+        } else {
+          this.treeClass = "w100";
+        }
+      },
       hApiSelect(entity, list) {
         // debugger;
         this.totalData = [entity].concat(list);
