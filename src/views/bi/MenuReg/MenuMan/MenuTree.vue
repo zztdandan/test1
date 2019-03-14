@@ -18,7 +18,7 @@
   </div>
 </template>
 <script>
-  import { list_to_tree } from "@/util/tree_convert";
+  import { list_to_tree,tree_to_list } from "@/util/tree_convert";
   import menuEntity from "./utils/menuEntity";
   import * as CRUD from "./utils/CRUD";
   export default {
