@@ -1,90 +1,201 @@
 <template>
-  <div class="wrapper">
-    <avue-form
-      :option="formOption"
-      v-model="form"
-    >
-      <template
-        slot="search"
-        slot-scope="scope"
+  <div class="container">
+    <div class="header">
+      <el-form
+        ref="elForm"
+        :model="elForm"
+        label-width="5rem"
+        :inline="true"
+        size="mini"
       >
-        <el-select
-          filterable
-          allow-create
-          default-first-option
-          placeholder="请选择功能号"
-        >
-          <el-option
-            ref="search"
-            v-for="(item,index) in searchOptions"
-            :key="index"
-            :label="item[scope.column.props.label]"
-            :value="item[scope.column.props.value]"
-          ></el-option>
-        </el-select>
-      </template>
-    </avue-form>
-    <!-- <avue-crud
-      :data="data"
-      :option="option"
-      @search-change="searchChange"
-      @row-save="rowSave"
-      @row-update="rowUpdate"
-      @row-del="rowDel"
-    />-->
+        <el-form-item label="功能号">
+          <el-input
+            style="width: 22rem"
+            placeholder="请输入能号"
+            v-model="elForm.functionNo"
+          >
+            <el-select
+              style="width: 10rem"
+              v-model="elForm.functionNo"
+              slot="prepend"
+              placeholder="请选择功能号"
+            >
+              <el-option
+                v-for="item in funItems"
+                :key="item.id"
+                :label="item.itemDesc"
+                :value="item.id"
+              ></el-option>
+            </el-select>
+          </el-input>
+        </el-form-item>
+        <el-form-item label>
+          <el-button>预览</el-button>
+        </el-form-item>
+        <el-form-item label>
+          <el-button>复制配置</el-button>
+        </el-form-item>
+        <el-form-item label>
+          <el-button>配置列</el-button>
+        </el-form-item>
+        <!-- <el-form-item>
+        <el-button type="primary">立即创建</el-button>
+        <el-button>取消</el-button>
+        </el-form-item>-->
+      </el-form>
+    </div>
+    <div class="aside">
+      <avue-form
+        :option="fieldInfoForm.option"
+        v-model="fieldModel"
+      ></avue-form>aside
+    </div>
+    <div class="main">
+      <avue-crud
+        :data="data"
+        :option="option"
+        v-model="row"
+        @row-click="rowClick"
+      />
+    </div>
   </div>
 </template>
 
 <script>
-const baseUrl = "/sys/dictionary";
 export default {
-  name: "Index",
   data() {
-    return {
-      form: {},
-      searchOptions: [],
-      formOption: {
-        labelWidth: 120,
-        column: [
-          {
-            label: "资源代码",
-            prop: "search",
-            type: "select",
-            allowCreate: true,
-            filterable: true,
-            formslot: true,
-            // remote: true,
-            dicUrl: "/bd/base-option-value-set/info?optCateCode=OM01",
-            props: {
-              label: "optionName",
-              value: "optionCode"
-            }
-          }
-        ]
+    const crudColumns = [
+      {
+        prop: "name",
+        label: "字段名"
       },
-      data: [],
-      row: {},
-      option: {
-        column: []
+      {
+        prop: "desc",
+        label: "字段描述"
+      },
+      {
+        prop: "len",
+        label: "输入长度"
+      },
+      {
+        prop: "type",
+        label: "类型"
+      },
+      {
+        prop: "orderby",
+        label: "排序号"
       }
+    ];
+    const fieldInfoColumns = [
+      {
+        prop: "name",
+        label: "字段名",
+        span: 16
+      },
+      {
+        prop: "desc",
+        label: "字段描述"
+      },
+      {
+        prop: "len",
+        label: "输入长度"
+      },
+      {
+        prop: "type",
+        label: "类型"
+      },
+      {
+        prop: "orderby",
+        label: "排序号"
+      }
+    ];
+    return {
+      // v-model:elForm
+      elForm: { functionName: "功能说明" },
+      // 功能列表，来自后台查询
+      funItems: [],
+      // 字段信息表单
+      fieldInfoForm: {
+        option: {
+          size: "small",
+          menuBtn: false,
+          labelWidth: "4rem",
+          column: fieldInfoColumns
+        }
+      },
+      // 功能表信息
+      option: {
+        size: "mini",
+        menu: false,
+        index: true,
+        indexLabel: "序号",
+        stripe: true,
+        addBtn: false,
+        filterBtn: false,
+        refreshBtn: false,
+        columnBtn: false,
+        gutter: 1,
+        prop: 80,
+        labelWidth: 80,
+        column: crudColumns
+      },
+      data: [
+        { name: "aa", desc: "描述", len: 12, type: "n", orderby: 1 },
+        { name: "bb", desc: "描述22", len: 14, type: "c", orderby: 2 }
+      ],
+      row: {},
+      // v-model字段信息
+      fieldModel: {}
     };
   },
   computed: {},
-  watch: {},
+  watch: {
+    row(val) {
+      console.log("row changed", val);
+    }
+  },
   created() {
-    // this.query();
-    // this.initSearchOptions();
+    this.initfunItems();
   },
   methods: {
-    async initSearchOptions() {
-      this.searchOptions = await this.$$get("/bd/base-option-value-set/info", {
-        optCateCode: "OM01"
+    async initfunItems() {
+      this.funItems = await this.$$get("/api/sms/config/query/all", {
+        itemType: "column-config"
       });
+    },
+    rowClick(row, event, column) {
+      console.log("rowClick", { row, event, column });
     }
   }
 };
 </script>
-<style lang="scss" scoped>
-.wrapper {
+<style>
+.header {
+  text-align: left;
+  line-height: 2.4rem;
+  padding: 0.01rem;
+  width: 100%;
+  height: 2.4rem;
+}
+
+.aside {
+  background-color: #e9ebf0;
+  color: #dddddd;
+  text-align: center;
+  left: 0;
+  width: 20rem;
+}
+
+.main {
+  background-color: #e9eef3;
+  color: #333;
+  right: 0;
+  left: 20rem;
+}
+.aside,
+.main {
+  position: absolute;
+  top: 2.42rem;
+  bottom: 5px;
 }
 </style>
