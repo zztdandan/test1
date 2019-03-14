@@ -90,23 +90,27 @@ export default {
       {
         prop: "name",
         label: "字段名",
-        span: 16
+        span: 24
       },
       {
         prop: "desc",
-        label: "字段描述"
+        label: "字段描述",
+        span: 24
       },
       {
         prop: "len",
-        label: "输入长度"
+        label: "输入长度",
+        span: 24
       },
       {
         prop: "type",
-        label: "类型"
+        label: "类型",
+        span: 24
       },
       {
         prop: "orderby",
-        label: "排序号"
+        label: "排序号",
+        span: 24
       }
     ];
     return {
@@ -119,7 +123,7 @@ export default {
         option: {
           size: "small",
           menuBtn: false,
-          labelWidth: "4rem",
+          labelWidth: 80,
           column: fieldInfoColumns
         }
       },
