@@ -3,14 +3,14 @@
         "id": 1,
         "code": "ep01/add",
         "label": "权限1",
-        "parentCode": "EPEP01",
-        "parentName": "常数项注册"
+        "viewCode": "EPEP01",
+        "viewName": "常数项注册"
     },
     {
         "id": 2,
         "code": "ep01/view",
         "label": "权限2",
-        "parentCode": "EPEP01",
-        "parentName": "常数项注册"
+        "viewCode": "EPEP01",
+        "viewName": "常数项注册"
     }
 ]

@@ -2,15 +2,15 @@ import api_config from "@/api_config.json";
 import { SimpleMessage, ErrNotify } from "@/business_utils/ele_alert";
 import LG_axios from "@/router/axios-wrap";
 
-export const queryViewLazy = async function(param) {
+export const queryViewLazy = async function(param, pagi) {
     try {
         const url = api_config.bi.viewMan.queryViewLazy;
-        const res = await LG_axios.get(url, param);
+        const tmp_para = Object.assign(param, pagi);
+        const res = await LG_axios.get(url, tmp_para);
         // debugger;
         SimpleMessage("查询资源成功");
         return res;
     } catch (error) {
-        
         ErrNotify(error);
     }
 };
@@ -26,13 +26,10 @@ export const queryViewFilter = async function(params) {
     }
 };
 
-
-
-
 export const createView = async function(param) {
     try {
         const url = api_config.bi.viewMan.createView;
-        const res = await LG_axios.post(url, param);
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("创建资源成功");
         return res;
     } catch (error) {
@@ -43,7 +40,7 @@ export const createView = async function(param) {
 export const updateView = async function(param) {
     try {
         const url = api_config.bi.viewMan.updateView;
-        const res = await LG_axios.put(url, param);
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("修改成功");
         return res;
     } catch (error) {

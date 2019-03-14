@@ -12,10 +12,14 @@ export async function queryMenuTree(params) {
         const url = api_config.bi.menuMan.queryMenu;
 
         const res = await LG_axios.get(url, params);
-  
-        const res1 = list_to_tree(res, "code","label", "parentCode");
-      //   debugger;
-        return res1;
+        const res1 = res.select(x => {
+            x.pcode = x.viewCode;
+            return x;
+        });
+        // debugger;
+        const res2 = list_to_tree(res1, "menuId", "name", "parentId");
+        //   debugger;
+        return res2;
     } catch (err) {
         // debugger;
         SimpleNotify("查询出现错误", "目录管理");
@@ -23,16 +27,17 @@ export async function queryMenuTree(params) {
     }
 }
 
-
 export async function queryMenu(params) {
     try {
         const url = api_config.bi.menuMan.queryMenu;
 
         const res = await LG_axios.get(url, params);
-  
-       
-      //   debugger;
-        return res;
+        const res1 = res.select(x => {
+            x.pcode = x.viewCode;
+            return x;
+        });
+        //   debugger;
+        return res1;
     } catch (err) {
         // debugger;
         SimpleNotify("查询出现错误", "目录管理");
@@ -43,58 +48,65 @@ export async function queryMenu(params) {
 // 添加一个目录项
 export async function createMenu(menu) {
     try {
-        const url = global_config.Menu.Add;
-        const res = await LG_axios.post(url, menu, true);
-        // debugger;
-        // console.log("添加目录回调", res);
-        if (res.code == 0) {
-            SimpleMessage("添加成功");
-            return true;
-        } else {
-            // debugger;
-            const s =
-                "添加错误:" + res.msg + "——" + (res.extMsg ? res.extMsg : "");
-            SimpleNotify(s, "目录管理");
-        }
+        const url = api_config.bi.menuMan.createMenu;
+        const res = await LG_axios.postJson(url, menu);
+        return res;
     } catch (err) {
+        SimpleNotify("添加目录出错", "目录管理");
         console.log(err);
     }
 }
 
-// export async function EditMenu(that_vue, menu) {
-//    try {
-//       const url = global_config.Menu.Edit;
-//       const res = await postRequest(url, menu, true);
-//       // console.log("添加目录回调", res);
-//       if (res.code == 0) {
-//          SimpleMessage("修改成功");
-//          return true;
-//       } else {
-//          const s = "修改错误:" + res.msg + "——" + (res.extMsg ? res.extMsg : "");
+// 修改一个目录项
+export async function updateMenu(menu) {
+    try {
+        const url = api_config.bi.menuMan.updateMenu;
+        const res = await LG_axios.postJson(url, menu);
+        return res;
+    } catch (err) {
+        SimpleNotify("修改目录出错", "目录管理");
+        console.log(err);
+    }
+}
 
-//          SimpleNotify(s, "目录管理");
-//          return false;
-//       }
-//    } catch (err) {
-//       console.log(err);
-//    }
-// }
+// 删除目录
+export async function deleteMenu(menu) {
+    try {
+        const url = api_config.bi.menuMan.deleteMenu;
+        const res = await LG_axios.deleteJson(url, menu);
+        return res;
+    } catch (err) {
+        SimpleNotify("删除目录出错", "目录管理");
+        console.log(err);
+    }
+}
 
-// export async function DelMenu(that_vue, menu) {
-//    try {
-//       const url = global_config.Menu.Del;
-//       const res = await postRequest(url, menu, true);
-//       // debugger;
-//       // console.log("添加目录回调", res);
-//       if (res.code == 0) {
-//          SimpleMessage("删除成功");
-//          return true;
-//       } else {
-//          const s = "删除错误:" + res.msg + "——" + (res.extMsg ? res.extMsg : "");
-//          SimpleNotify(s, "目录管理");
-//          return false;
-//       }
-//    } catch (err) {
-//       console.log(err);
-//    }
-// }
+
+
+export const queryAuthMenu = async function({ roleId }) {
+    try {
+        const param = { roleId: roleId };
+        const url = api_config.bi.security.menu.queryAuth;
+        const res = await LG_axios.get(url, param);
+        SimpleMessage("查询权限成功");
+        return res;
+    } catch (error) {
+        ErrNotify(error);
+        throw new Error();
+    }
+};
+
+
+
+export const setAuthMenu = async function({ roleId,fullIds,ids }) {
+    try {
+        const param = { roleId: roleId,fullIds:fullIds,ids:ids };
+        const url = api_config.bi.security.menu.setAuth;
+        const res = await LG_axios.postJson(url, param);
+        SimpleMessage("设置权限成功");
+        return res;
+    } catch (error) {
+        ErrNotify(error);
+        throw new Error();
+    }
+};

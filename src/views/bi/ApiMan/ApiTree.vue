@@ -2,15 +2,15 @@
   <div>
     <div v-if="this.select" class="flex-md">
       <el-input size="mini" class="span8" :readonly="true" v-model="selected"></el-input>
-      <el-button size="mini" type="primary" @click="hMenuClick">选择</el-button>
+      <el-button size="mini" type="primary" @click="hApiClick">选择</el-button>
       <el-button size="mini" type="primary" @click="hRefresh">刷新</el-button>
     </div>
     <el-tree
-      ref="menu-tree"
+      ref="api-tree"
       :show-checkbox="this.check"
       :default-expand-all="true"
       :check-on-click-node="true"
-      :data="menuTree"
+      :data="apiTree"
       node-key="id"
       check-strictly
       @check-change="hCheckChange"
@@ -18,11 +18,11 @@
   </div>
 </template>
 <script>
-  import { list_to_tree } from "@/util/tree_convert";
-  import menuEntity from "./utils/menuEntity";
+  import { list_to_tree, tree_to_list } from "@/util/tree_convert";
   import * as CRUD from "./utils/CRUD";
+
   export default {
-    name: "menu-tree",
+    name: "api-tree",
     props: {
       check: {
         type: Boolean,
@@ -38,44 +38,60 @@
       return {
         selected: "",
         selectedNode: {},
-        menuTree: []
+        selectedChildNode: [],
+        apiTree: []
       };
     },
     created: async function() {
       let that_vue = this;
-      let res = await CRUD.queryMenuTree({});
-      this.menuTree = res;
+      if (this.select) {
+        this.hDoQuery();
+      }
     },
     mounted: function() {},
     methods: {
-      hMenuClick() {
-        this.$emit("menu-confirm", this.selected, this.selectedNode);
+      hApiClick() {
+        this.$emit("api-confirm", this.selected, this.selectedNode);
       },
-      hRefresh: async function() {
-        let res = await CRUD.queryMenuTree({});
-        this.menuTree = res;
+      hDoQuery: async function() {
+        let that_vue = this;
+        let tree = await CRUD.queryApiTree();
+        this.apiTree = tree;
       },
-      hNodeClick(menu_entity, node_entity, vue_node) {
-        // this.selectedNode = menu_entity;
-        // this.selected = menu_entity.label;
+      hNodeClick(api_entity, node_entity, vue_node) {
+        this.selectedNode = api_entity;
+        this.selected = api_entity.label;
+      },
+      hRefresh() {
+        this.hDoQuery();
       },
       hCheckChange(entity, isChecked) {
         if (isChecked) {
-          this.selected = entity.label;
+          this.selected = entity.name;
           this.selectedNode = entity;
-          this.$emit("menu-select", this.selected, this.selectedNode);
+          if (entity.children) {
+            this.selectedChildNode = entity.children;
+          } else {
+            this.selectedChildNode = [];
+          }
+
+          this.$emit("api-select", this.selectedNode, this.selectedChildNode);
         }
       },
+      setTree(data) {
+        this.apiTree = data;
+        this.$refs["api-tree"].setCheckedKeys([]);
+      },
       setTreeKey(list) {
-        this.$refs["menu-tree"].setCheckedKeys(list);
+        this.$refs["api-tree"].setCheckedKeys(list);
       },
       getSelectKey() {
-        let a = this.$refs["menu-tree"].getCheckedKeys();
+        let a = this.$refs["api-tree"].getCheckedKeys();
         return a;
       },
       getAllKey() {
         // debugger;
-        let tmpTree = JSON.parse(JSON.stringify(this.menuTree));
+        let tmpTree = JSON.parse(JSON.stringify(this.apiTree));
         let list = tree_to_list(tmpTree, "children");
         return list.select(x => {
           return x.id;
@@ -91,3 +107,5 @@
   margin-right: 1rem;
 }
 </style>
+
+v

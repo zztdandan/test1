@@ -9,8 +9,8 @@
     <avue-form v-model="OSFObject" :option="OSFOpt" @submit="hSearchClick"></avue-form>
     <order-and-det-table :editable="false" ref="order-det"></order-and-det-table>
     <template slot="footer">
-      <div class="flex-md">        
-        <el-button size="mini" type="primary" @click="hSelectOrderNum" >确定</el-button>
+      <div class="flex-md">
+        <el-button size="mini" type="primary" @click="hSelectOrderNum">确定</el-button>
         <el-button size="mini" @click="hCancel">取消</el-button>
       </div>
     </template>
@@ -35,6 +35,7 @@
         dialogVisi: false,
         OSFObject: {},
         OSFOpt: {
+          size:"mini",
           menuBtn: true,
           submitBtn: true,
           emptyBtn: true,
@@ -73,11 +74,11 @@
         let tmp_row =
           tmp_search_res.length > 0 ? tmp_search_res[0] : { orderNo: "" };
         this.selectedON = tmp_row.orderNo;
-        this.dialogVisi=false;
+        this.dialogVisi = false;
       },
       hCancel() {
         this.selectedON = "";
-            this.dialogVisi=false;
+        this.dialogVisi = false;
       }
     },
     watch: {
@@ -96,8 +97,13 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-
   width: 40%;
   margin: auto;
 }
+div.el-dialog__body {
+  padding: 0px!important;
+}
+</style>
+<style>
+
 </style>

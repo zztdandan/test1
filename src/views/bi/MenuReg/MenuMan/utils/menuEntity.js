@@ -4,28 +4,61 @@ async function menuEntity() {
     const entity = [
         {
             type: "text",
-            prop: "code",
+            prop: "id",
             label: "目录编码",
-            labelWidth: "80"
+            labelWidth: "100"
         },
         {
             type: "text",
-            prop: "label",
-            label: "权限名称",
+            prop: "name",
+            label: "目录名称",
 
-            labelWidth: "80"
+            labelWidth: "100"
+        },
+        {
+            type: "text",
+            prop: "icon",
+            label: "目录图标类",
+            labelWidth: "100"
         },
         {
             label: "画面代码",
             prop: "pcode",
-            formslot: true
+            formslot: true,
+            labelWidth: "100"
+        },
+        {
+            label: "url",
+            prop: "url",
+            labelWidth: "100",
+            hide:true
         },
         {
             type: "text",
-            prop: "parentName",
+            prop: "viewName",
             label: "画面名",
             readonly: true,
-            labelWidth: "80"
+            labelWidth: "100"
+        },
+        {
+            label: "父级目录代码",
+            prop: "parentId",
+            readonly: true,
+            labelWidth: "100",
+            hide:true
+        },
+        {
+            label: "父级目录名称",
+            prop: "parentName",
+            readonly: true,
+            labelWidth: "100"
+        },
+        {
+            label: "选择父级目录",
+            prop: "parent",
+            hide: true,
+            formslot: true,
+            labelWidth: "100"
         }
     ];
     return entity;

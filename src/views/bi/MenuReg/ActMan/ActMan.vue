@@ -7,14 +7,13 @@
       <el-collapse-item title="管理画面所属权限" name="2">
         <avue-crud
           ref="act-crud"
-          :data="actListShown"
+          :data="actTList"
           :option="actOption"
           :page="tablePage"
           v-model="actData"
-          @row-save="hactSave"
-          @row-update="hactUpdate"
+          @row-save="hActSave"
+          @row-update="hActUpdate"
           :before-close="hCloseDialog"
-          @refresh-change="hRefresh"
           @size-change="hSizeChange"
           @current-change="hCurrentChange"
           @search-change="hSearch"
@@ -37,7 +36,7 @@
   import ViewMan from "../ViewMan/ViewMan";
   import LgDashboard from "@/components/LgDashboard/main";
   import actEntity from "./utils/actEntity";
-  import PcodeAutoCom from "./pcodeAutoCom.vue";
+  import PcodeAutoCom from "../ViewMan/pcodeAutoCom.vue";
   import * as CRUD from "./utils/CRUD";
   import {
     pagiLazyMixin,
@@ -45,7 +44,6 @@
     pagiClass,
     pagiPara
   } from "@/mixins/pagination";
-  import { constants } from "fs";
   export default {
     name: "act-man",
     components: { LgDashboard, ViewMan, PcodeAutoCom },
@@ -54,7 +52,6 @@
       return {
         activeList: ["1", "2"],
         actTList: [],
-        actListShown: [],
         actData: {},
         actSelection: [],
         actOption: {
@@ -80,19 +77,19 @@
     },
     mounted: function() {},
     methods: {
-      hpcodeSelect(code, name) {
-        debugger;
+      hpcodeSelect(id,code, name) {
+        this.actData.viewId = id;
         this.actData.pcode = code;
-        this.actData.parentName = name;
+        this.actData.viewName = name;
       },
       hViewSelection(list) {
         if (list.length > 0) {
-          this.searchParams = { code: list[0].code };
+          // 使用viewCode查询
+          this.searchParams = { viewCode: list[0].code };
           this.doQuery();
         }
       },
       hOpenUpdate() {
-        // debugger;
         if (this.actSelection && this.actSelection.length > 0) {
           this.$refs["act-crud"].rowEdit(this.actSelection[0]);
         } else {
@@ -107,7 +104,7 @@
           this.$message("没有选择列");
         }
       },
-      hactSave: async function(data, index, done, loading) {
+      hActSave: async function(data, index, done, loading) {
         try {
           await CRUD.createAct(data);
           done();
@@ -117,7 +114,7 @@
           console.log(error);
         }
       },
-      hactUpdate: async function(data, index, done, loading) {
+      hActUpdate: async function(data, index, done, loading) {
         try {
           await CRUD.updateAct(data);
           done();
@@ -151,7 +148,7 @@
         this.skipPage();
       },
       skipPage() {
-        this.actTList = this.calcShownData;
+        this.actTList = this.totalData;
       }
     },
     watch: {}

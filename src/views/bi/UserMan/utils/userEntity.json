@@ -1,0 +1,29 @@
+[
+   {
+      "type": "text",
+      "prop": "userId",
+      "label": "用户id",
+      "search": true
+   },
+   {
+      "type": "text",
+      "prop": "username",
+      "label": "用户名",
+      "search": true
+   },
+   {
+      "type": "text",
+      "prop": "deptId",
+      "label": "用户单位"
+   },
+   {
+      "type": "text",
+      "prop": "email",
+      "label": "邮箱"
+   },
+   {
+      "type": "text",
+      "prop": "mobile",
+      "label": "用户电话"
+   }
+]

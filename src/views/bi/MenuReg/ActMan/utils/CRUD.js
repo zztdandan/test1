@@ -4,10 +4,10 @@ import LG_axios from "@/router/axios-wrap";
 
 export const queryAct = async function(param) {
     try {
-        const url = api_config.bi.actMan.queryActByMenu;
+        const url = api_config.bi.actMan.queryActByView;
         let res = await LG_axios.get(url, param);
         res = res.select(x => {
-            x.pcode = x.parentCode;
+            x.pcode = x.viewCode;
             return x;
         });
         // SimpleMessage("查询资源成功");
@@ -21,8 +21,8 @@ export const queryAct = async function(param) {
 export const createAct = async function(param) {
     try {
         const url = api_config.bi.actMan.createAct;
-        param.parentCode = param.pcode;
-        const res = await LG_axios.post(url, param);
+        param.viewCode = param.pcode;
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("创建资源成功");
         return res;
     } catch (error) {
@@ -33,8 +33,8 @@ export const createAct = async function(param) {
 export const updateAct = async function(param) {
     try {
         const url = api_config.bi.actMan.updateAct;
-        param.parentCode = param.pcode;
-        const res = await LG_axios.put(url, param);
+        param.viewCode = param.pcode;
+        const res = await LG_axios.postJson(url, param);
         SimpleMessage("修改成功");
         return res;
     } catch (error) {
@@ -45,6 +45,9 @@ export const updateAct = async function(param) {
 export const deleteAct = async function(param) {
     try {
         const url = api_config.bi.actMan.deleteAct;
+        param.forEach(element => {
+            element.viewCode = element.pcode;
+        });
         const res = await LG_axios.deleteJson(url, param);
         SimpleMessage("删除成功");
         return res;

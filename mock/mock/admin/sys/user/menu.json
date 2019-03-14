@@ -1,65 +1,126 @@
 [
-  {
-    "label": "订单模块",
-    "path": "/om",
-    "component": "views/om/OrderView/OrderView",
-    "icon": "icon-caidan",
-    "children": [
-      {
-        "label": "订单管理页面",
-        "path": "order-view",
+    {
+        "label": "基础模块",
+        "path": "/bi",
+
+        "icon": "icon-caidan",
+        "children": [
+            {
+                "label": "权限管理",
+                "path": "auth-man",
+                "component": "views/bi/Auth/Auth",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "api管理",
+                "path": "api-man",
+                "component": "views/bi/ApiMan/ApiManDash",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "控件注册",
+                "path": "views-man",
+                "component": "views/bi/MenuReg/ViewMan/ViewManDash",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "权限注册",
+                "path": "act-man",
+                "component": "views/bi/MenuReg/ActMan/ActMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "目录编辑",
+                "path": "menu-man",
+                "component": "views/bi/MenuReg/MenuMan/MenuMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "常数项管理",
+                "path": "constant-code-man",
+                "component": "views/bi/ConstantCodeMan/ConstantCodeMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "用户管理",
+                "path": "user-man",
+                "component": "views/bi/UserMan/UserMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "部门管理",
+                "path": "dept-man",
+                "component": "views/bi/DeptMan/DeptMan",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "角色管理",
+                "path": "role-man",
+                "component": "views/bi/RoleMan/RoleMan",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
+    },
+    {
+        "label": "订单模块",
+        "path": "/om",
         "component": "views/om/OrderView/OrderView",
-        "icon": "icon-caidan"
-      }
-    ]
-  },
-  {
-    "label": "价格模块",
-    "path": "/pm",
-    "component": "views/pm/demo",
-    "icon": "icon-caidan",
-    "children": [
-      {
-        "label": "市场价管理",
-        "path": "market-price-manage",
-        "component": "views/pm/market-price-manage",
-        "icon": "icon-caidan"
-      },
-      {
-        "label": "结算价管理",
-        "path": "settlement-price-manage",
-        "component": "views/pm/settlement-price-manage",
-        "icon": "icon-caidan"
-      }
-    ]
-  },
-  {
-    "label": "基础模块",
-    "path": "/bi",
-    "component": "views/bi/MenuReg/ViewMan/ViewMan",
-    "icon": "icon-caidan",
-    "children": [
-      {
-        "label": "基础管理",
-        "path": "views-man",
-        "component": "views/bi/MenuReg/ViewMan/ViewMan",
-        "icon": "icon-caidan"
-      }
-    ]
-  },
-  {
-    "label": "demo",
-    "path": "/dm",
-    "component": "views/dm/demo",
-    "icon": "icon-caidan",
-    "children": [
-      {
+        "icon": "icon-caidan",
+        "children": [
+            {
+                "label": "订单管理页面",
+                "path": "order-view",
+                "component": "views/om/OrderView/OrderView",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
+    },
+    {
+        "label": "价格模块",
+        "path": "/pm",
+        "component": "views/pm/demo",
+        "icon": "icon-caidan",
+        "children": [
+            {
+                "label": "市场价管理",
+                "path": "market-price-manage",
+                "component": "views/pm/market-price-manage",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "结算价管理",
+                "path": "settlement-price-manage",
+                "component": "views/pm/settlement-price-manage",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
+    },
+
+    {
         "label": "demo",
-        "path": "demo",
+        "path": "/dm",
         "component": "views/dm/demo",
         "icon": "icon-caidan",
-        "children": []
-      }
-    ]
-  }
+        "children": [
+            {
+                "label": "demo",
+                "path": "demo",
+                "component": "views/dm/demo",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
+    }
 ]
