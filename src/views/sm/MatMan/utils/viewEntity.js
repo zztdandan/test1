@@ -3,7 +3,7 @@ import getCodeByClass from "@/business_utils/getCodeByClass";
 async function viewEntity() {
     const entity = [{
             type: "text",
-            prop: "stackCode",
+            prop: "stockCode",
             label: "库区",
             search: true,
             labelWidth: "120"
