@@ -1,10 +1,10 @@
 <template>
-  <lg-dashboard title="权限注册">
+  <lg-dashboard>
     <el-collapse :accordion="false" v-model="activeList">
-      <el-collapse-item title="选择一个画面" name="1">
+      <el-collapse-item title="选择一个View" name="1">
         <view-man :edit="false" @selection="hViewSelection"></view-man>
       </el-collapse-item>
-      <el-collapse-item title="管理画面所属权限" name="2">
+      <el-collapse-item title="所属权限" name="2">
         <avue-crud
           ref="act-crud"
           :data="actTList"
@@ -22,7 +22,7 @@
           <template slot="pcodeForm">
             <pcode-auto-com style="width:100%" @pcode-select="hpcodeSelect"></pcode-auto-com>
           </template>
-          <template slot="menuLeft">
+          <template v-if="editable" slot="menuLeft">
             <el-button size="mini" type="primary" @click="hOpenCpCreate">复制新增</el-button>
             <el-button size="mini" type="primary" @click="hOpenUpdate">编辑</el-button>
             <el-button size="mini" type="warning" @click="hactDelList">删除选中</el-button>
@@ -48,6 +48,12 @@
     name: "act-man",
     components: { LgDashboard, ViewMan, PcodeAutoCom },
     mixins: [pagiMixin],
+    props: {
+      editable: {
+        type: Boolean,
+        default: true
+      }
+    },
     data: function() {
       return {
         activeList: ["1", "2"],
@@ -61,7 +67,8 @@
           refreshBtn: false,
           columnBtn: false,
           selection: true,
-          actBtn: false,
+          addBtn: true,
+          selectClearBtn: false,
           editBtn: false,
           delBtn: false,
           menu: false,
@@ -74,10 +81,11 @@
     created: async function() {
       let set = await actEntity();
       this.$set(this.actOption, "column", set);
+      this.toggleEditable(this.editable);
     },
     mounted: function() {},
     methods: {
-      hpcodeSelect(id,code, name) {
+      hpcodeSelect(id, code, name) {
         this.actData.viewId = id;
         this.actData.pcode = code;
         this.actData.viewName = name;
@@ -86,6 +94,7 @@
         if (list.length > 0) {
           // 使用viewCode查询
           this.searchParams = { viewCode: list[0].code };
+          this.activeList = ["2"];
           this.doQuery();
         }
       },
@@ -145,10 +154,35 @@
         //  得到分页数据
         let res = await CRUD.queryAct(this.searchParams);
         this.totalData = res;
+
         this.skipPage();
       },
       skipPage() {
-        this.actTList = this.totalData;
+        debugger;
+        this.tablePage.total = this.totalData.length;
+        this.actTList = this.calcShownData;
+      },
+      toggleEditable(flag) {
+        this.actOption.addBtn = flag;
+      },
+      getActSelection() {
+        let tmp_list = [].concat(this.actSelection).select(x => x.id);
+        return tmp_list;
+      },
+      getActAll() {
+        let all_list = [].concat(this.actTList).select(x => x.id);
+        return all_list;
+      },
+      setSelection(list) {
+        let that_vue = this;
+        that_vue.$refs["act-crud"].$children[3].clearSelection();
+        that_vue.$nextTick(function() {
+          for (let element of list) {
+            // debugger;
+            let entity = that_vue.actTList.find(x => x.id == element);
+            that_vue.$refs["act-crud"].$children[3].toggleRowSelection(entity);
+          }
+        });
       }
     },
     watch: {}

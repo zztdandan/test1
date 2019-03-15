@@ -8,7 +8,15 @@
 
     <div class="flex-md">
       <div :class="treeClass">
-        <api-tree ref="api-tree" @api-select="hApiSelect"></api-tree>
+        <api-tree
+          ref="api-tree"
+          :editable="this.editable"
+          @api-select="hApiSelect"
+          @api-click="hApiClick"
+        ></api-tree>
+      </div>
+      <div v-if="this.editable!=true" class="w50">
+        <avue-form ref="apiform" v-model="selectedApi" :option="showOption"></avue-form>
       </div>
       <div v-if="this.editable==true" class="w66">
         <avue-crud
@@ -108,11 +116,19 @@
         createData: CRUD.createApi,
         updateData: CRUD.updateApi,
         deleteData: CRUD.deleteApi,
-        crudCompName: "api-crud"
+        crudCompName: "api-crud",
+        selectedApi: {},
+        showOption: {
+          readonly: true,
+          column: [],
+          menuBtn: false,
+          submitBtn: false
+        }
       };
     },
     created: async function() {
       this.toggleEditable(this.editable);
+      this.showOption.column = await apiEntity();
     },
     mounted: function() {},
     methods: {
@@ -120,13 +136,26 @@
         if (flag) {
           this.treeClass = "w33";
         } else {
-          this.treeClass = "w100";
+          this.treeClass = "w50";
         }
       },
       hApiSelect(entity, list) {
         // debugger;
         this.totalData = [entity].concat(list);
         this.skipPage();
+      },
+      hApiClick(entity) {
+        // debugger
+        let that_vue = this;
+        let tmp_entity = JSON.parse(JSON.stringify(entity));
+        if (this.editable === false) {
+          // this.$set(this, "selectedApi", tmp_entity);
+          this.$refs["apiform"].form = {};
+          this.$nextTick(function() {
+            that_vue.$refs["apiform"].form = tmp_entity;
+          });
+          // this.$set(this.selectedApi, "id", entity.id);
+        }
       },
       hCloseDialog() {
         let that_vue = this;
@@ -135,12 +164,12 @@
         this.doQuery();
       },
       hApiSearch() {
-         debugger;
+        // debugger;
         this.doQuery();
       },
       doQuery: async function() {
         let res = await CRUD.queryApiTree(this.searchParams);
-       
+
         this.$refs["api-tree"].setTree(res);
       },
       hFormPidSelect() {
@@ -151,13 +180,14 @@
         this.crudData.parentId = entity.id;
       },
       setTreeKey(list) {
+        // debugger;
         this.$refs["api-tree"].setTreeKey(list);
       },
       getSelectKey() {
-      return  this.$refs["api-tree"].getSelectKey();
+        return this.$refs["api-tree"].getSelectKey();
       },
       getAllKey() {
-      return  this.$refs["api-tree"].getAllKey();
+        return this.$refs["api-tree"].getAllKey();
       }
     },
     watch: {}

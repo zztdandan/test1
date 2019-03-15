@@ -56,3 +56,30 @@ export const deleteAct = async function(param) {
     }
 };
 
+export const queryAuthAct = async function({ roleId }) {
+    try {
+        const param = { roleId: roleId };
+        const url = api_config.bi.security.act.queryAuth;
+        const res = await LG_axios.get(url, param);
+        SimpleMessage("查询权限成功");
+        return res;
+    } catch (error) {
+        ErrNotify(error);
+        throw new Error();
+    }
+};
+
+export const setAuthAct = async function({ roleId, fullIds, ids }) {
+    try {
+        // debugger;
+        const param = { roleId: roleId, fullIds: fullIds, ids: ids };
+        const url = api_config.bi.security.act.setAuth;
+        
+        const res = await LG_axios.postJson(url, param);
+        SimpleMessage("设置权限成功");
+        return res;
+    } catch (error) {
+        ErrNotify(error);
+        throw new Error();
+    }
+};

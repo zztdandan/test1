@@ -174,6 +174,10 @@
             "menu":{
                 "queryAuth": "/admin/sys/sec/menu/list",
                 "setAuth": "/admin/sys/sec/menu/save"
+            },
+            "act":{
+                "queryAuth": "/admin/sys/sec/act/list",
+                "setAuth": "/admin/sys/sec/act/save"
             }
         }
     },

@@ -1,7 +1,7 @@
 <template>
   <div class="dash-board-panel" :style="dashboard_bg">
-    <div class="dash-board-title">
-      {{title}}
+    <div>
+      <div class="dash-board-title">{{title}}</div>
       <slot name="title"></slot>
     </div>
     <div class="dash-board-content">
@@ -21,7 +21,7 @@
         type: String,
         default: "black"
       },
-      title:{type:String,default:""}
+      title: { type: String, default: "" }
     },
     name: "lg-dash-board",
     computed: {

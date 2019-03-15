@@ -9,10 +9,11 @@
       ref="api-tree"
       :show-checkbox="this.check"
       :default-expand-all="true"
-      :check-on-click-node="true"
+      :check-on-click-node="this.editable"
       :data="apiTree"
       node-key="id"
       check-strictly
+      @node-click="hNodeClick"
       @check-change="hCheckChange"
     ></el-tree>
   </div>
@@ -31,6 +32,10 @@
       select: {
         type: Boolean,
         default: false
+      },
+      editable: {
+        type: Boolean,
+        default: true
       }
     },
     components: {},
@@ -39,7 +44,8 @@
         selected: "",
         selectedNode: {},
         selectedChildNode: [],
-        apiTree: []
+        apiTree: [],
+        clickNode: {}
       };
     },
     created: async function() {
@@ -59,8 +65,10 @@
         this.apiTree = tree;
       },
       hNodeClick(api_entity, node_entity, vue_node) {
-        this.selectedNode = api_entity;
-        this.selected = api_entity.label;
+        if (this.editable==false) {
+          this.clickNode = api_entity;
+          this.$emit("api-click",api_entity)
+        }
       },
       hRefresh() {
         this.hDoQuery();
