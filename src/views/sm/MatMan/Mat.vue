@@ -1,7 +1,7 @@
 <template>
   <lg-dashboard>
     <avue-crud
-      ref="resplan-crud"
+      ref="mat-crud"
       :data="dataTList"
       :option="crudOption"
       :page="tablePage"
@@ -63,34 +63,39 @@ export default {
       createData: CRUD.createresPlanMan,
       updateData: CRUD.updateresPlanMan,
       deleteData: CRUD.deleteresPlanMan,
-      crudCompName: "resplan-crud",
+      crudCompName: "mat-crud",
       crudOption: {
         searchShow: true,
         column: [{ prop: "1", label: "2", search: true }]
-      }
+      },
+      row: {},
+      searchParams: {}
     };
   },
 
   methods: {
     doQuery: async function(curr, size) {
-      alert(curr);
-      alert(size);
       curr = curr || 1;
       size = size || 20;
-      const page_para = new pagiPara(curr, size);
+      // pagiPara(curr, size, para, orderby, desc)  //当前页，每页条数，条件参数,排序参数，排序方式
+      const page_para = new pagiPara(curr, size, this.row);
       //  得到分页数据
       try {
         const res = await CRUD.queryLazyresPlanMan(
-          this.searchParams,
+          this.searchParams, // 传入查询参数
           page_para
         );
 
         const pagiRes = new pagiClass1(res);
         debugger;
-        this.paginationSet(pagiRes.pageSize, pagiRes.totalRow);
+        this.paginationSet(
+          pagiRes.pageSize,
+          pagiRes.totalRow,
+          pagiRes.pageNumber
+        );
         this.dataTList = pagiRes.list; // 分页
         // this.totalData = res;  //不分页
-        this.$refs["resplan-crud"].selectClear();
+        this.$refs["mat-crud"].selectClear();
         // this.skipPage();  //内部分页
       } catch (err) {
         console.log("doquery err", err);
@@ -98,13 +103,20 @@ export default {
     },
 
     hSearch(params) {
-      if (params.createDate) {
-        params.startTime = params.createDate[0].substr(0, 8) + "000000";
-        params.endTime = params.createDate[1].substr(0, 8) + "235959";
-      }
+      // 将查询条件赋值给row
+      this.row = params;
+      // if (params.createDate) {
+      //   params.startTime = params.createDate[0].substr(0, 8) + "000000";
+      //   params.endTime = params.createDate[1].substr(0, 8) + "235959";
+      // }
+      // if (params.matNo) {
+      params["startTime"] = "20190101000000";
+      params["endTime"] = dayjs().format("YYYYMMDD") + "235959";
+      // }
       const a = JSON.parse(JSON.stringify(params));
-      delete a.createDate;
-      this.searchParams = a || {};
+      // delete a.matNo; //删除json中不需要的key
+      this.searchParams = a || {}; // 将查询参数赋值给 searchParams
+
       this.doQuery();
     },
 

@@ -14,17 +14,7 @@
 </template>
 
 <script>
-import * as CRUD from "./utils/CRUD";
-import {
-  pagiLazyMixin,
-  pagiMixin,
-  pagiClass,
-  pagiClass1,
-  pagiPara
-} from "@/mixins/pagination";
-
 export default {
-  mixins: [pagiLazyMixin],
   data() {
     return {
       baseUrl: "/sm/mat",
@@ -32,8 +22,9 @@ export default {
       editBtn: false,
       delBtn: false,
       page: {
+        pageSize: 20,
         total: 0,
-        totalRow: 0
+        currentPage: 1
       },
       data: [],
       row: {},
@@ -80,28 +71,31 @@ export default {
             labelWidth: "120"
           }
         ]
-      },
-      searchParams: {}
+      }
     };
   },
-  created() {
-    this.doQuery(1, 20);
+  watch: {
+    data(d) {
+      this.page.total = d.length;
+    }
   },
   methods: {
     async query() {
-      // const self = this;
-      const res = await this.$$get(this.baseUrl + "/page", {
-        mat: this.row,
+      // this.data = await this.$$get(this.baseUrl + "/page", {
+      //   paras: this.row,
+      //   pageNumber: this.pageNumber,
+      //   pageSize: this.pageSize
+      // });
+      await this.$$get(this.baseUrl + "/page", {
+        paras: this.row,
         pageNumber: this.pageNumber,
         pageSize: this.pageSize
+      }).then(res => {
+        this.data = res.list;
+        this.page.currentPage = res.pageNumber;
+        this.page.total = res.totalPage;
+        this.page.totalRow = res.totalRow;
       });
-      const pagiRes = new pagiClass(res);
-      console.log(pagiRes);
-      this.paginationSet(pagiRes.pageSize, pagiRes.totalRow);
-      this.data = pagiRes.list; // 分页
-      // this.totalData = res;  //不分页
-
-      // this.skipPage();  //内部分页
     },
     async handlePage(page) {
       console.log(page);
@@ -124,22 +118,6 @@ export default {
     hSearch(data) {
       this.searchParams = data || {};
       this.doQuery();
-    },
-    doQuery: async function(curr, size) {
-      // debugger;
-      curr = curr || 1;
-      size = size || 20;
-      const page_para = new pagiPara(curr, size);
-      //  得到分页数据
-      const res = await CRUD.queryViewLazy(this.searchParams, page_para);
-      const pagiRes = new pagiClass1(res);
-      // debugger;
-      this.paginationSet(
-        pagiRes.pageSize,
-        pagiRes.totalRow,
-        pagiRes.pageNumber
-      );
-      this.ViewTList = pagiRes.list;
     },
     searchChange(params) {
       this.row = params;

@@ -39,6 +39,7 @@ export async function queryLazyresPlanMan(params, page_para) {
         const url = "/sm/mat/page";
         // console.log("params", params);
         params = Object.assign(params, page_para);
+        // console.log("params", params);
         const res = await LG_axios.get(url, params);
         // console.log("res11111", res);
         SimpleMessage("查询成功");
