@@ -1,7 +1,7 @@
 <template>
   <lg-dashboard>
     <avue-crud
-      ref="mat-crud"
+      ref="stockman-crud"
       :data="dataTList"
       :option="crudOption"
       :page="tablePage"
@@ -42,8 +42,8 @@
 
 <script>
 import { topCrud } from "@/mixins/crudFunction";
-import * as CRUD from "./utils/CRUD";
-import getRep from "./utils/viewEntity.js";
+import * as CRUD from "./utils/stockmanCRUD";
+import getRep from "./utils/stockmanEntity.js";
 import LgDashboard from "@/components/LgDashboard/main";
 import {
   pagiLazyMixin,
@@ -59,10 +59,10 @@ export default {
   data() {
     return {
       getEntity: getRep,
-      createData: CRUD.createresPlanMan,
-      updateData: CRUD.updateresPlanMan,
-      deleteData: CRUD.deleteresPlanMan,
-      crudCompName: "mat-crud",
+      createData: CRUD.createData,
+      updateData: CRUD.updateData,
+      deleteData: CRUD.deleteData,
+      crudCompName: "stockman-crud",
       crudOption: {
         searchShow: true,
         column: [{ prop: "1", label: "2", search: true }]
@@ -75,12 +75,12 @@ export default {
   methods: {
     doQuery: async function(curr, size) {
       curr = curr || 1;
-      size = size || 20;
+      size = size || 100;
       // pagiPara(curr, size, para, orderby, desc)  //当前页，每页条数，条件参数,排序参数，排序方式
       const page_para = new pagiPara(curr, size, this.row);
       //  得到分页数据
       try {
-        const res = await CRUD.queryLazyresPlanMan(
+        const res = await CRUD.queryData(
           this.searchParams, // 传入查询参数
           page_para
         );
@@ -94,7 +94,7 @@ export default {
         );
         this.dataTList = pagiRes.list; // 分页
         // this.totalData = res;  //不分页
-        this.$refs["mat-crud"].selectClear();
+        this.$refs["stockman-crud"].selectClear();
         // this.skipPage();  //内部分页
       } catch (err) {
         console.log("doquery err", err);

@@ -1,11 +1,9 @@
-[
-    {
+[{
         "label": "基础模块",
         "path": "/bi",
 
         "icon": "icon-caidan",
-        "children": [
-            {
+        "children": [{
                 "label": "权限管理",
                 "path": "auth-man",
                 "component": "views/bi/Auth/Auth",
@@ -75,23 +73,20 @@
         "path": "/om",
         "component": "views/om/OrderView/OrderView",
         "icon": "icon-caidan",
-        "children": [
-            {
-                "label": "订单管理页面",
-                "path": "order-view",
-                "component": "views/om/OrderView/OrderView",
-                "icon": "icon-caidan",
-                "children": []
-            }
-        ]
+        "children": [{
+            "label": "订单管理页面",
+            "path": "order-view",
+            "component": "views/om/OrderView/OrderView",
+            "icon": "icon-caidan",
+            "children": []
+        }]
     },
     {
         "label": "价格模块",
         "path": "/pm",
         "component": "views/pm/demo",
         "icon": "icon-caidan",
-        "children": [
-            {
+        "children": [{
                 "label": "市场价管理",
                 "path": "market-price-manage",
                 "component": "views/pm/market-price-manage",
@@ -120,14 +115,34 @@
         "path": "/dm",
         "component": "views/dm/demo",
         "icon": "icon-caidan",
-        "children": [
+        "children": [{
+            "label": "demo",
+            "path": "demo",
+            "component": "views/dm/demo",
+            "icon": "icon-caidan",
+            "children": []
+        }]
+    },
+    {
+        "label": "发货管理",
+        "path": "/sm",
+
+        "icon": "icon-caidan",
+        "children": [{
+                "label": "发货库区管理",
+                "path": "/stock-man",
+                "component": "views/sm/MatMan/stockman",
+                "icon": "icon-caidan",
+                "children": []
+            },
             {
-                "label": "demo",
-                "path": "demo",
-                "component": "views/dm/demo",
+                "label": "合同材料管理",
+                "path": "/mat-man",
+                "component": "views/sm/MatMan/matman",
                 "icon": "icon-caidan",
                 "children": []
             }
         ]
+
     }
 ]

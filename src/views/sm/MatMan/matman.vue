@@ -1,7 +1,7 @@
 <template>
   <lg-dashboard>
     <avue-crud
-      ref="mat-crud"
+      ref="matman-crud"
       :data="dataTList"
       :option="crudOption"
       :page="tablePage"
@@ -42,8 +42,8 @@
 
 <script>
 import { topCrud } from "@/mixins/crudFunction";
-import * as CRUD from "./utils/CRUD";
-import getRep from "./utils/viewEntity.js";
+import * as CRUD from "./utils/matmanCRUD";
+import getRep from "./utils/matmanEntity.js";
 import LgDashboard from "@/components/LgDashboard/main";
 import {
   pagiLazyMixin,
@@ -59,10 +59,10 @@ export default {
   data() {
     return {
       getEntity: getRep,
-      createData: CRUD.createresPlanMan,
-      updateData: CRUD.updateresPlanMan,
-      deleteData: CRUD.deleteresPlanMan,
-      crudCompName: "mat-crud",
+      createData: CRUD.createData,
+      updateData: CRUD.updateData,
+      deleteData: CRUD.deleteData,
+      crudCompName: "matman-crud",
       crudOption: {
         searchShow: true,
         column: [{ prop: "1", label: "2", search: true }]
@@ -80,7 +80,7 @@ export default {
       const page_para = new pagiPara(curr, size, this.row);
       //  得到分页数据
       try {
-        const res = await CRUD.queryLazyresPlanMan(
+        const res = await CRUD.queryData(
           this.searchParams, // 传入查询参数
           page_para
         );
@@ -94,7 +94,7 @@ export default {
         );
         this.dataTList = pagiRes.list; // 分页
         // this.totalData = res;  //不分页
-        this.$refs["mat-crud"].selectClear();
+        this.$refs["matman-crud"].selectClear();
         // this.skipPage();  //内部分页
       } catch (err) {
         console.log("doquery err", err);
