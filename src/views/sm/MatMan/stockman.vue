@@ -122,6 +122,9 @@ export default {
     searchReset(params) {
       this.search = {};
       // this.$message.success("清空回调");
+    },
+    computed: {
+      // self.dialog.form.baseCode = "1111"
     }
   }
 };

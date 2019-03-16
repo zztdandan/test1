@@ -50,6 +50,12 @@ async function viewEntity() {
       labelWidth: "120"
     },
     {
+      type: "text",
+      prop: "matNetWt",
+      label: "重量",
+      labelWidth: "120"
+    },
+    {
       type: "date",
       prop: "inStockTime",
       label: "入库日期"

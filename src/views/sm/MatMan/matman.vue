@@ -65,6 +65,17 @@ export default {
       crudCompName: "matman-crud",
       crudOption: {
         searchShow: true,
+        showSummary: true,
+        sumColumnList: [
+          {
+            name: "matNetWt",
+            type: "sum"
+          },
+          {
+            name: "matLength",
+            type: "count"
+          }
+        ],
         column: [{ prop: "1", label: "2", search: true }]
       },
       row: {},

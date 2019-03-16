@@ -5,6 +5,7 @@ async function viewEntity() {
   // const stockDic = await await LG_axios.get(url, {});
   // const matKindDic = await getCodeByClass("SM01");
   // console.log("111111", matKindDic);
+  const readonly = "false";
   const entity = [{
       type: "text",
       prop: "baseCode",
@@ -20,7 +21,8 @@ async function viewEntity() {
       type: "text",
       prop: "stockNo",
       label: "库号",
-      labelWidth: "120"
+      labelWidth: "120",
+      disabled: "false"
     },
     {
       type: "text",
