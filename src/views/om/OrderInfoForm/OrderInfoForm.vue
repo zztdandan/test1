@@ -1,6 +1,8 @@
 <template>
   <div>
-    <avue-form v-model="OIFObject" :option="OIFOption"></avue-form>
+    <avue-form v-model="OIFObject" :option="OIFOption">
+    
+    </avue-form>
   </div>
 </template>
 <script>

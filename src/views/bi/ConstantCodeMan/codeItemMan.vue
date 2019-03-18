@@ -2,19 +2,24 @@
 <template>
   <lg-dashboard>
     <avue-crud
-      :data="codeItemTList"
-      :option="option"
+      ref="item-crud"
+      :data="dataTList"
+      :option="crudOption"
       :page="tablePage"
-      v-model="codeItemData"
-      @row-save="hcodeItemSave"
-      @row-update="hcodeItemUpdate"
-      @row-del="hcodeItemDel"
-      @before-close="hCloseDialog"
-      @refresh-change="hRefresh"
+      v-model="crudData"
+      @row-save="hSave"
+      @row-update="hUpdate"
+      :before-close="hCloseDialog"
       @size-change="hSizeChange"
       @current-change="hCurrentChange"
-      @search-change="hSearch"
-    ></avue-crud>
+      @selection-change="hSelectionChange"
+    >
+      <template slot="menuLeft">
+        <el-button size="mini" type="primary" @click="hOpenCpCreate">复制新增</el-button>
+        <el-button size="mini" type="primary" @click="hOpenUpdate">编辑</el-button>
+        <el-button size="mini" type="warning" @click="hDelList">删除选中</el-button>
+      </template>
+    </avue-crud>
   </lg-dashboard>
 </template>
 
@@ -22,6 +27,7 @@
 <script>
   import LgDashboard from "@/components/LgDashboard/main";
   import codeItemEntity from "./utils/codeItemEntity.js";
+  import { topCrud } from "@/mixins/crudFunction";
   import {
     pagiLazyMixin,
     pagiMixin,
@@ -33,7 +39,7 @@
   export default {
     name: "code-item-man",
     components: { LgDashboard },
-    mixins: [pagiMixin],
+    mixins: [pagiMixin, topCrud],
     props: {
       codeClass: {
         type: String,
@@ -46,43 +52,17 @@
     },
     data() {
       return {
-        codeItemData: {},
-        codeItemTList: [],
-        codeItemSList: [],
-        searchParams: {},
-        option: {
-          size: "mini",
-          selection: true,
-          menuType: "icon",
-          page: false,
-          align: "center",
-          menuAlign: "center",
-          column: []
-        }
+        getEntity: codeItemEntity,
+        createData: CRUD.createCodeItem,
+        updateData: CRUD.updateCodeItem,
+        deleteData: CRUD.deleteCodeItem,
+        crudCompName: "item-crud",
       };
     },
     created: async function() {
-      this.option.column = await codeItemEntity();
       this.toggleEditable(this.editable);
     },
     methods: {
-      hcodeItemSave: async function(data, index, done, loading) {
-        let a = await CRUD.createCodeItem(this.codeItemData);
-        done();
-      },
-      hcodeItemUpdate: async function(data, index, done, loading) {
-        let a = await CRUD.updateCodeItem(this.codeItemData);
-        done();
-      },
-      hcodeItemDel: async function(data, index, done, loading) {
-        try {
-          let a = await this.$confirm("确认删除", "提示", { type: "warning" });
-          CRUD.deleteCodeItem([data]);
-          done();
-        } catch (err) {
-          this.$message({ type: "info", message: "取消删除" });
-        }
-      },
       hCloseDialog() {
         this.doQuery();
       },
@@ -91,28 +71,7 @@
         this.totalData = res;
         this.skipPage();
       },
-      hcodeItemDelList: async function() {
-        try {
-          let a = await this.$confirm("确认删除选中所有项", "提示", {
-            type: "warning"
-          });
-          CRUD.deleteCodeItem(this.codeItemSList);
-          done();
-        } catch (err) {
-          this.$message({ type: "info", message: "取消删除" });
-        }
-      },
-      hSearch(params) {
-        this.searchParams = params || {};
-        this.doQuery();
-      },
-      skipPage() {
-        this.tablePage.total = this.totalData.length;
-        this.codeItemTList = this.calcShownData;
-      },
-      toggleEditable(flag){
-         
-      }
+      toggleEditable(flag) {}
     },
     watch: {
       //如果codeclass做更改，直接查询后台

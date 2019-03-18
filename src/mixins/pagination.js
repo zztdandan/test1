@@ -4,6 +4,7 @@ import "linqjs";
 export const pagiLazyMixin = {
     data: function() {
         return {
+            paginationFlag:true,
             tablePage: {
                 pageSize: 20,
                 total: 0,
@@ -43,6 +44,7 @@ export const pagiLazyMixin = {
 export const pagiMixin = {
     data: function() {
         return {
+            paginationFlag:false,
             tablePage: {
                 pageSize: 20,
                 total: 0,
@@ -100,6 +102,18 @@ export const pagiMixin = {
                 1
             );
             this.doQuery();
+        }
+    },
+    watch: {
+        totalData: {
+            deep: true,
+            handler: function(newval, oldval) {
+                // 自动重算分页
+                let that_vue=this;
+                this.$nextTick(function(){
+                    that_vue.dataTList=that_vue.calcShownData
+                })
+            }
         }
     }
 };

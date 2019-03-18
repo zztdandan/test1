@@ -1,11 +1,12 @@
 <template>
   <el-dialog fullscreen title="用户角色绑定" :visible.sync="dialogVisi">
-    <name-role-trans :roleList="roleIdList" @update:setted-list="hUpdateList"></name-role-trans>
+    <name-role-trans @update:setted-list="hUpdateList"></name-role-trans>
     <el-button type="primary" @click="hConfirmroleId"></el-button>
   </el-dialog>
 </template>
 <script>
   import NameRoleTrans from "./NameRoleTrans.vue";
+  import * as RoleCRUD from '../RoleMan/utils/CRUD';
   export default {
      name: "name",
      components: {},
@@ -14,15 +15,15 @@
            dialogVisi: false,
            roleIdList: [],
            saveList: [],
-           userData: {}
+            allRoleList:[]
         };
      },
      created: function() {},
      mounted: function() {},
      methods: {
-        hOpenDialog(ud) {
-           this.userData = ud;
+        hOpenDialog() {
            this.dialogVisi = true;
+         //   this.allRoleList=RoleCRUD.
         },
         hUpdateList(data) {
            this.saveList = data;

@@ -80,7 +80,7 @@ export async function queryCodeItem(params) {
 export async function createCodeItem(params) {
     try {
         const url = api_config.bi.CodeMan.createItem;
-        const res = await LG_Axios.post(url, params);
+        const res = await LG_Axios.postJson(url, params);
 
         SimpleMessage("新增成功");
         return res;
@@ -108,7 +108,7 @@ export async function updateCodeItem(params) {
 export async function deleteCodeItem(params) {
     try {
         const url = api_config.bi.CodeMan.deleteItem;
-        const res = await LG_Axios.delete(url, params);
+        const res = await LG_Axios.deleteJson(url, params);
         SimpleMessage("删除成功");
         return res;
     } catch (err) {

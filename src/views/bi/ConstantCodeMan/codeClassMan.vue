@@ -15,6 +15,7 @@
       @current-change="hCurrentChange"
       @search-change="hSearch"
       @current-row-change="hCurrentRowChange"
+          @selection-change="hSelectionChange"
     ></avue-crud>
   </lg-dashboard>
 </template>
@@ -45,6 +46,7 @@
           menuType: "icon",
           size: "mini",
           refreshBtn: false,
+          selection:true,
           columnBtn: false,
           page: false,
           align: "center",
@@ -59,7 +61,13 @@
     },
     methods: {
       hCurrentRowChange: function(data) {
-        this.$emit("code-class-change", data);
+        // this.$emit("code-class-change", data);
+      },
+      //* 用选项框代替单选点击
+      hSelectionChange:function(list){
+        if(list.length>0){
+          this.$emit("code-class-change", list[0]);
+        }
       },
       hcodeClassSave: async function(data, index, done, loading) {
         let a = await CRUD.createCodeClass(this.codeClassData);

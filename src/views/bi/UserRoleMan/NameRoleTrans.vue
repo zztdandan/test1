@@ -3,13 +3,14 @@
     filterable
     :filter-method="filterMethod"
     filter-placeholder="请输入角色名称"
-    v-model="settedList"
-    :data="unsettedList"
+    v-model="settedIdList"
+    :data="totalList"
   ></el-transfer>
 </template>
 <script>
   // 用户角色绑定 穿梭框
   import * as RoleCRUD from "../RoleMan/utils/CRUD";
+  import 'linqjs';
   export default {
      name: "name-role-trans",
      props: {
@@ -21,38 +22,21 @@
      components: {},
      data: function() {
         return {
-           settedList: [],
-           unsettedList: [],
+           settedIdList: [],
            totalList: []
         };
      },
-     created: async function() {
-        this.totalList = await RoleCRUD.queryAllRoleMan();
-        this.setSettedList(this.roleIdList);
-     },
-     updated() {
-        this.setSettedList(this.roleIdList);
-     },
      methods: {
-        setSettedList(idList) {
-           this.totalList.forEach(element => {
-              element.label = element.roleName;
-              element.key = element.roleId;
-              if (idList.indexOf(element.roleId) >= 0) {
-                 settedList.push(element);
-              } else {
-                 unsettedList.push(element);
-              }
-           });
+        setData(setted_list,all_list){
+           
+           this.settedIdList=setted_list;
+           this.totalList=all_list
+        },
+        filterMethod(data){
+
         }
      },
      watch: {
-        settedList: {
-           deep: true,
-           handler: function(newval, oldval) {
-              this.$emit("update:setted-list", newval);
-           }
-        }
      }
   };
 </script>

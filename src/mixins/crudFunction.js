@@ -1,3 +1,4 @@
+import 'linqjs'
 export const topCrud = {
     data: function() {
         return {
@@ -83,7 +84,21 @@ export const topCrud = {
         },
         skipPage() {
             this.tablePage.total = this.totalData.length;
-            this.dataTList = this.calcShownData;
+            this.dataTList = this.calcShownData;            
+        },
+
+    },
+    watch: {
+        dataTList: {
+            deep: true,
+            handler: function(newval, oldval) {
+                
+            }
         }
     }
 };
+
+export const calcDicDataByListData=function (col_name,dataList){
+    let tmp_list=[].concat(dataList);
+    
+}
