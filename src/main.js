@@ -21,7 +21,6 @@ import "@/asset/css/lg.scss";
 import basicContainer from "./components/basic-container/main";
 
 import "@/asset/css/common.css";
-
 Vue.use(router);
 Vue.use(VueAxios, axios);
 Vue.use(LG_axios);
