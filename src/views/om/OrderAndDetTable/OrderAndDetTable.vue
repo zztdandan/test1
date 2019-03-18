@@ -66,6 +66,7 @@
     methods: {
       setData(data) {
         this.ODTList = data;
+        this. paginationSet(data.length, data.length, 1)
       },
       getData() {
         return this.ODTList;
