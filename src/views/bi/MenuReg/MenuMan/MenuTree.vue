@@ -11,6 +11,7 @@
       :default-expand-all="true"
       :check-on-click-node="true"
       :data="menuTree"
+      node-key="id"
       check-strictly
       @check-change="hCheckChange"
     ></el-tree>
@@ -64,6 +65,21 @@
           this.selectedNode = entity;
           this.$emit("menu-select", this.selected, this.selectedNode);
         }
+      },
+      setTreeKey(list) {
+        this.$refs["menu-tree"].setCheckedKeys(list);
+      },
+      getSelectKey() {
+        let a = this.$refs["menu-tree"].getCheckedKeys();
+        return a;
+      },
+      getAllKey() {
+        // debugger;
+        let tmpTree = JSON.parse(JSON.stringify(this.menuTree));
+        let list = tree_to_list(tmpTree, "children");
+        return list.select(x => {
+          return x.id;
+        });
       }
     },
     watch: {}

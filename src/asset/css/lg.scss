@@ -1,5 +1,5 @@
 .avue-crud__menu {
-    min-height: 0px;
+    min-height: 0px !important;
     margin-bottom: 0px;
 }
 
@@ -14,7 +14,16 @@
 }
 
 .avue-crud__pagination {
-    margin-top: 3px!important;
-    margin-bottom: 0px!important;
-    padding: 0px 0px!important;
+    margin-top: 3px !important;
+    margin-bottom: 0px !important;
+    padding: 0px 0px !important;
+}
+
+.avue-group__item {
+    padding: 0px !important;
+    margin: 0px !important;
+}
+
+.avue-form {
+    padding: 0px !important;
 }

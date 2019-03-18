@@ -25,13 +25,13 @@
         try {
           if (qString && qString != "") {
             let res = await viewCRUD.queryViewFilter({
-              parentCode: qString,
-              parentName: qString
+              code: qString,
+              label: qString
             });
 
             cb(
               res.select(x => {
-                return { value: x.code + "," + x.label };
+                return { value: x.id +","+x.code+ "," + x.label };
               })
             );
           } else {
@@ -40,10 +40,10 @@
         } catch (error) {}
       },
       hSelect({ value }) {
-        debugger;
-        let [code, name] = value.split(",");
+        // debugger;
+        let [id,code, name] = value.split(",");
         this.data1 = code;
-        this.$emit("pcode-select", code, name);
+        this.$emit("pcode-select", id,code, name);
       }
     }
   };

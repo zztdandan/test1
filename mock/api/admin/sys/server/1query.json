@@ -1,0 +1,38 @@
+[
+    {
+        "id": 1,
+        "code":"sms",
+        "name": "经销系统",
+        "parentId": null,
+        "perms": "sms",
+        "type": "0",
+        "parentName": "无"
+    },
+    {
+        "id": 2,
+        "name": "子系统1",
+        "code":"sub1",
+        "parentId": 1,
+        "perms": "sms:sub1",
+        "type": "1",
+        "parentName": "经销系统"
+    },
+    {
+        "id": 3,
+        "name": "子模块",
+        "parentId": 2,
+        "code":"controller1",
+        "perms": "sms:sub1:control1",
+        "type": "2",
+        "parentName": "子系统1"
+    },
+    {
+        "id": 4,
+        "name": "函数",
+        "parentId": 3,
+        "code":"function1",
+        "perms": "sms:sub1:control1:function1",
+        "type": "3",
+        "parentName": "子模块"
+    }
+]
