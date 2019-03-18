@@ -73,13 +73,22 @@
         "path": "/om",
         "component": "views/om/OrderView/OrderView",
         "icon": "icon-caidan",
-        "children": [{
-            "label": "订单管理页面",
-            "path": "order-view",
-            "component": "views/om/OrderView/OrderView",
-            "icon": "icon-caidan",
-            "children": []
-        }]
+        "children": [
+            {
+                "label": "订单录入",
+                "path": "order-view",
+                "component": "views/om/OrderView/OrderView",
+                "icon": "icon-caidan",
+                "children": []
+            },
+            {
+                "label": "订单管理",
+                "path": "order-manage",
+                "component": "views/om/OrderManage/OrderManage",
+                "icon": "icon-caidan",
+                "children": []
+            }
+        ]
     },
     {
         "label": "价格模块",

@@ -40,7 +40,9 @@
           submitBtn: true,
           emptyBtn: true,
           submitText: "搜索",
-          column: []
+          column: [],
+          size:"mini",
+          menuPostion:"left"
         },
         selectedON: ""
       };
@@ -62,6 +64,7 @@
     methods: {
       hOpenDialog() {
         this.dialogVisi = true;
+        
       },
       hSearchClick: function() {
         this.$refs["order-det"].hDoSearch(this.OSFObject);
@@ -100,10 +103,24 @@
   width: 40%;
   margin: auto;
 }
-div.el-dialog__body {
-  padding: 0px!important;
+</style>
+
+
+<style>
+div.el-dialog__body
+{
+  padding: 0;
 }
 </style>
-<style>
 
+<style>
+div.el-row.avue-group__item
+{
+  padding: 0;
+}
 </style>
+
+
+
+
+

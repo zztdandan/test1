@@ -5,13 +5,14 @@ async function getODEntity() {
   const exportFlagDic = await getCodeByClass("ORDC4");
   const pscDic = await getCodeByClass("ORDC5");
   const entity = [
-    { type: "text", prop: "orderNo", label: "订单号" },
-    { type: "text", prop: "orderCustCname", label: "订单用户" },
-    { type: "text", prop: "orderType", label: "订单性质" },
+    { type: "text", prop: "orderNo", label: "订单号", sortable: true  },
+    { type: "text", prop: "orderCustCname", label: "订单用户", sortable: true  },
+    { type: "text", prop: "orderType", label: "订单性质", sortable: true  },
     {
       type: "text",
       prop: "productCategory",
       label: "产品大类"
+      , sortable: true 
     },
     {
       type: "date",
@@ -21,7 +22,7 @@ async function getODEntity() {
       format: "yyyy-MM-dd",
       valueFormat: "yyyyMMdd"
     },
-    { type: "text", prop: "productionBase", label: "生产基地" },
+    { type: "text", prop: "productionBase", label: "生产基地", sortable: true  },
     { type: "number", prop: "orderThick", label: "订货厚度", sortable: true },
     {
       type: "number",
@@ -64,8 +65,8 @@ async function getODEntity() {
     { type: "number", prop: "orderWt", label: "订货重量", sortable: true },
     { type: "number", prop: "orderQty", label: "订货数量", sortable: true },
     { type: "number", prop: "unitPrice", label: "单价", sortable: true },
-    { type: "text", prop: "thickMethod", label: "计重方式" },
-    { type: "text", prop: "orderSpecial", label: "订单特殊要求" },
+    { type: "text", prop: "wtMethodCode", label: "计重方式" , sortable: true },
+    { type: "text", prop: "orderSpecial", label: "订单特殊要求" , sortable: true },
     {
       type: "date",
       prop: "delivyDate",
@@ -74,8 +75,8 @@ async function getODEntity() {
       format: "yyyy-MM-dd",
       valueFormat: "yyyyMMdd"
     },
-    { type: "text", prop: "sgStd", label: "标准" },
-    { type: "text", prop: "productionFlag", label: "单条排产状态" }
+    { type: "text", prop: "sgStd", label: "标准" , sortable: true },
+    { type: "text", prop: "productionFlag", label: "单条排产状态" , sortable: true }
   ];
 
   return entity;

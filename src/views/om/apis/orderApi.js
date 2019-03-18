@@ -23,7 +23,16 @@ export const queryOrderDetByON = async function(params, pagi_para) {
     ErrNotify("queryOrderNumberLazy出现错误");
   }
 };
-
+export const queryOrderDetByList = async function(params, pagi_para) {
+  try {
+    const url = api_config.om.Order.queryOrderDetByList;
+    const tmp_para = Object.assign(params, pagi_para);
+    const res = await LG_axios.get(url, tmp_para);
+    return res;
+  } catch (error) {
+    ErrNotify("queryOrderNumberLazy出现错误");
+  }
+};
 export const mesCheckOrderDet = async function(obj) {
   try {
     const url = api_config.om.OrderView.mesCheckOrderDet;

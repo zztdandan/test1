@@ -1,0 +1,29 @@
+[
+        {   "orderNo":"2",
+            "orderCustCname":"张山",
+            "orderType":"常规",
+            "productCategory":"中板",
+            "orderRecvTime":"20190203",
+            "productionBase":"柳州",
+            "orderThick": "10",
+            "orderWidth": "10",
+            "orderWt": "250",
+            "orderQty": "5",
+            "unitPrice": "2500",
+            "wtMethodCode": "实重"
+        },
+        {
+            "orderNo":"3",
+            "orderCustCname":"张山",
+            "orderType":"常规",
+            "productCategory":"中板",
+            "orderRecvTime":"20190205",
+            "productionBase":"柳州",
+            "orderThick": "15",
+            "orderWidth": "15",
+            "orderWt": "250",
+            "orderQty": "5",
+            "unitPrice": "2500",
+            "wtMethodCode": "实重"
+        }
+    ]

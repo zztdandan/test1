@@ -200,7 +200,8 @@
         "Order": {
             "createOrder": "/om/order/create",
             "queryProvision": "/om/order/query",
-            "updateOrder": "/om/order/update"
+            "updateOrder": "/om/order/update",
+            "queryOrderDetByList": "/om/order/queryList"
         },
         "OrderDet": {
             "createorderDet": "/om/order-det/create",
