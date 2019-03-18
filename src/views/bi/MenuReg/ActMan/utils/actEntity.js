@@ -18,7 +18,8 @@ async function actEntity() {
         {
             label: "画面代码",
             prop: "pcode",
-            formslot: true
+            formslot: true,
+            search:true,
           },
         {
             type: "text",
